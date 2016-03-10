@@ -11,6 +11,16 @@
         </webroots>
       </configuration>
     </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="EclipseLink" />
+        <datasource-mapping>
+          <factory-entry name="eLibrary" />
+        </datasource-mapping>
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -49,7 +59,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.38-bin.jar!/" />
+          <root url="jar://$USER_HOME$/Library/apache-tomcat-8.0.32/lib/mysql-connector-java-5.1.38-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -71,6 +81,27 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../Study/Programming/Java/ServerWorkSpace/apache-tomcat-8.0.32/lib/tomcat-dbcp.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/web/WEB-INF/lib/javax.persistence_2.1.1.v201509150925.jar!/" />
+          <root url="jar://$MODULE_DIR$/web/WEB-INF/lib/eclipselink.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/web/WEB-INF/lib/javax.persistence.source_2.1.1.v201509150925.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

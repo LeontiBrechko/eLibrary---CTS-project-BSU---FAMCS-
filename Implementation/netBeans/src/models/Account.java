@@ -1,49 +1,74 @@
 package models;
 
-import data.AccountDB;
 import models.enums.AccountRole;
 import models.enums.AccountState;
+import utils.LocalDateTimeAttributeConverter;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Created by Leonti on 2016-02-27.
  */
+
+@Entity
 public class Account implements Serializable {
-    String login;
+    @Id
+    @Column(name = "ACCOUNT_ID", unique = true, nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(unique = true, nullable = false, updatable = false)
+    private String username;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
     // TODO: 2016-02-29 review account password type
+    @Column(nullable = false)
     private String password;
+
+    @Column(name = "SALT_VALUE")
+    private String saltValue;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AccountRole role;
-    private LocalDateTime creationDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
+    @Column(name = "CREATION_TIME", nullable = false)
+    private LocalDateTime creationTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AccountState state;
-    private User user;
 
     public Account() {
-        this("", "", "", AccountRole.USER, LocalDateTime.now(), AccountState.TEPMORARY, null);
+        this.setUsername("");
+        this.setEmail("");
+        this.setPassword("");
+        this.setRole(AccountRole.USER);
+        this.setCreationTime(LocalDateTime.now());
+        this.setState(AccountState.TEMPORARY);
     }
 
-    public Account(String login, String email,
-                   String password, AccountRole role,
-                   LocalDateTime creationDate, AccountState state, User user) {
-        this.setLogin(login);
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setRole(role);
-        this.setCreationDate(creationDate);
-        this.setState(state);
-        this.setUser(user);
+    public long getId() {
+        return id;
     }
 
-    public String getLogin() {
-        return login;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public String getUsername() {
+        return username;
     }
 
+    public void setUsername(String login) {
+        this.username = login;
+    }
 
     public String getEmail() {
         return email;
@@ -61,6 +86,14 @@ public class Account implements Serializable {
         this.password = password;
     }
 
+    public String getSaltValue() {
+        return saltValue;
+    }
+
+    public void setSaltValue(String saltValue) {
+        this.saltValue = saltValue;
+    }
+
     public AccountRole getRole() {
         return role;
     }
@@ -69,12 +102,12 @@ public class Account implements Serializable {
         this.role = role;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
     }
 
     public AccountState getState() {
@@ -83,13 +116,5 @@ public class Account implements Serializable {
 
     public void setState(AccountState state) {
         this.state = state;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

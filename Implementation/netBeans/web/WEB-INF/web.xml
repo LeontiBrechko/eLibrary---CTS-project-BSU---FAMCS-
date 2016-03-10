@@ -3,15 +3,27 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    
-    <!--Account Handling Subsystem-->
-    <!--<servlet>-->
-        <!--<servlet-name>Registration</servlet-name>-->
-        <!--<servlet-class>controllers.accountHandlingSubsystem.RegistrationController</servlet-class>-->
-    <!--</servlet>-->
-    <!---->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>Registration</servlet-name>-->
-        <!--<url-pattern>/account/registration</url-pattern>-->
-    <!--</servlet-mapping>-->
+
+    <!--<security-constraint>-->
+        <!--<web-resource-collection>-->
+            <!--<web-resource-name>User Area</web-resource-name>-->
+            <!--<url-pattern>/catalog/*</url-pattern>-->
+        <!--</web-resource-collection>-->
+        <!--<auth-constraint>-->
+            <!--<role-name>USER</role-name>-->
+        <!--</auth-constraint>-->
+    <!--</security-constraint>-->
+
+    <!--<login-config>-->
+        <!--<auth-method>FORM</auth-method>-->
+        <!--<form-login-config>-->
+            <!--<form-login-page>/account/login.jsp</form-login-page>-->
+            <!--<form-error-page>/account/login.jsp</form-error-page>-->
+        <!--</form-login-config>-->
+    <!--</login-config>-->
+
+    <!--<security-role>-->
+        <!--<role-name>USER</role-name>-->
+    <!--</security-role>-->
+
 </web-app>

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -25,42 +26,44 @@ import java.util.Map;
 public class RegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String finalUrl;
+        String referrer = req.getParameter("referrer");
+        String url;
 
         User user = initializeUserAccount(req.getParameterMap());
 
-        if (checkRegistrationData(user, req, resp)) {
-            if (!accountExists(user.getAccount(), req, resp)) {
-                try {
+        try {
+            if (checkRegistrationData(user, req, resp)) {
+                if (!accountExists(user.getAccount(), req, resp)) {
                     createUserAccount(user);
-                    finalUrl = "/account/confirm.jsp";
+                    Account.addAccountCookie(user.getAccount(), resp);
                     sendConfirmationEmail(user.getAccount().getEmail());
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                    finalUrl = "/account/register.jsp";
+                    // TODO: 2016-03-11 implement forwarding accordingly to referrer
+                    url = "/account/confirm.jsp";
+                } else {
+                    // TODO: 2016-03-11 error message
+                    url = "/account/register.jsp";
                 }
             } else {
-                finalUrl = "/account/register.jsp";
+                // TODO: 2016-03-11 error message
+                url = "/account/register.jsp";
             }
-        } else {
-            finalUrl = "/account/register.jsp";
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            // TODO: 2016-03-11 error message
+            url = "/index.jsp";
         }
 
-        req.setAttribute("account", user);
-
-        getServletContext().getRequestDispatcher(finalUrl).forward(req, resp);
+        getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
     private User initializeUserAccount(Map<String, String[]> parameters) {
         User user = new User();
-        Account account = new Account();
 
-        account.setUsername(parameters.get("username")[0]);
-        account.setEmail(parameters.get("email")[0]);
-        account.setPassword(parameters.get("password")[0]);
+        user.getAccount().setUsername(parameters.get("username")[0]);
+        user.getAccount().setEmail(parameters.get("email")[0]);
+        user.getAccount().setPassword(parameters.get("password")[0]);
         user.setFirstName(parameters.get("firstName")[0]);
         user.setLastName(parameters.get("lastName")[0]);
-        user.setAccount(account);
 
         return user;
     }
@@ -94,14 +97,13 @@ public class RegistrationController extends HttpServlet {
             req.setAttribute("invalidUsername", true);
             req.setAttribute("invalidUMessage", "Please, fill in this field.");
         }
+        // TODO: 2016-02-29 review account password validation
         if (password == null || password.equals("") ||
                 password.length() < 6) {
             flag = false;
             req.setAttribute("invalidPassword", true);
             req.setAttribute("invalidPasswordMessage", "Password must be at least 6 characters.");
-        }
-        // TODO: 2016-02-29 review account password validation
-        else if (confirmPassword == null || !password.equals(confirmPassword)) {
+        } else if (confirmPassword == null || !password.equals(confirmPassword)) {
             flag = false;
             req.setAttribute("invalidConfirmPassword", true);
             req.setAttribute("invalidConfirmPasswordMessage", "Confirmation password must match password.");
@@ -114,8 +116,22 @@ public class RegistrationController extends HttpServlet {
         return flag;
     }
 
-    private boolean accountExists(
-            Account account, HttpServletRequest req, HttpServletResponse resp) {
+    // TODO: 2016-02-29 review account email validation
+    private boolean isValidEmail(String email) {
+        boolean flag = true;
+
+        try {
+            InternetAddress emailAddress = new InternetAddress(email);
+            emailAddress.validate();
+        } catch (AddressException e) {
+            flag = false;
+        }
+
+        return flag;
+    }
+
+    private boolean accountExists(Account account, HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException {
         boolean flag = false;
 
         String username = account.getUsername();
@@ -135,11 +151,12 @@ public class RegistrationController extends HttpServlet {
         return flag;
     }
 
-    private void createUserAccount(User user) throws NoSuchAlgorithmException {
+    private void createUserAccount(User user)
+            throws NoSuchAlgorithmException, SQLException {
         String plainPassword = user.getAccount().getPassword();
         String saltValue = PasswordUtil.getSalt();
-        String saltedAndHasedPassword = PasswordUtil.hashPassword(plainPassword + saltValue);
-        user.getAccount().setPassword(saltedAndHasedPassword);
+        String saltedAndHashedPassword = PasswordUtil.hashPassword(plainPassword + saltValue);
+        user.getAccount().setPassword(saltedAndHashedPassword);
         user.getAccount().setSaltValue(saltValue);
         UserDB.insertUser(user);
     }
@@ -149,17 +166,4 @@ public class RegistrationController extends HttpServlet {
 
     }
 
-    private boolean isValidEmail(String email) {
-        boolean flag = true;
-
-        try {
-            InternetAddress emailAddress = new InternetAddress(email);
-            emailAddress.validate();
-        } catch (AddressException e) {
-            flag = false;
-            log("Email validation", e);
-        }
-
-        return flag;
-    }
 }

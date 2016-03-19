@@ -1,5 +1,6 @@
 package controllers.account;
 
+import com.sun.org.apache.xml.internal.utils.URI;
 import data.AccountDB;
 import models.Account;
 import utils.PasswordUtil;
@@ -21,46 +22,69 @@ import java.sql.SQLException;
 public class LoggingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        String referrer = new URI(req.getHeader("referer")).getPath(true, false);
+        String url;
+
+        try {
+            if (action.equals("login")) {
+                url = login(referrer, req, resp);
+            } else if (action.equals("signUp")) {
+                url = signUp(referrer, req, resp);
+            } else {
+                // TODO: 2016-03-11 error message
+                url = "/index.jsp";
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            // TODO: 2016-03-11 error message
+            e.printStackTrace();
+            url = "/index.jsp";
+        }
+
+        if (url != null && url.equals(referrer)) {
+            resp.sendRedirect(url);
+        } else {
+            req.getServletContext().getRequestDispatcher(url).forward(req, resp);
+        }
+    }
+
+    private String login(String referrer, HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, NoSuchAlgorithmException{
         String emailOrUsername = req.getParameter("emailOrUsername");
         String password = req.getParameter("password");
         String url;
 
-        if (emailOrUsername != null && !emailOrUsername.equals("") &&
-                password != null && !password.equals("")) {
-            emailOrUsername = emailOrUsername.toLowerCase();
-            try {
-                Account account = AccountDB.selectAccount(emailOrUsername);
-                if (account != null) {
-                    String saltValue = account.getSaltValue();
-                    try {
-                        String hashedPassword = PasswordUtil.hashPassword(password + saltValue);
-                        if (hashedPassword.equals(account.getPassword())) {
-                            String referrer = req.getHeader("referer");
-                            if (referrer != null) {
-                                int start = referrer.indexOf("/") + 2;
-                                url = referrer.substring(start, referrer.length());
-                            } else {
-                                url = "/index.jsp";
-                            }
-                        } else {
-                            url = "/account/login.jsp";
-                        }
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                        url = "/account/login.jsp";
+        if ((emailOrUsername != null && !emailOrUsername.equals("")) &&
+                (password != null && !password.equals(""))) {
+            Account account = AccountDB.selectAccount(emailOrUsername);
+            if (account != null) {
+                String saltValue = account.getSaltValue();
+                String hashedPassword = PasswordUtil.hashPassword(password + saltValue);
+                if (hashedPassword.equals(account.getPassword())) {
+                    Account.addAccountCookie(account, resp);
+                    if (referrer != null && !referrer.equals("")) {
+                        url = referrer;
+                    } else {
+                        url = "/index.jsp";
                     }
                 } else {
+                    // TODO: 2016-03-11 error message
                     url = "/account/login.jsp";
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } else {
+                // TODO: 2016-03-11 error message
                 url = "/account/login.jsp";
             }
         } else {
+            // TODO: 2016-03-11 error message
             url = "/account/login.jsp";
         }
 
-        req.getServletContext().getRequestDispatcher(url).forward(req, resp);
-//        resp.sendRedirect(url);
+        return url;
+    }
+
+    private String signUp(String referrer, HttpServletRequest req, HttpServletResponse resp) {
+        req.setAttribute("referrer", referrer);
+        return "/account/register.jsp";
     }
 }

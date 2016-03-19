@@ -43,7 +43,9 @@
         </ul>
         <p>${book.description}</p>
     </div>
+    <%--TO-DO: change links to buttons--%>
     <a href="/catalog/description?action=openBook&amp;isbn13=${book.isbn13}">Open book online</a>
+    <a href="/download/downloadList?action=addToDownloadList&amp;isbn13=${book.isbn13}">Add to download list</a>
     <a href="/index.jsp">Home</a>
 </body>
 </html>

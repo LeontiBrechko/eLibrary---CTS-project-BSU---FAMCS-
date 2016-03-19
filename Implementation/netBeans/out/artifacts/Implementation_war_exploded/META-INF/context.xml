@@ -9,11 +9,11 @@
               logAbandoned="true" removeAbandonedOnBorrow="true"
               removeAbandonedTimeout="60" type="javax.sql.DataSource" />
 
-    <Realm className="org.apache.catalina.realm.DataSourceRealm"
-           dataSourceName="jdbc/eLibrary" localDataSource="true"
-           userTable="ACCOUNT" userNameCol="LOGIN" userCredCol="PASSWORD"
-           userRoleTable="ACCOUNT" roleNameCol="ROLE"
-           digest="SHA-256"/>
+    <!--<Realm className="org.apache.catalina.realm.DataSourceRealm"-->
+           <!--dataSourceName="jdbc/eLibrary" localDataSource="true"-->
+           <!--userTable="ACCOUNT" userNameCol="LOGIN" userCredCol="PASSWORD"-->
+           <!--userRoleTable="ACCOUNT" roleNameCol="ROLE"-->
+           <!--digest="SHA-256"/>-->
 
     <!--<Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"-->
            <!--driverName="com.mysql.jdbc.Driver"-->

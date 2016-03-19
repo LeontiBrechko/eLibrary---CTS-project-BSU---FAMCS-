@@ -24,61 +24,47 @@ public class CatalogController extends HttpServlet {
         String category = req.getParameter("category");
         String url;
 
-        if (search != null && !search.equals("")) {
-            url = searchForTitle(search, req, resp);
-        } else if (category != null && !category.equals("")) {
-            url = showCategory(category, req, resp);
-        } else {
-            url = showCatalog(req, resp);
+        try {
+            if (search != null && !search.equals("")) {
+                url = searchForTitle(search, req, resp);
+            } else if (category != null && !category.equals("")) {
+                url = showCategory(category, req, resp);
+            } else {
+                url = showCatalog(req, resp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // TODO: 2016-03-11 error message
+            url = "index.jsp";
         }
 
         getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
-    private String showCatalog(HttpServletRequest req, HttpServletResponse resp) {
-        String url;
+    private String showCatalog(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException {
         boolean mostPopular = Boolean.valueOf(req.getParameter("mostPopular"));
         boolean mostRecent = Boolean.valueOf(req.getParameter("mostRecent"));
 
-        try {
-            List<Book> books = BookDB.selectBookList(mostRecent, mostPopular);
-            req.setAttribute("books", books);
-            url = "/catalog/catalog.jsp";
-        } catch (SQLException e) {
-            e.printStackTrace();
-            url = "/index.jsp";
-        }
+        List<Book> books = BookDB.selectBookList(mostRecent, mostPopular);
+        req.setAttribute("books", books);
 
-        return url;
+        return "/catalog/catalog.jsp";
     }
 
-    private String searchForTitle(String searchString, HttpServletRequest req, HttpServletResponse resp) {
-        String url;
+    private String searchForTitle(String searchString, HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException {
+        List<Book> books = BookDB.searchForTitle(searchString);
+        req.setAttribute("books", books);
 
-        try {
-            List<Book> books = BookDB.searchForTitle(searchString);
-            req.setAttribute("books", books);
-            url = "/catalog/catalog.jsp";
-        } catch (SQLException e) {
-            e.printStackTrace();
-            url = "/index.jsp";
-        }
-
-        return url;
+        return "/catalog/catalog.jsp";
     }
 
-    private String showCategory(String categoryName, HttpServletRequest req, HttpServletResponse resp) {
-        String url;
+    private String showCategory(String categoryName, HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException {
+        List<Book> books = BookDB.selectBookCategoryList(categoryName);
+        req.setAttribute("books", books);
 
-        try {
-            List<Book> books = BookDB.selectBookCategoryList(categoryName);
-            req.setAttribute("books", books);
-            url = "/catalog/catalog.jsp";
-        } catch (SQLException e) {
-            e.printStackTrace();
-            url = "/index.jsp";
-        }
-
-        return url;
+        return "/catalog/catalog.jsp";
     }
 }

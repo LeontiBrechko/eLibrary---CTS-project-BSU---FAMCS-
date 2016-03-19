@@ -42,4 +42,18 @@ public class AuthorDB {
             }
         }
     }
+
+    public static int deleteBookAuthors(Connection connection, long bookId)
+            throws SQLException{
+        String query = "DELETE FROM book_author WHERE book_id = ?";
+
+        int rowAffected = 0;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, bookId);
+            rowAffected = preparedStatement.executeUpdate();
+        }
+
+        return rowAffected;
+    }
 }

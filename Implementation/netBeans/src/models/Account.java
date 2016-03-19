@@ -1,49 +1,34 @@
 package models;
 
+import data.AccountDB;
 import models.enums.AccountRole;
 import models.enums.AccountState;
-import utils.LocalDateTimeAttributeConverter;
+import utils.CookieUtil;
 
-import javax.persistence.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Leonti on 2016-02-27.
  */
-
-@Entity
 public class Account implements Serializable {
-    @Id
-    @Column(name = "ACCOUNT_ID", unique = true, nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(unique = true, nullable = false, updatable = false)
     private String username;
-
-    @Column(unique = true, nullable = false)
     private String email;
-
-    // TODO: 2016-02-29 review account password type
-    @Column(nullable = false)
     private String password;
-
-    @Column(name = "SALT_VALUE")
     private String saltValue;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private AccountRole role;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Convert(converter = LocalDateTimeAttributeConverter.class)
-    @Column(name = "CREATION_TIME", nullable = false)
     private LocalDateTime creationTime;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private AccountState state;
+    private List<Book> downloadList;
+
+
 
     public Account() {
         this.setUsername("");
@@ -52,14 +37,7 @@ public class Account implements Serializable {
         this.setRole(AccountRole.USER);
         this.setCreationTime(LocalDateTime.now());
         this.setState(AccountState.TEMPORARY);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.setDownloadList(new ArrayList<>());
     }
 
     public String getUsername() {
@@ -116,5 +94,73 @@ public class Account implements Serializable {
 
     public void setState(AccountState state) {
         this.state = state;
+    }
+
+    public List<Book> getDownloadList() {
+        return downloadList;
+    }
+
+    public void setDownloadList(List<Book> downloadList) {
+        this.downloadList = downloadList;
+    }
+
+    public int listContainsBook(Book book) {
+        int flag = -1;
+        String isbn13 = book.getIsbn13();
+        for (int i = 0; i < this.downloadList.size(); i++) {
+            if (this.downloadList.get(i).getIsbn13().equals(isbn13)) {
+                flag = i;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public static Account getCookieAccount(HttpServletRequest req)
+            throws SQLException {
+        Cookie[] cookies = req.getCookies();
+        String username = CookieUtil.getCookieValue(cookies, "username");
+
+        Account account = null;
+
+        if (username != null && !username.equals("")) {
+            account = AccountDB.selectAccount(username);
+        }
+
+        return account;
+    }
+
+    public static void addAccountCookie(Account account,
+                                        HttpServletResponse resp) {
+
+        Cookie cookie = new Cookie("username", account.getUsername());
+        cookie.setMaxAge(60 * 60 * 24 * 365 * 2);
+        cookie.setPath("/");
+
+        resp.addCookie(cookie);
+    }
+
+
+    public static Account getSessionAccount(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        final Object lock = session.getId().intern();
+
+        Account account;
+
+        synchronized (lock) {
+            account = (Account) session.getAttribute("account");
+        }
+
+        return account;
+    }
+
+    public static void setSessionAccount(Account account,
+                                         HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        final Object lock = session.getId().intern();
+
+        synchronized (lock) {
+            session.setAttribute("account", account);
+        }
     }
 }

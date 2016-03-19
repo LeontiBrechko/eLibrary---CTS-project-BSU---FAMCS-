@@ -33,7 +33,7 @@ public class ConfirmationController extends HttpServlet {
 //        return AccountDB.selectAccount(email);
 //    }
 
-    private void changeAccount(Account account) {
-        AccountDB.updateAccount(account);
-    }
+//    private void changeAccount(Account account) {
+//        AccountDB.updateAccount(account);
+//    }
 }

@@ -3,6 +3,7 @@ package models;
 import models.enums.Format;
 import models.enums.Language;
 
+import javax.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -135,4 +136,17 @@ public class Book implements Serializable {
 
         this.setDescription(description.toString());
     }
+
+    public void writeProperty(Part filePart, String path) throws IOException {
+        try (InputStream inputStream = filePart.getInputStream();
+             BufferedOutputStream bufferedOutputStream =
+                new BufferedOutputStream(new FileOutputStream(path))) {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = inputStream.read(buffer)) != -1) {
+                bufferedOutputStream.write(buffer, 0, read);
+            }
+        }
+    }
+
 }

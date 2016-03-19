@@ -13,7 +13,8 @@ import java.sql.SQLException;
  * Created by Leonti on 2016-03-04.
  */
 public class PublisherDB {
-    public static Publisher selectBookPublisher(long bookId) throws SQLException {
+    public static Publisher selectBookPublisher(long bookId)
+            throws SQLException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT publisher.name, publisher.address_id\n" +
@@ -36,5 +37,19 @@ public class PublisherDB {
                 }
             }
         }
+    }
+
+    public static int deleteBookPublisher(Connection connection, long bookId)
+            throws SQLException {
+        String query = "DELETE FROM book_publisher WHERE book_id = ?";
+
+        int rowAffected = 0;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, bookId);
+            rowAffected = preparedStatement.executeUpdate();
+        }
+
+        return rowAffected;
     }
 }

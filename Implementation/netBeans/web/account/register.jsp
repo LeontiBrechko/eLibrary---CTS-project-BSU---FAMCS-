@@ -7,6 +7,7 @@
 <body>
 
     <form action="/account/registration" method="post">
+        <input type="hidden" value="${referrer}" name="referrer">
         <label>First Name:
             <input type="text" name="firstName" value="<c:out value='${user.firstName}' />">
         </label>

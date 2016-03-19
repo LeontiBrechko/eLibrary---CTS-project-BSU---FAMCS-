@@ -44,6 +44,20 @@ public class CategoryDB {
         }
     }
 
+    public static int deleteBookCategories(Connection connection, long bookId)
+            throws SQLException {
+        String query = "DELETE FROM book_category WHERE book_id = ?";
+
+        int rowAffected = 0;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, bookId);
+            rowAffected = preparedStatement.executeUpdate();
+        }
+
+        return rowAffected;
+    }
+
     public static long selectCategoryId(String categoryName) throws SQLException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 

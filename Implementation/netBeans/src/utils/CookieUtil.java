@@ -1,6 +1,7 @@
 package utils;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Leonti on 2016-03-10.
@@ -17,5 +18,15 @@ public class CookieUtil {
             }
         }
         return cookieValue;
+    }
+
+    public static void deleteAllCookies(Cookie[] cookies, HttpServletResponse resp) {
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                resp.addCookie(cookie);
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@
     <h1>Login Form</h1>
     <p>Please, enter your username and password</p>
     <form action="/account/login" method="post">
+        <input type="hidden" name="action" value="login">
         <label>Username:
             <input type="text" name="emailOrUsername">
         </label><br>
@@ -21,6 +22,10 @@
             <input type="password" name="password">
         </label><br>
         <input type="submit" value="Login">
+    </form>
+    <form action="/account/login" method="post">
+        <input type="hidden" name="action" value="signUp">
+        <input type="submit" value="Sign Up">
     </form>
 </body>
 </html>

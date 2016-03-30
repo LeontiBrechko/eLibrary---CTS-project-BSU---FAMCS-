@@ -5,26 +5,43 @@
   Time: 9:59 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="data.CategoryDB" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    try {
+        request.setAttribute("categories", CategoryDB.selectAllCategories());
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+%>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
+    <h4>${errorMessage}</h4>
     <form action="/admin/bookManagement" method="post" id="mainForm" enctype="multipart/form-data" accept-charset="UTF-8">
         <input type="hidden" name="action" value="updateBookMainInfo">
         <fieldset form="mainForm">
             <legend>Main book information</legend>
                 <input type="hidden" name="popularity" value="${bookToUpdate.popularity}">
                 <label> ISBN-13:
-                    <input type="text" name="isbn13" value="${bookToUpdate.isbn13}" readonly>
+                    <c:choose>
+                        <c:when test="${bookToUpdate.isbn13 != null}">
+                            <input type="text" name="isbn13" value="<c:out value="${bookToUpdate.isbn13}"/>" readonly>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="text" name="isbn13" value="<c:out value="${bookToUpdate.isbn13}"/>">
+                        </c:otherwise>
+                    </c:choose>
                 </label><br>
                 <label>Title:
-                    <input type="text" name="title" value="${bookToUpdate.title}">
+                    <input type="text" name="title" value="<c:out value="${bookToUpdate.title}"/>">
                 </label><br>
                 <label>Year published:
-                    <input type="text" name="yearPublished" value="${bookToUpdate.yearPublished}">
+                    <input type="text" name="yearPublished" value="<c:out value="${bookToUpdate.yearPublished}"/>">
                 </label><br>
                 <label>Description file:
                     <input type="file" name="description">
@@ -40,8 +57,8 @@
             <legend>Book categories</legend>
             <select name="selectedCategories" multiple="multiple" size="10">
                 <c:forEach var="category" items="${categories}">
-                    <option value="${category.name}">
-                        ${category.name}
+                    <option value="<c:out value="${category.name}"/>">
+                        <c:out value="${category.name}"/>
                     </option>
                 </c:forEach>
             </select>

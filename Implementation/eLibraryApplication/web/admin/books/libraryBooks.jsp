@@ -24,7 +24,7 @@
                 <td>${book.yearPublished}</td>
                 <td><a href="/catalog/description?action=showDescription&amp;isbn13=${book.isbn13}">Description'</a></td>
                 <td><a href="/admin/bookManagement?action=updateBook&amp;isbn13=${book.isbn13}">Update book</a></td>
-                <td><a>Delete book</a></td>
+                <td><a href="/admin/bookManagement?action=deleteBook&amp;isbn13=${book.isbn13}">Delete book</a></td>
             </tr>
         </c:forEach>
     </table>

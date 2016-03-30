@@ -5,6 +5,8 @@ import models.Book;
 import models.enums.AccountRole;
 import models.enums.AccountState;
 import utils.ConnectionPool;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
  */
 public class AccountDB {
     public static List<Account> selectAccountList()
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException  {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM account";
@@ -32,7 +34,7 @@ public class AccountDB {
     }
 
     public static Account selectAccount(String emailOrUsername)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         boolean selectByEmail = emailOrUsername.contains("@");
@@ -118,12 +120,12 @@ public class AccountDB {
     }
 
     public static boolean emailExists(String email)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException  {
         return selectAccount(email) != null;
     }
 
     public static boolean usernameExists(String username)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException  {
         return selectAccount(username) != null;
     }
 
@@ -169,7 +171,7 @@ public class AccountDB {
     }
 
     private static List<Book> selectAccountDownloadList(Connection connection, long accountId)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         String query = "SELECT book_id " +
                 "FROM account_download_list " +
                 "WHERE account_id = ?";
@@ -180,7 +182,7 @@ public class AccountDB {
             preparedStatement.setLong(1, accountId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Book book = BookDB.selectBook(resultSet.getLong(1));
+                Book book = BookDB.selectBook(resultSet.getLong("BOOK_ID"));
                 downloadList.add(book);
             }
         }
@@ -208,17 +210,15 @@ public class AccountDB {
 
     private static void addAccountToList(Connection connection,
                                          ResultSet resultSet, List<Account> accounts)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         while (resultSet.next()) {
-            Account account = new Account();
-            account.setUsername(resultSet.getString("USERNAME"));
-            account.setEmail(resultSet.getString("EMAIL"));
-            account.setPassword(resultSet.getString("PASSWORD"));
-            account.setSaltValue(resultSet.getString("SALT_VALUE"));
+            Account account =
+                    new Account(resultSet.getString("USERNAME"), resultSet.getString("EMAIL"),
+                    resultSet.getString("PASSWORD"),resultSet.getString("SALT_VALUE"),
+                    resultSet.getString("CONFIRM_TOKEN"));
             account.setRole(AccountRole.valueOf(resultSet.getString("ROLE")));
             account.setCreationTime(resultSet.getTimestamp("CREATION_TIME").toLocalDateTime());
             account.setState(AccountState.valueOf(resultSet.getString("STATE")));
-            account.setConfirmationToken(resultSet.getString("CONFIRM_TOKEN"));
 
             long id = selectAccountID(connection, account.getUsername());
             account.setDownloadList(selectAccountDownloadList(connection, id));

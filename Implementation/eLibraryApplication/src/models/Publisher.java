@@ -1,5 +1,8 @@
 package models;
 
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.DataValidationUtil;
+
 import java.io.Serializable;
 
 /**
@@ -13,20 +16,27 @@ public class Publisher implements Serializable {
     private int streetNumber;
     private String streetName;
 
-    public Publisher() {
-        this.setName("");
-        this.setCountry("");
-        this.setCity("");
-        this.setState("");
-        this.setStreetNumber(0);
-        this.setStreetName("");
+    public Publisher(String name, String country, String city,
+                     String state, int streetNumber, String streetName)
+            throws DataValidationException {
+        this.setName(name);
+        this.setCountry(country);
+        this.setCity(city);
+        this.setState(state);
+        this.setStreetNumber(streetNumber);
+        this.setStreetName(streetName);
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws DataValidationException {
+        if (name == null
+                || name.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(name)) {
+            throw new DataValidationException("Please, enter the category description (without < > symbols)");
+        }
         this.name = name;
     }
 
@@ -34,7 +44,12 @@ public class Publisher implements Serializable {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(String country) throws DataValidationException {
+        if (country == null
+                || country.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(country)) {
+            throw new DataValidationException("Please, enter the publisher country (without < > symbols)");
+        }
         this.country = country;
     }
 
@@ -42,7 +57,12 @@ public class Publisher implements Serializable {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city) throws DataValidationException {
+        if (city == null
+                || city.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(city)) {
+            throw new DataValidationException("Please, enter the publisher city (without < > symbols)");
+        }
         this.city = city;
     }
 
@@ -50,7 +70,13 @@ public class Publisher implements Serializable {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(String state) throws DataValidationException {
+        if (state == null) {
+            state = "";
+        }
+        if (DataValidationUtil.xssInjectionCheck(state)) {
+            throw new DataValidationException("Please, enter the publisher state without < > symbols");
+        }
         this.state = state;
     }
 
@@ -58,7 +84,10 @@ public class Publisher implements Serializable {
         return streetNumber;
     }
 
-    public void setStreetNumber(int streetNumber) {
+    public void setStreetNumber(int streetNumber) throws DataValidationException {
+        if (streetNumber < 0) {
+            throw new DataValidationException("Please, enter valid publisher street number (grater than 0)");
+        }
         this.streetNumber = streetNumber;
     }
 
@@ -66,7 +95,13 @@ public class Publisher implements Serializable {
         return streetName;
     }
 
-    public void setStreetName(String streetName) {
+    public void setStreetName(String streetName) throws DataValidationException {
+        if (streetName == null) {
+            streetName = "";
+        }
+        if (DataValidationUtil.xssInjectionCheck(streetName)) {
+            throw new DataValidationException("Please, enter the publisher street name without < > symbols");
+        }
         this.streetName = streetName;
     }
 }

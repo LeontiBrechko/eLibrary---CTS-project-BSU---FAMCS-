@@ -1,6 +1,8 @@
 package utils.listeners;
 
 import models.Account;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
@@ -21,7 +23,7 @@ public class AccountListener implements ServletRequestListener {
                 if (account != null) {
                     Account.setSessionAccount(account, request);
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | DataValidationException | InternalDataValidationException e) {
                 e.printStackTrace();
             }
         }

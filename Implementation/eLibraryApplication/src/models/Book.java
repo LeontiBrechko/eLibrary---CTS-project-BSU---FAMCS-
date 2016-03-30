@@ -1,16 +1,16 @@
 package models;
 
-import models.enums.Format;
-import models.enums.Language;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
+import utils.dataValidation.DataValidationUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Leonti on 2016-03-04.
@@ -29,17 +29,36 @@ public class Book implements Serializable {
     private List<Author> authors;
     private List<Category> categories;
 
-    public Book() {
+    public Book(String isbn13, String title, int yearPublished,
+                String description, List<BookFile> files, String image,
+                String thumbnail, Publisher publisher, List<Author> authors,
+                List<Category> categories)
+            throws DataValidationException, InternalDataValidationException {
         // TODO: 2016-03-07 review default image url
-        this.setImage("");
-        this.setThumbnail("");
+        this.setIsbn13(isbn13);
+        this.setTitle(title);
+        this.setYearPublished(yearPublished);
+        this.setDescription(description);
+        this.setFiles(files);
+        this.setImage(image);
+        this.setThumbnail(thumbnail);
+        this.setPublisher(publisher);
+        this.setAuthors(authors);
+        this.setCategories(categories);
     }
 
     public String getIsbn13() {
         return isbn13;
     }
 
-    public void setIsbn13(String isbn13) {
+    public void setIsbn13(String isbn13) throws DataValidationException {
+        if (isbn13 == null
+                || isbn13.trim().equals("")
+                || isbn13.length() != 13
+                || DataValidationUtil.xssInjectionCheck(isbn13)) {
+            throw new DataValidationException("Please, enter the book isbn 13 " +
+                    "(without < > symbols and exactly 13 characters length)");
+        }
         this.isbn13 = isbn13;
     }
 
@@ -47,7 +66,12 @@ public class Book implements Serializable {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title) throws DataValidationException {
+        if (title == null
+                || title.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(title)) {
+            throw new DataValidationException("Please, enter the book title (without < > symbols)");
+        }
         this.title = title;
     }
 
@@ -55,7 +79,10 @@ public class Book implements Serializable {
         return yearPublished;
     }
 
-    public void setYearPublished(int yearPublished) {
+    public void setYearPublished(int yearPublished) throws DataValidationException {
+        if (yearPublished < 0) {
+            throw new DataValidationException("Please, enter valid book publication year (grater than 0)");
+        }
         this.yearPublished = yearPublished;
     }
 
@@ -63,7 +90,13 @@ public class Book implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws InternalDataValidationException {
+        if (description == null) {
+            description = "";
+        }
+        if (DataValidationUtil.xssInjectionCheck(description)) {
+            throw new InternalDataValidationException("Invalid description path");
+        }
         this.description = description;
     }
 
@@ -71,7 +104,10 @@ public class Book implements Serializable {
         return popularity;
     }
 
-    public void setPopularity(long popularity) {
+    public void setPopularity(long popularity) throws InternalDataValidationException {
+        if (popularity < 0) {
+            throw new InternalDataValidationException("Invalid book popularity value");
+        }
         this.popularity = popularity;
     }
 
@@ -79,7 +115,10 @@ public class Book implements Serializable {
         return files;
     }
 
-    public void setFiles(List<BookFile> files) {
+    public void setFiles(List<BookFile> files) throws InternalDataValidationException {
+        if (files == null) {
+            throw new InternalDataValidationException("Invalid book files list");
+        }
         this.files = files;
     }
 
@@ -88,6 +127,9 @@ public class Book implements Serializable {
     }
 
     public void setImage(String image) {
+        if (image == null) {
+            image = "";
+        }
         this.image = image;
     }
 
@@ -96,6 +138,9 @@ public class Book implements Serializable {
     }
 
     public void setThumbnail(String thumbnail) {
+        if (thumbnail == null) {
+            thumbnail = "";
+        }
         this.thumbnail = thumbnail;
     }
 
@@ -103,7 +148,10 @@ public class Book implements Serializable {
         return publisher;
     }
 
-    public void setPublisher(Publisher publisher) {
+    public void setPublisher(Publisher publisher) throws InternalDataValidationException {
+        if (publisher == null) {
+            throw new InternalDataValidationException("Invalid book publisher");
+        }
         this.publisher = publisher;
     }
 
@@ -111,7 +159,10 @@ public class Book implements Serializable {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(List<Author> authors) throws InternalDataValidationException {
+        if (authors == null) {
+            throw new InternalDataValidationException("Invalid book authors list");
+        }
         this.authors = authors;
     }
 
@@ -119,13 +170,16 @@ public class Book implements Serializable {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(List<Category> categories) throws InternalDataValidationException {
+        if (categories == null) {
+            throw new InternalDataValidationException("Invalid book categories list");
+        }
         this.categories = categories;
     }
 
-    public void readDescription() throws IOException {
+    public String readDescriptionFile(String path) throws IOException {
         StringBuilder description = new StringBuilder();
-        Path descriptionPath = Paths.get(this.getDescription()).toAbsolutePath();
+        Path descriptionPath = Paths.get(path).toAbsolutePath();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(descriptionPath.toFile()))) {
             String nextLine;
@@ -134,13 +188,16 @@ public class Book implements Serializable {
             }
         }
 
-        this.setDescription(description.toString());
+        return description.toString();
     }
 
-    public void writeProperty(Part filePart, String path) throws IOException {
+    public void writeFileProperty(Part filePart, String path) throws IOException {
+        File file = new File(path);
+        file.getParentFile().mkdirs();
+        file.createNewFile();
         try (InputStream inputStream = filePart.getInputStream();
              BufferedOutputStream bufferedOutputStream =
-                new BufferedOutputStream(new FileOutputStream(path))) {
+                     new BufferedOutputStream(new FileOutputStream(file))) {
             byte[] buffer = new byte[1024];
             int read;
             while ((read = inputStream.read(buffer)) != -1) {
@@ -149,7 +206,7 @@ public class Book implements Serializable {
         }
     }
 
-    public int getBookFileIndex(BookFile bookFile) {
+    public int getBookFileListIndex(BookFile bookFile) {
         int flag = -1;
         for (int i = 0; i < this.files.size(); i++) {
             if (bookFile.getFormat().name().equals(this.files.get(i).getFormat().name()) &&
@@ -161,4 +218,35 @@ public class Book implements Serializable {
         return flag;
     }
 
+    public static Book getBookToUpdate(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        final Object lock = session.getId().intern();
+
+        Book book;
+
+        synchronized (lock) {
+            book = (Book) session.getAttribute("bookToUpdate");
+        }
+
+        return book;
+    }
+
+    public static void setBookToUpdate(Book book,
+                                         HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        final Object lock = session.getId().intern();
+
+        synchronized (lock) {
+            session.setAttribute("bookToUpdate", book);
+        }
+    }
+
+    public static void deleteBookToUpdate(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        final Object lock = session.getId().intern();
+
+        synchronized (lock) {
+            session.removeAttribute("bookToUpdate");
+        }
+    }
 }

@@ -1,11 +1,11 @@
 package controllers.catalog;
 
-import data.AccountDB;
 import data.BookDB;
-import models.Account;
 import models.Book;
 import models.BookFile;
 import models.enums.Format;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,47 +23,59 @@ public class DescriptionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        String url = "";
+        String url;
 
         try {
             if (action == null) {
-                // TODO: 2016-03-11 error message
-                resp.sendRedirect(url = "/index.jsp");
+                resp.sendError(404);
+                return;
             } else if (action.equals("showDescription")) {
                 url = showDescription(req, resp);
             } else if (action.equals("openBook")) {
                 url = openBook(req, resp);
+            } else {
+                resp.sendError(404);
+                return;
             }
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-            // TODO: 2016-03-11 error message
-            url = "/index.jsp";
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
+            }
+            resp.sendError(500);
+            return;
         }
 
-        if (url != null && !url.equals("")) {
-            if (url.equals("/index.jsp")) {
-                resp.sendRedirect(url);
-            } else {
-                getServletContext().getRequestDispatcher(url).forward(req, resp);
-            }
-        }
+        getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-
-        if (action == null) {
-
-        } else if (action.equals("showDescription") ||
-                action.equals("openBook") ||
-                action.equals("addToDownloadList")) {
-            this.doGet(req, resp);
+        try {
+            if (action == null) {
+                resp.sendError(404);
+                return;
+            } else if (action.equals("showDescription") ||
+                    action.equals("openBook")) {
+                this.doGet(req, resp);
+            } else {
+                resp.sendError(404);
+                return;
+            }
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
+            }
+            resp.sendError(500);
+            return;
         }
     }
 
     private String showDescription(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException, IOException {
+            throws SQLException, IOException,
+            DataValidationException, InternalDataValidationException {
         String url;
         String isbn13 = req.getParameter("isbn13");
 
@@ -73,9 +85,10 @@ public class DescriptionController extends HttpServlet {
         } else {
             Book book = BookDB.selectBook(isbn13);
             if (book != null) {
-                if (book.getDescription() != null && !book.getDescription().equals("")) {
-                    book.setDescription(req.getServletContext().getRealPath(book.getDescription()));
-                    book.readDescription();
+                if (!book.getDescription().trim().equals("")) {
+                    req.setAttribute("bookDescription",
+                            book.readDescriptionFile(
+                                    req.getServletContext().getRealPath(book.getDescription())));
                 }
                 req.setAttribute("book", book);
                 url = "/catalog/description.jsp";
@@ -89,15 +102,14 @@ public class DescriptionController extends HttpServlet {
     }
 
     private String openBook(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException, SQLException {
+            throws IOException, SQLException,
+            DataValidationException, InternalDataValidationException {
         String url = "";
         String isbn13 = req.getParameter("isbn13");
 
         if (isbn13 != null && !isbn13.equals("")) {
             Book book = BookDB.selectBook(isbn13);
             if (book != null) {
-                book.setPopularity(book.getPopularity() + 1);
-                BookDB.updateBook(book);
                 for (BookFile file : book.getFiles()) {
                     if (file.getFormat() == Format.PDF) {
                         String path = getServletContext().getRealPath(file.getPath());

@@ -3,6 +3,7 @@ package data;
 import models.Book;
 import models.Category;
 import utils.ConnectionPool;
+import utils.dataValidation.DataValidationException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,30 +16,30 @@ import java.util.List;
  * Created by Leonti on 2016-03-04.
  */
 public class CategoryDB {
-    public static Category selectCategoty(String categoryName)
-            throws SQLException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-        String query = "SELECT * FROM category WHERE name = ?";
-
-        Category category = null;
-
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, categoryName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                category = new Category();
-                category.setName(resultSet.getString("NAME"));
-                category.setDescription(resultSet.getString("DESC"));
-            }
-        }
-
-        return category;
-    }
+//    public static Category selectCategoty(String categoryName)
+//            throws SQLException {
+//        ConnectionPool connectionPool = ConnectionPool.getInstance();
+//
+//        String query = "SELECT * FROM category WHERE name = ?";
+//
+//        Category category = new Category();
+//
+//        try (Connection connection = connectionPool.getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+//            preparedStatement.setString(1, categoryName);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            if (resultSet.next()) {
+//                category.setName(resultSet.getString("NAME"));
+//                category.setDescription(resultSet.getString("DESC"));
+//            }
+//        }
+//
+//        return category;
+//    }
 
     public static List<Category> selectAllCategories()
-            throws SQLException {
+            throws SQLException, DataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM category";
@@ -49,9 +50,9 @@ public class CategoryDB {
              PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Category category = new Category();
-                category.setName(resultSet.getString("NAME"));
-                category.setDescription(resultSet.getString("DESC"));
+                Category category =
+                        new Category(resultSet.getString("NAME"),
+                                resultSet.getString("DESC"));
                 categories.add(category);
             }
         }
@@ -60,7 +61,7 @@ public class CategoryDB {
     }
 
     public static List<Category> selectBookCategories(long bookId)
-            throws SQLException {
+            throws SQLException, DataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT category.name, category.desc\n" +
@@ -75,9 +76,9 @@ public class CategoryDB {
             preparedStatement.setLong(1, bookId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Category category = new Category();
-                category.setName(resultSet.getString("NAME"));
-                category.setDescription(resultSet.getString("DESC"));
+                Category category =
+                        new Category(resultSet.getString("NAME"),
+                                resultSet.getString("DESC"));
                 categories.add(category);
             }
         }

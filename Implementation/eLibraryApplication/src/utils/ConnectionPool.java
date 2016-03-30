@@ -29,12 +29,7 @@ public class ConnectionPool {
         return connectionPool;
     }
 
-    public Connection getConnection() {
-        try {
-            return dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 }

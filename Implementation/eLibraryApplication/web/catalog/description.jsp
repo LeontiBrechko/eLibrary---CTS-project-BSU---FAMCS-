@@ -38,7 +38,7 @@
                 Popularity: ${book.popularity}
             </li>
         </ul>
-        <p>${book.description}</p>
+        <p>${bookDescription}</p>
     </div>
     <%--TO-DO: change links to buttons--%>
     <a href="/catalog/description?action=openBook&amp;isbn13=${book.isbn13}">Open book online</a>

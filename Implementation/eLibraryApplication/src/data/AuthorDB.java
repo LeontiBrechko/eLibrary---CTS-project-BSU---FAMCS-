@@ -3,6 +3,7 @@ package data;
 import models.Author;
 import models.Book;
 import utils.ConnectionPool;
+import utils.dataValidation.DataValidationException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class AuthorDB {
     public static List<Author> selectAllAuthors()
-            throws SQLException {
+            throws SQLException, DataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM author";
@@ -27,9 +28,9 @@ public class AuthorDB {
              PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Author author = new Author();
-                author.setFirstName(resultSet.getString("FIRST_NAME"));
-                author.setLastName(resultSet.getString("LAST_NAME"));
+                Author author =
+                        new Author(resultSet.getString("FIRST_NAME"),
+                                resultSet.getString("LAST_NAME"));
                 authors.add(author);
             }
         }
@@ -77,7 +78,8 @@ public class AuthorDB {
         return id;
     }
 
-    public static List<Author> selectBookAuthors(long bookId) throws SQLException {
+    public static List<Author> selectBookAuthors(long bookId)
+            throws SQLException, DataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT author.first_name, author.last_name\n" +
@@ -85,25 +87,23 @@ public class AuthorDB {
                 "WHERE author.auth_id = book_author.auth_id\n" +
                 "AND book_author.book_id = ?";
 
+        List<Author> authors = new ArrayList<>();
+
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setLong(1, bookId);
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    List<Author> authors = new ArrayList<>();
                     while (resultSet.next()) {
-                        Author author = new Author();
-                        author.setFirstName(resultSet.getString(1));
-                        author.setLastName(resultSet.getString(2));
+                        Author author =
+                                new Author(resultSet.getString("FIRST_NAME"),
+                                        resultSet.getString("LAST_NAME"));
                         authors.add(author);
-                    }
-                    if (authors.size() == 0) {
-                        return null;
-                    } else {
-                        return authors;
                     }
                 }
             }
         }
+
+        return authors;
     }
 
     public static int insertBookAuthors (Connection connection, long bookId, Book book)

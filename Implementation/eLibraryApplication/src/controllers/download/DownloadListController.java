@@ -5,6 +5,8 @@ import data.BookDB;
 import models.Account;
 import models.Book;
 import utils.ZipUtil;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,14 +25,14 @@ import java.util.List;
 public class DownloadListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String url = "/index.jsp";
+        String url;
         String action = req.getParameter("action");
 
         try {
-            if (action == null || action.equals("")) {
-                url = "/index.jsp";
+            if (action == null) {
+                resp.sendError(404);
+                return;
             } else if (action.equals("showDownloadList")) {
-                // TODO: 2016-03-14 check for logging in
                 url = showDownloadList(req, resp);
             } else if (action.equals("addToDownloadList")) {
                 url = addToDownloadList(req, resp);
@@ -38,14 +40,20 @@ public class DownloadListController extends HttpServlet {
                 url = deleteFromDownloadList(req, resp);
             } else if (action.equals("download")) {
                 url = downloadBooks(req, resp);
+            } else {
+                resp.sendError(404);
+                return;
             }
-        } catch (SQLException e) {
-            // TODO: 2016-03-14 error message
-            e.printStackTrace();
-            url = "/index.jsp";
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
+            }
+            resp.sendError(500);
+            return;
         }
 
-        if (url.equals("")) {
+        if (url.trim().equals("")) {
             resp.sendRedirect("/download/downloadList.jsp");
         } else {
             req.getServletContext().getRequestDispatcher(url).forward(req, resp);
@@ -61,7 +69,8 @@ public class DownloadListController extends HttpServlet {
     }
 
     private String addToDownloadList(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException, IOException {
+            throws SQLException, IOException,
+            DataValidationException, InternalDataValidationException {
         String url;
         String isbn13 = req.getParameter("isbn13");
 
@@ -70,16 +79,15 @@ public class DownloadListController extends HttpServlet {
         Book book = BookDB.selectBook(isbn13);
 
         if (book != null) {
-            if (account.listContainsBook(book) == -1) {
+            if (account.listContainsBook(book.getIsbn13()) == -1) {
                 downloadList.add(book);
-                book.setDescription(req.getServletContext().getRealPath(book.getDescription()));
-                if (book.getDescription() != null && !book.getDescription().equals("")) {
-                    book.readDescription();
+                if (!book.getDescription().trim().equals("")) {
+                    req.setAttribute("bookDescription",
+                            book.readDescriptionFile(
+                                    req.getServletContext().getRealPath(book.getDescription())));
                 }
                 AccountDB.updateAccount(account);
                 // TODO: 2016-03-11 success message, change add to list button as read-only
-            } else {
-                // TODO: 2016-03-11 error message
             }
             req.setAttribute("book", book);
             url = "/catalog/description?action=showDescription&amp;isbn13=" + isbn13;
@@ -92,12 +100,9 @@ public class DownloadListController extends HttpServlet {
     }
 
     private String deleteFromDownloadList(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException {
-        Book book = new Book();
-        book.setIsbn13(req.getParameter("isbn13"));
-
+            throws SQLException, DataValidationException {
         Account account = Account.getSessionAccount(req);
-        account.getDownloadList().remove(account.listContainsBook(book));
+        account.getDownloadList().remove(account.listContainsBook(req.getParameter("isbn13")));
         AccountDB.updateAccount(account);
 
         return "";
@@ -105,6 +110,9 @@ public class DownloadListController extends HttpServlet {
 
     private String downloadBooks(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException {
+        // TODO: 2016-03-29 for each book
+//        book.setPopularity(book.getPopularity() + 1);
+//        BookDB.updateBook(book);
         Account account = Account.getSessionAccount(req);
         ZipUtil.createDownloadsZip(account.getDownloadList(), req.getServletContext());
         return "";

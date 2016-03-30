@@ -3,7 +3,9 @@ package controllers.account;
 import data.AccountDB;
 import models.Account;
 import models.enums.AccountState;
+import utils.MailUtil;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +30,7 @@ public class ConfirmationController extends HttpServlet {
 //        account.setState(AccountState.ACTIVE);
 //        changeAccount(account);
     }
+
 
 //    private Account getAccount(String email) {
 //        return AccountDB.selectAccount(email);

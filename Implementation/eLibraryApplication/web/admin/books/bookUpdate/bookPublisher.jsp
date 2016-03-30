@@ -27,8 +27,8 @@
             <input type="radio" name="updateType" value="selectPublisher" checked>
             <select name="selectedPublisher" size="10">
                 <c:forEach var="publisher" items="${publishers}">
-                    <option value="${publisher.name}">
-                            ${publisher.name}
+                    <option value="<c:out value="${publisher.name}"/>">
+                        <c:out value="${publisher.name}"/>
                     </option>
                 </c:forEach>
             </select>

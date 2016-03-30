@@ -1,7 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b4f609a-a499-4417-84a7-272222171518" name="Default" comment="" />
+    <list default="true" id="9b4f609a-a499-4417-84a7-272222171518" name="Default" comment="- New data validation (using setters of models)&#10;- Error handling (for unsupported actions respond sends 404, for other exceptions - 500 + logging the exception itself)">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/dataValidation/DataValidationException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/dataValidation/DataValidationUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/dataValidation/InternalDataValidationException.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/admin/BookManagementController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/admin/BookManagementController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/utils/RegistrationUtil.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/AuthenticationController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/AuthenticationController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/RegistrationController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/RegistrationController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/admin/AccountManagementController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/admin/AccountManagementController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/CatalogController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/CatalogController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/DescriptionController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/DescriptionController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/download/DownloadListController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/download/DownloadListController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/AccountDB.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/AccountDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/AuthorDB.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/AuthorDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/BookDB.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/BookDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/CategoryDB.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/CategoryDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/PublisherDB.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/PublisherDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Account.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Account.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Book.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Book.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Publisher.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Publisher.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/RegistrationUtil.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/RegistrationUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/listeners/AccountListener.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/listeners/AccountListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/account/AuthenticationController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/account/AuthenticationController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/account/RegistrationController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/account/RegistrationController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/admin/AccountManagementController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/admin/AccountManagementController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/CatalogController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/CatalogController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/DescriptionController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/DescriptionController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/download/DownloadListController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/download/DownloadListController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/data/AccountDB.class" afterPath="$PROJECT_DIR$/out/production/Implementation/data/AccountDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/data/AuthorDB.class" afterPath="$PROJECT_DIR$/out/production/Implementation/data/AuthorDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/data/BookDB.class" afterPath="$PROJECT_DIR$/out/production/Implementation/data/BookDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/data/CategoryDB.class" afterPath="$PROJECT_DIR$/out/production/Implementation/data/CategoryDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/data/PublisherDB.class" afterPath="$PROJECT_DIR$/out/production/Implementation/data/PublisherDB.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/Account.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/Account.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/Book.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/Book.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/Publisher.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/Publisher.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/utils/RegistrationUtil.class" afterPath="$PROJECT_DIR$/out/production/Implementation/utils/RegistrationUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/utils/listeners/AccountListener.class" afterPath="$PROJECT_DIR$/out/production/Implementation/utils/listeners/AccountListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/adminOffice.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/adminOffice.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/bookUpdate/bookAuthors.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/bookUpdate/bookAuthors.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/bookUpdate/bookMainInfo.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/bookUpdate/bookMainInfo.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/bookUpdate/bookPublisher.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/bookUpdate/bookPublisher.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/libraryBooks.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/books/libraryBooks.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/description.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/description.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/account/AuthenticationController.java" afterPath="$PROJECT_DIR$/src/controllers/account/AuthenticationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/account/ConfirmationController.java" afterPath="$PROJECT_DIR$/src/controllers/account/ConfirmationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/account/RegistrationController.java" afterPath="$PROJECT_DIR$/src/controllers/account/RegistrationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/admin/AccountManagementController.java" afterPath="$PROJECT_DIR$/src/controllers/admin/AccountManagementController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/admin/BookManagementController.java" afterPath="$PROJECT_DIR$/src/controllers/admin/BookManagementController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/catalog/CatalogController.java" afterPath="$PROJECT_DIR$/src/controllers/catalog/CatalogController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java" afterPath="$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/download/DownloadListController.java" afterPath="$PROJECT_DIR$/src/controllers/download/DownloadListController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/AccountDB.java" afterPath="$PROJECT_DIR$/src/data/AccountDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/AuthorDB.java" afterPath="$PROJECT_DIR$/src/data/AuthorDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/BookDB.java" afterPath="$PROJECT_DIR$/src/data/BookDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/BookFileDB.java" afterPath="$PROJECT_DIR$/src/data/BookFileDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/CategoryDB.java" afterPath="$PROJECT_DIR$/src/data/CategoryDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/PublisherDB.java" afterPath="$PROJECT_DIR$/src/data/PublisherDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Account.java" afterPath="$PROJECT_DIR$/src/models/Account.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Author.java" afterPath="$PROJECT_DIR$/src/models/Author.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Book.java" afterPath="$PROJECT_DIR$/src/models/Book.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/BookFile.java" afterPath="$PROJECT_DIR$/src/models/BookFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Category.java" afterPath="$PROJECT_DIR$/src/models/Category.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Publisher.java" afterPath="$PROJECT_DIR$/src/models/Publisher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/User.java" afterPath="$PROJECT_DIR$/src/models/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/ConnectionPool.java" afterPath="$PROJECT_DIR$/src/utils/ConnectionPool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/listeners/AccountListener.java" afterPath="$PROJECT_DIR$/src/utils/listeners/AccountListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/account/register.jsp" afterPath="$PROJECT_DIR$/web/account/register.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/accounts/adminRegistration.jsp" afterPath="$PROJECT_DIR$/web/admin/accounts/adminRegistration.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/adminOffice.jsp" afterPath="$PROJECT_DIR$/web/admin/adminOffice.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/books/bookUpdate/bookAuthors.jsp" afterPath="$PROJECT_DIR$/web/admin/books/bookUpdate/bookAuthors.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/books/bookUpdate/bookMainInfo.jsp" afterPath="$PROJECT_DIR$/web/admin/books/bookUpdate/bookMainInfo.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/books/bookUpdate/bookPublisher.jsp" afterPath="$PROJECT_DIR$/web/admin/books/bookUpdate/bookPublisher.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/admin/books/libraryBooks.jsp" afterPath="$PROJECT_DIR$/web/admin/books/libraryBooks.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/catalog/description.jsp" afterPath="$PROJECT_DIR$/web/catalog/description.jsp" />
+    </list>
     <ignored path="Implementation.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -43,7 +123,7 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
-        <option name="myItemId" value="BOOK" />
+        <option name="myItemId" value="PUBLISHER" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
@@ -58,89 +138,98 @@
         <entry file="file://$PROJECT_DIR$/src/controllers/admin/BookManagementController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <caret line="302" column="86" selection-start-line="302" selection-start-column="86" selection-end-line="302" selection-end-column="86" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="method#doGet#0;class#BookManagementController#0" expanded="false" />
-                <element signature="method#updateBookAuthors#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#doPost#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#showLibraryBooks#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#getUpdateBook#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#deleteBook#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#doUpdateBook#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#updateBookPublisher#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#addBookFile#0;class#BookManagementController#0" expanded="false" />
+                <element signature="method#updateBook#0;class#BookManagementController#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CharacterEncodingFilter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/utils/filters/CharacterEncodingFilter.java">
+      <file leaf-file-name="accountBox.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/includes/accountBox.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state vertical-scroll-proportion="-9.375">
+              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bookMainInfo.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookMainInfo.jsp">
+      <file leaf-file-name="DataValidationException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/dataValidation/DataValidationException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.375">
-              <caret line="15" column="68" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="68" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bookUpdateReview.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookUpdateReview.jsp">
+      <file leaf-file-name="InternalDataValidationException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/dataValidation/InternalDataValidationException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.958333">
-              <caret line="82" column="45" selection-start-line="82" selection-start-column="45" selection-end-line="82" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BookDB.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/data/BookDB.java">
+      <file leaf-file-name="RegistrationController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/controllers/account/RegistrationController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="88" column="9" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
-              <folding>
-                <marker date="1458848629000" expanded="true" signature="446:482" placeholder="SELECT * FRO... book" />
-                <marker date="1458848629000" expanded="true" signature="1257:1293" placeholder="SELECT * FRO... book" />
-                <marker date="1458848629000" expanded="true" signature="2063:2317" placeholder="UPDATE book " />
-                <marker date="1458848629000" expanded="true" signature="3169:3301" placeholder="INSERT INTO book... " />
-                <marker date="1458848629000" expanded="true" signature="4656:4689" placeholder="DELETE FROM " />
-                <marker date="1458848629000" expanded="true" signature="5679:5697" placeholder="SELECT * FRO... book" />
-                <marker date="1458848629000" expanded="true" signature="6894:6936" placeholder="SELECT * FRO... book" />
-                <marker date="1458848629000" expanded="true" signature="7618:7825" placeholder="SELECT * FRO... book" />
-                <marker date="1458848629000" expanded="true" signature="8353:8395" placeholder="SELECT book_... book" />
-                <marker date="1458848629000" expanded="true" signature="9888:9939" placeholder="DELETE FROM " />
-              </folding>
+              <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CategoryDB.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/data/CategoryDB.java">
+      <file leaf-file-name="Account.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/models/Account.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="101" column="58" selection-start-line="101" selection-start-column="58" selection-end-line="101" selection-end-column="58" />
-              <folding>
-                <marker date="1458848629000" expanded="true" signature="523:560" placeholder="SELECT * FRO... category" />
-                <marker date="1458848629000" expanded="true" signature="1336:1358" placeholder="SELECT * FRO... category" />
-                <marker date="1458848629000" expanded="true" signature="2166:2382" placeholder="SELECT categ... category" />
-                <marker date="1458848629000" expanded="true" signature="3192:3240" placeholder="INSERT INTO book_category... " />
-                <marker date="1458848629000" expanded="true" signature="3192:3275" placeholder="INSERT INTO book_category... " />
-                <marker date="1458848629000" expanded="true" signature="3971:4014" placeholder="DELETE FROM " />
-                <marker date="1458848629000" expanded="true" signature="4466:4531" placeholder="SELECT categ... category" />
-              </folding>
+              <caret line="231" column="22" selection-start-line="231" selection-start-column="22" selection-end-line="231" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Book.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/Book.java">
+      <file leaf-file-name="libraryBooks.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/admin/books/libraryBooks.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.5">
+              <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DescriptionController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bookAuthors.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookAuthors.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.35159817">
+              <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -151,10 +240,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -164,57 +256,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/includes/downloadList.jsp" />
-        <option value="$PROJECT_DIR$/web/catalog/catalog.jsp" />
-        <option value="$PROJECT_DIR$/src/utils/CookieUtil.java" />
-        <option value="$PROJECT_DIR$/web/deleteCookies.jsp" />
-        <option value="$PROJECT_DIR$/src/controllers/account/LoggingController.java" />
-        <option value="$PROJECT_DIR$/src/utils/listeners/AccountListener.java" />
-        <option value="$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java" />
-        <option value="$PROJECT_DIR$/web/includes/downloadBox.jsp" />
-        <option value="$PROJECT_DIR$/web/download/downloadList.jsp" />
-        <option value="$PROJECT_DIR$/src/utils/listeners/SessionListener.java" />
-        <option value="$PROJECT_DIR$/web/admin/books/bookUpdate.jsp" />
-        <option value="$PROJECT_DIR$/src/utils/ZipUtil.java" />
-        <option value="$PROJECT_DIR$/src/controllers/download/DownloadListController.java" />
-        <option value="$PROJECT_DIR$/web/admin/accounts/libraryAccounts.jsp" />
-        <option value="$PROJECT_DIR$/web/account/confirm.jsp" />
-        <option value="$PROJECT_DIR$/src/utils/PasswordUtil.java" />
-        <option value="$PROJECT_DIR$/src/data/AccountDB.java" />
         <option value="$PROJECT_DIR$/src/utils/MailUtil.java" />
-        <option value="$PROJECT_DIR$/web/account/register.jsp" />
-        <option value="$PROJECT_DIR$/src/utils/RegistrationUtil.java" />
-        <option value="$PROJECT_DIR$/src/controllers/account/RegistrationController.java" />
-        <option value="$PROJECT_DIR$/src/controllers/admin/AccountManagementController.java" />
-        <option value="$PROJECT_DIR$/web/admin/accounts/adminRegistration.jsp" />
         <option value="$PROJECT_DIR$/src/controllers/account/LogoutController.java" />
-        <option value="$PROJECT_DIR$/src/models/Account.java" />
         <option value="$PROJECT_DIR$/web/includes/accountBox.jsp" />
-        <option value="$PROJECT_DIR$/src/controllers/account/AuthenticationController.java" />
         <option value="$PROJECT_DIR$/src/utils/filters/AuthenticationFilter.java" />
         <option value="$PROJECT_DIR$/web/index.jsp" />
-        <option value="$PROJECT_DIR$/web/admin/books/libraryBooks.jsp" />
-        <option value="$PROJECT_DIR$/web/admin/adminOffice.jsp" />
-        <option value="$PROJECT_DIR$/web/catalog/description.jsp" />
         <option value="$PROJECT_DIR$/src/utils/filters/CharacterEncodingFilter.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/models/Publisher.java" />
         <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/mainInfo.jsp" />
+        <option value="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/desc.txt" />
+        <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookUpdateReview.jsp" />
+        <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookFiles.jsp" />
+        <option value="$PROJECT_DIR$/web/admin/books/libraryBooks.jsp" />
         <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookAuthors.jsp" />
         <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookPublisher.jsp" />
+        <option value="$PROJECT_DIR$/src/utils/inputDataValidation/BookDataValidation.java" />
+        <option value="$PROJECT_DIR$/src/utils/inputDataValidation/SpecialValidation.java" />
+        <option value="$PROJECT_DIR$/src/utils/inputDataValidation/ValidationUtil.java" />
+        <option value="$PROJECT_DIR$/src/utils/ValidationUtil.java" />
+        <option value="$PROJECT_DIR$/web/catalog/description.jsp" />
+        <option value="$PROJECT_DIR$/src/utils/dataValidation/DataValidationException.java" />
+        <option value="$PROJECT_DIR$/src/utils/dataValidation/InternalValidationException.java" />
+        <option value="$PROJECT_DIR$/src/models/Author.java" />
         <option value="$PROJECT_DIR$/src/models/BookFile.java" />
-        <option value="$PROJECT_DIR$/src/models/Book.java" />
-        <option value="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/desc.txt" />
-        <option value="$PROJECT_DIR$/src/data/BookFileDB.java" />
-        <option value="$PROJECT_DIR$/src/data/PublisherDB.java" />
+        <option value="$PROJECT_DIR$/src/models/Category.java" />
+        <option value="$PROJECT_DIR$/src/models/Publisher.java" />
+        <option value="$PROJECT_DIR$/src/models/User.java" />
         <option value="$PROJECT_DIR$/src/data/AuthorDB.java" />
-        <option value="$PROJECT_DIR$/src/data/CategoryDB.java" />
-        <option value="$PROJECT_DIR$/src/controllers/catalog/CatalogController.java" />
         <option value="$PROJECT_DIR$/src/data/BookDB.java" />
-        <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookUpdateReview.jsp" />
+        <option value="$PROJECT_DIR$/src/data/BookFileDB.java" />
+        <option value="$PROJECT_DIR$/src/data/CategoryDB.java" />
+        <option value="$PROJECT_DIR$/src/data/PublisherDB.java" />
+        <option value="$PROJECT_DIR$/src/utils/dataValidation/ValidationUtil.java" />
+        <option value="$PROJECT_DIR$/src/utils/RegistrationUtil.java" />
+        <option value="$PROJECT_DIR$/src/controllers/account/ConfirmationController.java" />
+        <option value="$PROJECT_DIR$/src/utils/dataValidation/DataValidationUtil.java" />
+        <option value="$PROJECT_DIR$/src/models/Book.java" />
+        <option value="$PROJECT_DIR$/web/admin/adminOffice.jsp" />
+        <option value="$PROJECT_DIR$/src/utils/listeners/AccountListener.java" />
+        <option value="$PROJECT_DIR$/src/models/Account.java" />
+        <option value="$PROJECT_DIR$/web/account/register.jsp" />
+        <option value="$PROJECT_DIR$/web/admin/accounts/adminRegistration.jsp" />
         <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookMainInfo.jsp" />
-        <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookFiles.jsp" />
+        <option value="$PROJECT_DIR$/src/data/AccountDB.java" />
+        <option value="$PROJECT_DIR$/src/utils/ConnectionPool.java" />
+        <option value="$PROJECT_DIR$/src/controllers/account/RegistrationController.java" />
         <option value="$PROJECT_DIR$/src/controllers/admin/BookManagementController.java" />
+        <option value="$PROJECT_DIR$/src/controllers/admin/AccountManagementController.java" />
+        <option value="$PROJECT_DIR$/src/controllers/account/AuthenticationController.java" />
+        <option value="$PROJECT_DIR$/src/controllers/catalog/CatalogController.java" />
+        <option value="$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java" />
+        <option value="$PROJECT_DIR$/src/controllers/download/DownloadListController.java" />
       </list>
     </option>
   </component>
@@ -244,14 +336,14 @@
     <option name="width" value="1280" />
     <option name="height" value="800" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -269,8 +361,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -317,7 +410,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
+              <option name="myItemId" value="includes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -335,11 +428,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="books" />
+              <option name="myItemId" value="account" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -353,151 +442,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="books" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bookUpdate" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="artifacts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation_war_exploded" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="artifacts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation_war_exploded" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="catalog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="artifacts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation_war_exploded" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="catalog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="books" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="artifacts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation_war_exploded" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="catalog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="books" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="9781593272203" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -531,7 +481,7 @@
     <configuration default="false" name="PasswordUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="utils.*" />
+          <option name="PATTERN" value="utils.dataValidation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -1183,12 +1133,14 @@
       <workItem from="1458396324390" duration="18000" />
       <workItem from="1458565296181" duration="8376000" />
       <workItem from="1458585091105" duration="14031000" />
-      <workItem from="1458828583371" duration="8213000" />
+      <workItem from="1458828583371" duration="8431000" />
+      <workItem from="1458932149252" duration="4000" />
+      <workItem from="1459170002271" duration="32029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192853000" />
+    <option name="totallyTimeSpent" value="225104000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1201,65 +1153,36 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22617124" sideWeight="0.43835616" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22617124" sideWeight="0.56164384" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22617124" sideWeight="0.56164384" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23344104" sideWeight="0.509589" order="3" side_tool="true" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.51130855" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49353796" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22617124" sideWeight="0.43061224" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22617124" sideWeight="0.56164384" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.226979" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22617124" sideWeight="0.56938773" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.48869145" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23344104" sideWeight="0.509589" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22617124" sideWeight="0.4408163" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24151857" sideWeight="0.509589" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22617124" sideWeight="0.55918366" order="5" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
+    </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -1272,17 +1195,27 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- New data validation (using setters of models)&#10;- Error handling (for unsupported actions respond sends 404, for other exceptions - 500 + logging the exception itself)" />
+    <option name="LAST_COMMIT_MESSAGE" value="- New data validation (using setters of models)&#10;- Error handling (for unsupported actions respond sends 404, for other exceptions - 500 + logging the exception itself)" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controllers/admin/BookManagementController.java</url>
-          <line>76</line>
+          <url>file://$PROJECT_DIR$/src/controllers/account/AuthenticationController.java</url>
+          <line>41</line>
           <properties />
-          <option name="timeStamp" value="105" />
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/controllers/account/AuthenticationController.java</url>
+          <line>70</line>
+          <properties />
+          <option name="timeStamp" value="124" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="106" />
+      <option name="time" value="127" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1291,91 +1224,31 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/controllers/admin/BookManagementController.java">
+    <entry file="file://$PROJECT_DIR$/web/download/downloadList.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="239" column="0" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
-          <folding>
-            <element signature="method#doGet#0;class#BookManagementController#0" expanded="false" />
-            <element signature="method#updateBookAuthors#0;class#BookManagementController#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookFiles.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6637168">
+          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Category.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Implementation.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/util/List.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/security/NoSuchAlgorithmException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
-          <caret line="599" column="6" selection-start-line="599" selection-start-column="6" selection-end-line="599" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/io/InputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9536585">
-          <caret line="99" column="15" selection-start-line="99" selection-start-column="15" selection-end-line="99" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/io/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="1005" column="19" selection-start-line="1005" selection-start-column="19" selection-end-line="1005" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/34a96907-5fb7-484c-a7de-12f7cca89fb3/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/util/zip/ZipOutputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4848485">
-          <caret line="44" column="6" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Implementation.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74786323">
-          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/listeners/AccountListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22727273">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/7f09ecc1/34a96907-5fb7-484c-a7de-12f7cca89fb3/eLibrary.AUTHOR">
+    <entry file="jar://$PROJECT_DIR$/../../../../Study/Programming/Java/ServerWorkSpace/apache-tomcat-8.0.32/lib/tomcat-dbcp.jar!/org/apache/tomcat/dbcp/dbcp2/DelegatingResultSet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3550914">
+          <caret line="111" column="19" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/7f09ecc1/34a96907-5fb7-484c-a7de-12f7cca89fb3/eLibrary.BOOK">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -1384,319 +1257,419 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/AccountDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <marker date="1458572482000" expanded="true" signature="476:497" placeholder="SELECT * FRO... account" />
-            <marker date="1458572482000" expanded="true" signature="1144:1254" placeholder="SELECT * FRO... account" />
-            <marker date="1458572482000" expanded="true" signature="2045:2237" placeholder="INSERT INTO account... " />
-            <marker date="1458572482000" expanded="true" signature="3476:3700" placeholder="UPDATE accou... " />
-            <marker date="1458572482000" expanded="true" signature="4935:4984" placeholder="SELECT accou... account" />
-            <marker date="1458572482000" expanded="true" signature="5674:5764" placeholder="INSERT INTO account_download_list... " />
-            <marker date="1458572482000" expanded="true" signature="6630:6734" placeholder="SELECT book_... account_download_list" />
-            <marker date="1458572482000" expanded="true" signature="7693:7747" placeholder="DELETE FROM " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin/adminOffice.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59067357">
-          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/catalog/description.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66062176">
-          <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/catalog/catalog.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31088084">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.634715">
-          <caret line="17" column="63" selection-start-line="17" selection-start-column="63" selection-end-line="17" selection-end-column="63" />
+        <state vertical-scroll-proportion="0.5479452">
+          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/filters/AuthenticationFilter.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/lang/NullPointerException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.25609756">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="52" column="6" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1554404">
-          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
+    <entry file="dbDummy://dbtable:/7f09ecc1/34a96907-5fb7-484c-a7de-12f7cca89fb3/eLibrary.BOOK_PUBLISHER">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/7f09ecc1/34a96907-5fb7-484c-a7de-12f7cca89fb3/eLibrary.PUBLISHER">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/Author.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9512195">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.8051948">
+          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
           <folding>
-            <element signature="e#402#403#0" expanded="true" />
-            <element signature="e#444#445#0" expanded="true" />
-            <element signature="e#598#599#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/catalog/books/9781593272203/desc.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookPublisher.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25">
-          <caret line="10" column="42" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/catalog/books/9781593272203/image.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/catalog/books/9781593272203/thumb.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/download/DownloadListController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80487806">
-          <caret line="100" column="41" selection-start-line="100" selection-start-column="41" selection-end-line="100" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/BookFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70731705">
-          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.77272725">
+          <caret line="56" column="1" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Account.java">
+    <entry file="file://$PROJECT_DIR$/src/models/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.13414635">
-          <caret line="97" column="5" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.8701299">
+          <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
           <folding>
-            <element signature="e#2172#2173#0" expanded="false" />
-            <element signature="e#2206#2207#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookAuthors.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.375">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/desc.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Publisher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25609756">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Category.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25609756">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/image.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Book.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin/books/libraryBooks.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51369864">
-          <caret line="21" column="82" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/PublisherDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45454547">
-          <caret line="140" column="53" selection-start-line="140" selection-start-column="53" selection-end-line="140" selection-end-column="53" />
-          <folding>
-            <marker date="1458848422000" expanded="true" signature="518:541" placeholder="SELECT * FRO... publisher" />
-            <marker date="1458848422000" expanded="true" signature="1227:1265" placeholder="SELECT * FRO... publisher" />
-            <marker date="1458848422000" expanded="true" signature="2068:2111" placeholder="SELECT pub_i... publisher" />
-            <marker date="1458848422000" expanded="true" signature="2754:2876" placeholder="INSERT INTO author... " />
-            <marker date="1458848422000" expanded="true" signature="3766:3948" placeholder="SELECT * FRO... publisher" />
-            <marker date="1458848422000" expanded="true" signature="4707:4751" placeholder="INSERT INTO book_publisher... " />
-            <marker date="1458848422000" expanded="true" signature="4707:4786" placeholder="INSERT INTO book_publisher... " />
-            <marker date="1458848422000" expanded="true" signature="5280:5324" placeholder="DELETE FROM " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/BookFileDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2857143">
-          <caret line="46" column="74" selection-start-line="46" selection-start-column="74" selection-end-line="46" selection-end-column="83" />
-          <folding>
-            <marker date="1458848422000" expanded="true" signature="568:850" placeholder="SELECT forma... format" />
-            <marker date="1458848422000" expanded="true" signature="1700:1757" placeholder="INSERT INTO book_file... " />
-            <marker date="1458848422000" expanded="true" signature="1700:1798" placeholder="INSERT INTO book_file... " />
-            <marker date="1458848422000" expanded="true" signature="2620:2659" placeholder="DELETE FROM " />
+            <element signature="imports" expanded="false" />
+            <element signature="e#680#681#0" expanded="false" />
+            <element signature="e#712#713#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data/AuthorDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12337662">
-          <caret line="123" column="33" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
+        <state vertical-scroll-proportion="3.474026">
+          <caret line="117" column="43" selection-start-line="117" selection-start-column="43" selection-end-line="117" selection-end-column="43" />
           <folding>
-            <marker date="1458848422000" expanded="true" signature="506:526" placeholder="SELECT * FRO... author" />
-            <marker date="1458848422000" expanded="true" signature="1307:1349" placeholder="INSERT INTO author... " />
-            <marker date="1458848422000" expanded="true" signature="1307:1384" placeholder="INSERT INTO author... " />
-            <marker date="1458848422000" expanded="true" signature="1994:2059" placeholder="SELECT auth_... author" />
-            <marker date="1458848422000" expanded="true" signature="2762:2966" placeholder="SELECT autho... author" />
-            <marker date="1458848422000" expanded="true" signature="4003:4045" placeholder="INSERT INTO book_author... " />
-            <marker date="1458848422000" expanded="true" signature="4003:4080" placeholder="INSERT INTO book_author... " />
-            <marker date="1458848422000" expanded="true" signature="4760:4801" placeholder="DELETE FROM " />
+            <marker date="1459265138000" expanded="true" signature="584:604" placeholder="SELECT * FRO... author" />
+            <marker date="1459265138000" expanded="true" signature="1366:1408" placeholder="INSERT INTO author... " />
+            <marker date="1459265138000" expanded="true" signature="1366:1443" placeholder="INSERT INTO author... " />
+            <marker date="1459265138000" expanded="true" signature="2053:2118" placeholder="SELECT auth_... author" />
+            <marker date="1459265138000" expanded="true" signature="2858:3062" placeholder="SELECT autho... author" />
+            <marker date="1459265138000" expanded="true" signature="3940:3982" placeholder="INSERT INTO book_author... " />
+            <marker date="1459265138000" expanded="true" signature="3940:4017" placeholder="INSERT INTO book_author... " />
+            <marker date="1459265138000" expanded="true" signature="4697:4738" placeholder="DELETE FROM " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/catalog/CatalogController.java">
+    <entry file="file://$PROJECT_DIR$/src/data/BookFileDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6753247">
-          <caret line="66" column="65" selection-start-line="66" selection-start-column="65" selection-end-line="66" selection-end-column="65" />
-          <folding />
+        <state vertical-scroll-proportion="1.0064934">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1459265138000" expanded="true" signature="674:956" placeholder="SELECT forma... format" />
+            <marker date="1459265138000" expanded="true" signature="1796:1853" placeholder="INSERT INTO book_file... " />
+            <marker date="1459265138000" expanded="true" signature="1796:1894" placeholder="INSERT INTO book_file... " />
+            <marker date="1459265138000" expanded="true" signature="2716:2755" placeholder="DELETE FROM " />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data/CategoryDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="101" column="58" selection-start-line="101" selection-start-column="58" selection-end-line="101" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.48051947">
+          <caret line="81" column="40" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
           <folding>
-            <marker date="1458848629000" expanded="true" signature="523:560" placeholder="SELECT * FRO... category" />
-            <marker date="1458848629000" expanded="true" signature="1336:1358" placeholder="SELECT * FRO... category" />
-            <marker date="1458848629000" expanded="true" signature="2166:2382" placeholder="SELECT categ... category" />
-            <marker date="1458848629000" expanded="true" signature="3192:3240" placeholder="INSERT INTO book_category... " />
-            <marker date="1458848629000" expanded="true" signature="3192:3275" placeholder="INSERT INTO book_category... " />
-            <marker date="1458848629000" expanded="true" signature="3971:4014" placeholder="DELETE FROM " />
-            <marker date="1458848629000" expanded="true" signature="4466:4531" placeholder="SELECT categ... category" />
+            <marker date="1459265138000" expanded="true" signature="587:624" placeholder="SELECT * FRO... category" />
+            <marker date="1459265138000" expanded="true" signature="1422:1444" placeholder="SELECT * FRO... category" />
+            <marker date="1459265138000" expanded="true" signature="2256:2472" placeholder="SELECT categ... category" />
+            <marker date="1459265138000" expanded="true" signature="3261:3309" placeholder="INSERT INTO book_category... " />
+            <marker date="1459265138000" expanded="true" signature="3261:3344" placeholder="INSERT INTO book_category... " />
+            <marker date="1459265138000" expanded="true" signature="4040:4083" placeholder="DELETE FROM " />
+            <marker date="1459265138000" expanded="true" signature="4535:4600" placeholder="SELECT categ... category" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.38-bin.jar!/com/mysql/jdbc/PreparedStatement.class">
+    <entry file="file://$PROJECT_DIR$/src/data/PublisherDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5770116">
-          <caret line="2254" column="16" selection-start-line="2254" selection-start-column="16" selection-end-line="2254" selection-end-column="16" />
-          <folding />
+        <state vertical-scroll-proportion="0.71428573">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1459265138000" expanded="true" signature="596:619" placeholder="SELECT * FRO... publisher" />
+            <marker date="1459265138000" expanded="true" signature="1330:1368" placeholder="SELECT * FRO... publisher" />
+            <marker date="1459265138000" expanded="true" signature="2107:2150" placeholder="SELECT pub_i... publisher" />
+            <marker date="1459265138000" expanded="true" signature="2793:2915" placeholder="INSERT INTO author... " />
+            <marker date="1459265138000" expanded="true" signature="3830:4012" placeholder="SELECT * FRO... publisher" />
+            <marker date="1459265138000" expanded="true" signature="4707:4751" placeholder="INSERT INTO book_publisher... " />
+            <marker date="1459265138000" expanded="true" signature="4707:4786" placeholder="INSERT INTO book_publisher... " />
+            <marker date="1459265138000" expanded="true" signature="5280:5324" placeholder="DELETE FROM " />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/sql/PreparedStatement.java">
+    <entry file="file://$PROJECT_DIR$/src/data/UserDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="235" column="9" selection-start-line="235" selection-start-column="9" selection-end-line="235" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.58441556">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+          <folding>
+            <marker date="1457716689000" expanded="true" signature="469:559" placeholder="INSERT INTO user... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/enums/AccountState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16233766">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data/BookDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="88" column="9" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="247" column="24" selection-start-line="247" selection-start-column="24" selection-end-line="247" selection-end-column="24" />
           <folding>
-            <marker date="1458848629000" expanded="true" signature="446:482" placeholder="SELECT * FRO... book" />
-            <marker date="1458848629000" expanded="true" signature="1257:1293" placeholder="SELECT * FRO... book" />
-            <marker date="1458848629000" expanded="true" signature="2063:2317" placeholder="UPDATE book " />
-            <marker date="1458848629000" expanded="true" signature="3169:3301" placeholder="INSERT INTO book... " />
-            <marker date="1458848629000" expanded="true" signature="4656:4689" placeholder="DELETE FROM " />
-            <marker date="1458848629000" expanded="true" signature="5679:5697" placeholder="SELECT * FRO... book" />
-            <marker date="1458848629000" expanded="true" signature="6894:6936" placeholder="SELECT * FRO... book" />
-            <marker date="1458848629000" expanded="true" signature="7618:7825" placeholder="SELECT * FRO... book" />
-            <marker date="1458848629000" expanded="true" signature="8353:8395" placeholder="SELECT book_... book" />
-            <marker date="1458848629000" expanded="true" signature="9888:9939" placeholder="DELETE FROM " />
+            <marker date="1459265138000" expanded="true" signature="618:654" placeholder="SELECT * FRO... book" />
+            <marker date="1459265138000" expanded="true" signature="1487:1523" placeholder="SELECT * FRO... book" />
+            <marker date="1459265138000" expanded="true" signature="2293:2547" placeholder="UPDATE book " />
+            <marker date="1459265138000" expanded="true" signature="3399:3531" placeholder="INSERT INTO book... " />
+            <marker date="1459265138000" expanded="true" signature="4886:4920" placeholder="DELETE FROM " />
+            <marker date="1459265138000" expanded="true" signature="5968:5986" placeholder="SELECT * FRO... book" />
+            <marker date="1459265138000" expanded="true" signature="7241:7283" placeholder="SELECT * FRO... book" />
+            <marker date="1459265138000" expanded="true" signature="8023:8230" placeholder="SELECT * FRO... book" />
+            <marker date="1459265138000" expanded="true" signature="8758:8800" placeholder="SELECT book_... book" />
+            <marker date="1459265138000" expanded="true" signature="10226:10277" placeholder="DELETE FROM " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookUpdateReview.jsp">
+    <entry file="file://$PROJECT_DIR$/web/admin/adminOffice.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.958333">
-          <caret line="82" column="45" selection-start-line="82" selection-start-column="45" selection-end-line="82" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.4178082">
+          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5281385">
+          <caret line="1338" column="19" selection-start-line="1338" selection-start-column="19" selection-end-line="1338" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/Category.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08874459">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/Publisher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/Book.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3982684">
+          <caret line="195" column="32" selection-start-line="195" selection-start-column="32" selection-end-line="195" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/catalog/catalog.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/catalog/description.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.65981734">
+          <caret line="44" column="32" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/listeners/AccountListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5519481">
+          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/account/confirm.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/dataValidation/DataValidationUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10606061">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/admin/accounts/adminRegistration.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24657534">
+          <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/account/register.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.02739726">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookMainInfo.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.375">
-          <caret line="15" column="68" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="68" />
+        <state vertical-scroll-proportion="0.70776254">
+          <caret line="32" column="64" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookFiles.jsp">
+    <entry file="jar://$PROJECT_DIR$/../../../../Study/Programming/Java/ServerWorkSpace/apache-tomcat-8.0.32/lib/servlet-api.jar!/javax/servlet/http/HttpServletResponseWrapper.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.761658">
-          <caret line="32" column="65" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.31034482">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+          <folding>
+            <element signature="e#583#584#0" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../Study/Programming/Java/ServerWorkSpace/apache-tomcat-8.0.32/lib/servlet-api.jar!/javax/servlet/http/HttpServletResponse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="71" column="9" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/account/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.27202073">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/ConnectionPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/AccountDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="55" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
+          <folding>
+            <marker date="1459345511000" expanded="true" signature="649:670" placeholder="SELECT * FRO... account" />
+            <marker date="1459345511000" expanded="true" signature="1375:1485" placeholder="SELECT * FRO... account" />
+            <marker date="1459345511000" expanded="true" signature="2276:2468" placeholder="INSERT INTO account... " />
+            <marker date="1459345511000" expanded="true" signature="3707:3931" placeholder="UPDATE accou... " />
+            <marker date="1459345511000" expanded="true" signature="5284:5333" placeholder="SELECT accou... account" />
+            <marker date="1459345511000" expanded="true" signature="6023:6113" placeholder="INSERT INTO account_download_list... " />
+            <marker date="1459345511000" expanded="true" signature="7037:7141" placeholder="SELECT book_... account_download_list" />
+            <marker date="1459345511000" expanded="true" signature="8108:8162" placeholder="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/filters/CharacterEncodingFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6073171">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/account/ConfirmationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44871795">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/admin/AccountManagementController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0042735">
+          <caret line="67" column="30" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/catalog/CatalogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21367522">
+          <caret line="23" column="112" selection-start-line="23" selection-start-column="112" selection-end-line="23" selection-end-column="112" />
+          <folding>
+            <element signature="method#doGet#0;class#CatalogController#0" expanded="false" />
+            <element signature="method#showCatalog#0;class#CatalogController#0" expanded="false" />
+            <element signature="method#searchForTitle#0;class#CatalogController#0" expanded="false" />
+            <element signature="method#showCategory#0;class#CatalogController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/download/DownloadListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.85470086">
+          <caret line="55" column="25" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/account/AuthenticationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6837607">
+          <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="59" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/includes/accountBox.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.375">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/dataValidation/DataValidationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/dataValidation/InternalDataValidationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1704,18 +1677,58 @@
     <entry file="file://$PROJECT_DIR$/src/controllers/admin/BookManagementController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <caret line="302" column="86" selection-start-line="302" selection-start-column="86" selection-end-line="302" selection-end-column="86" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#doGet#0;class#BookManagementController#0" expanded="false" />
-            <element signature="method#updateBookAuthors#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#doPost#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#showLibraryBooks#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#getUpdateBook#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#deleteBook#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#doUpdateBook#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#updateBookPublisher#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#addBookFile#0;class#BookManagementController#0" expanded="false" />
+            <element signature="method#updateBook#0;class#BookManagementController#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/filters/CharacterEncodingFilter.java">
+    <entry file="file://$PROJECT_DIR$/src/controllers/account/RegistrationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="231" column="22" selection-start-line="231" selection-start-column="22" selection-end-line="231" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/admin/books/libraryBooks.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.5">
+          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/admin/books/bookUpdate/bookAuthors.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35159817">
+          <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
           <folding />
         </state>
       </provider>

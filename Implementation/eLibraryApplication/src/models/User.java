@@ -1,5 +1,9 @@
 package models;
 
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
+import utils.dataValidation.DataValidationUtil;
+
 import java.io.Serializable;
 
 /**
@@ -10,17 +14,23 @@ public class User implements Serializable {
     private String lastName;
     private Account account;
 
-    public User() {
-        this.setFirstName("");
-        this.setLastName("");
-        this.account = new Account();
+    public User(String firstName, String lastName, Account account)
+            throws DataValidationException, InternalDataValidationException{
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setAccount(account);
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName) throws DataValidationException {
+        if (firstName == null
+                || firstName.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(firstName)) {
+            throw new DataValidationException("Please, enter the user first name (without < > symbols)");
+        }
         this.firstName = firstName;
     }
 
@@ -28,7 +38,12 @@ public class User implements Serializable {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName) throws DataValidationException {
+        if (lastName == null
+                || lastName.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(lastName)) {
+            throw new DataValidationException("Please, enter the user last name (without < > symbols)");
+        }
         this.lastName = lastName;
     }
 
@@ -36,7 +51,10 @@ public class User implements Serializable {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(Account account) throws InternalDataValidationException {
+        if (account == null) {
+            throw new InternalDataValidationException("Invalid user account");
+        }
         this.account = account;
     }
 }

@@ -1,5 +1,8 @@
 package models;
 
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.DataValidationUtil;
+
 import java.io.Serializable;
 
 /**
@@ -9,16 +12,21 @@ public class Category implements Serializable {
     private String name;
     private String description;
 
-    public Category() {
-        this.setName("");
-        this.setDescription("");
+    public Category(String name, String description) throws DataValidationException {
+        this.setName(name);
+        this.setDescription(description);
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws DataValidationException {
+        if (name == null
+                || name.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(name)) {
+            throw new DataValidationException("Please, enter the category name (without < > symbols)");
+        }
         this.name = name;
     }
 
@@ -26,7 +34,13 @@ public class Category implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws DataValidationException {
+        if (description == null) {
+            description = "";
+        }
+        if (DataValidationUtil.xssInjectionCheck(name)) {
+            throw new DataValidationException("Please, enter the category description (without < > symbols)");
+        }
         this.description = description;
     }
 }

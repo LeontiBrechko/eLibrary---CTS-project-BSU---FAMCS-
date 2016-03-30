@@ -3,6 +3,7 @@ package data;
 import models.Book;
 import models.Publisher;
 import utils.ConnectionPool;
+import utils.dataValidation.DataValidationException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class PublisherDB {
     public static List<Publisher> selectAllPublishers()
-            throws SQLException {
+            throws SQLException, DataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM publisher";
@@ -37,12 +38,12 @@ public class PublisherDB {
     }
 
     public static Publisher selectPublisher(String name)
-            throws SQLException {
+            throws SQLException, DataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM publisher WHERE name = ?";
 
-        Publisher publisher;
+        Publisher publisher = null;
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -50,8 +51,6 @@ public class PublisherDB {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
                         publisher = initializePublisher(resultSet);
-                    } else {
-                        publisher = null;
                     }
                 }
             }
@@ -104,7 +103,7 @@ public class PublisherDB {
     }
 
     public static Publisher selectBookPublisher(long bookId)
-            throws SQLException {
+            throws SQLException, DataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * " +
@@ -112,7 +111,7 @@ public class PublisherDB {
                 "WHERE publisher.pub_id = book_publisher.pub_id\n" +
                 "AND book_publisher.book_id = ?";
 
-        Publisher publisher;
+        Publisher publisher = null;
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -120,8 +119,6 @@ public class PublisherDB {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
                         publisher = initializePublisher(resultSet);
-                    } else {
-                        publisher = null;
                     }
                 }
             }
@@ -161,14 +158,16 @@ public class PublisherDB {
     }
 
     private static Publisher initializePublisher(ResultSet resultSet)
-            throws SQLException {
-            Publisher publisher = new Publisher();
-            publisher.setName(resultSet.getString("NAME"));
-            publisher.setCountry(resultSet.getString("COUNTRY"));
-            publisher.setState(resultSet.getString("STATE"));
-            publisher.setCity(resultSet.getString("CITY"));
-            publisher.setStreetNumber(resultSet.getInt("STREET_NUM"));
-            publisher.setStreetName(resultSet.getString("STREET_NAME"));
+            throws SQLException, DataValidationException {
+            Publisher publisher =
+                    new Publisher(resultSet.getString("NAME"), resultSet.getString("COUNTRY"),
+                            resultSet.getString("CITY"), resultSet.getString("STATE"),
+                            resultSet.getInt("STREET_NUM"), resultSet.getString("STREET_NAME"));
             return publisher;
     }
+
+//    public static boolean publisherExists(String publisherName)
+//            throws SQLException {
+//        return selectPublisher(publisherName) != null;
+//    }
 }

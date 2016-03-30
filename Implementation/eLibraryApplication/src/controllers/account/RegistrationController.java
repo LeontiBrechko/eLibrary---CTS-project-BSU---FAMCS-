@@ -1,16 +1,15 @@
 package controllers.account;
 
-import data.AccountDB;
 import data.UserDB;
 import models.Account;
 import models.User;
 import utils.MailUtil;
 import utils.PasswordUtil;
-import utils.RegistrationUtil;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.DataValidationUtil;
+import utils.dataValidation.InternalDataValidationException;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,43 +28,65 @@ import java.util.Map;
 public class RegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String referrer = req.getParameter("referrer");
+//        String referrer = req.getParameter("referrer");
         String url;
 
-        User user = initializeUserAccount(req.getParameterMap());
-
-
         try {
-            if (RegistrationUtil.checkRegistrationData(user, req, resp) &
-                    !RegistrationUtil.accountExists(user.getAccount(), req, resp)) {
+            setInputData(req);
+            User user = initializeUserAccount(req.getParameterMap());
+            DataValidationUtil.validateRegistrationData(user.getAccount(), req, resp);
 
-                RegistrationUtil.createUserAccount(user);
-                Account.addAccountCookie(user.getAccount(), resp);
-                RegistrationUtil.sendConfirmationEmail(referrer, user.getAccount());
-                url = "/account/confirm.jsp";
-            } else {
-                // TODO: 2016-03-11 error message
-                url = "/account/register.jsp";
-                req.setAttribute("user", user);
+            String saltedAndHashedPassword =
+                    PasswordUtil.hashPassword(user.getAccount().getPassword() + user.getAccount().getSaltValue());
+            user.getAccount().setPassword(saltedAndHashedPassword);
+
+            UserDB.insertUser(user);
+
+            Account.addAccountCookie(user.getAccount(), resp);
+            // TODO: 2016-03-29 confirmation
+//            sendConfirmationEmail(referrer, user.getAccount());
+            url = "/account/confirm.jsp";
+
+        } catch (DataValidationException e) {
+            req.setAttribute("errorMessage", e.getMessage());
+            url = "/account/register.jsp";
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
             }
-        } catch (SQLException | NoSuchAlgorithmException | MessagingException e) {
-            e.printStackTrace();
-            // TODO: 2016-03-11 error message
-            url = "/index.jsp";
+            resp.sendError(500);
+            return;
         }
 
         getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
-    private User initializeUserAccount(Map<String, String[]> parameters) {
-        User user = new User();
+    private void setInputData(HttpServletRequest req) {
+        Map<String, String[]> parameters = req.getParameterMap();
+        for (String key : parameters.keySet()) {
+            req.setAttribute(key, parameters.get(key)[0]);
+        }
+    }
 
-        user.getAccount().setUsername(parameters.get("username")[0]);
-        user.getAccount().setEmail(parameters.get("email")[0]);
-        user.getAccount().setPassword(parameters.get("password")[0]);
-        user.setFirstName(parameters.get("firstName")[0]);
-        user.setLastName(parameters.get("lastName")[0]);
+    private User initializeUserAccount(Map<String, String[]> parameters)
+            throws DataValidationException, InternalDataValidationException {
+        Account account =
+                new Account(parameters.get("username")[0], parameters.get("email")[0],
+                        parameters.get("password")[0], PasswordUtil.getSalt(),
+                        PasswordUtil.getConfirmationToken());
+        User user =
+                new User(parameters.get("firstName")[0],
+                        parameters.get("lastName")[0],
+                        account);
 
         return user;
+    }
+
+    // TODO: 2016-02-29 implement email confirmation method in registration controller
+    public static void sendConfirmationEmail(String referrer, Account account)
+            throws MessagingException {
+        // TODO: 2016-03-11 implement forwarding accordingly to referrer
+        MailUtil.sendMail(account.getEmail(), "", "", "", true);
     }
 }

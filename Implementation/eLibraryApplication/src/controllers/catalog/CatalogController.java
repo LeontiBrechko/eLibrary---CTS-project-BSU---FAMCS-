@@ -3,6 +3,8 @@ package controllers.catalog;
 import data.BookDB;
 import models.Book;
 import models.Category;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,24 +27,27 @@ public class CatalogController extends HttpServlet {
         String url;
 
         try {
-            if (search != null && !search.equals("")) {
+            if (search != null) {
                 url = searchForTitle(search, req, resp);
             } else if (category != null && !category.equals("")) {
                 url = showCategory(category, req, resp);
             } else {
                 url = showCatalog(req, resp);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // TODO: 2016-03-11 error message
-            url = "index.jsp";
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
+            }
+            resp.sendError(500);
+            return;
         }
 
         getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
     private String showCatalog(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         boolean mostPopular = Boolean.valueOf(req.getParameter("mostPopular"));
         boolean mostRecent = Boolean.valueOf(req.getParameter("mostRecent"));
 
@@ -53,7 +58,7 @@ public class CatalogController extends HttpServlet {
     }
 
     private String searchForTitle(String searchString, HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         List<Book> books = BookDB.searchForTitle(searchString);
         req.setAttribute("books", books);
 
@@ -61,9 +66,8 @@ public class CatalogController extends HttpServlet {
     }
 
     private String showCategory(String categoryName, HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException {
-        Category category = new Category();
-        category.setName(categoryName);
+            throws SQLException, DataValidationException, InternalDataValidationException {
+        Category category = new Category(categoryName, null);
         List<Book> books = BookDB.selectBookCategoryList(category);
         req.setAttribute("books", books);
 

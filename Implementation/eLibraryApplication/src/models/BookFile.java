@@ -2,6 +2,7 @@ package models;
 
 import models.enums.Format;
 import models.enums.Language;
+import utils.dataValidation.InternalDataValidationException;
 
 import java.io.Serializable;
 
@@ -13,13 +14,21 @@ public class BookFile implements Serializable {
     private Language language;
     private String path;
 
-    public BookFile() {}
+    public BookFile(Format format, Language language, String path)
+            throws InternalDataValidationException {
+        this.setFormat(format);
+        this.setLanguage(language);
+        this.setPath(path);
+    }
 
     public Format getFormat() {
         return format;
     }
 
-    public void setFormat(Format format) {
+    public void setFormat(Format format) throws InternalDataValidationException {
+        if (format == null) {
+            throw new InternalDataValidationException("Invalid file format");
+        }
         this.format = format;
     }
 
@@ -27,7 +36,10 @@ public class BookFile implements Serializable {
         return language;
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(Language language) throws InternalDataValidationException {
+        if (language == null) {
+            throw new InternalDataValidationException("Invalid file language");
+        }
         this.language = language;
     }
 
@@ -35,7 +47,11 @@ public class BookFile implements Serializable {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(String path) throws InternalDataValidationException {
+        if (path == null
+                || path.trim().equals("")) {
+            throw new InternalDataValidationException("Invalid file path");
+        }
         this.path = path;
     }
 }

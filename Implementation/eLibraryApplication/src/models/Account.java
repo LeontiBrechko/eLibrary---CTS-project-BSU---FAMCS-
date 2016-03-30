@@ -4,6 +4,9 @@ import data.AccountDB;
 import models.enums.AccountRole;
 import models.enums.AccountState;
 import utils.CookieUtil;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
+import utils.dataValidation.DataValidationUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -30,30 +33,45 @@ public class Account implements Serializable {
     private String confirmationToken;
 
 
-
-    public Account() {
-        this.setUsername("");
-        this.setEmail("");
-        this.setPassword("");
+    public Account(String username, String email, String password,
+                   String saltValue, String confirmationToken)
+            throws DataValidationException, InternalDataValidationException {
+        this.setUsername(username);
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setSaltValue(saltValue);
         this.setRole(AccountRole.USER);
         this.setCreationTime(LocalDateTime.now());
         this.setState(AccountState.TEMPORARY);
         this.setDownloadList(new ArrayList<>());
+        this.setConfirmationToken(confirmationToken);
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String login) {
-        this.username = login;
+    public void setUsername(String username) throws DataValidationException {
+        if (username == null
+                || username.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(username)) {
+            throw new DataValidationException("Please, enter the valid username (without < > symbols)");
+        }
+        this.username = username;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws DataValidationException {
+        // TODO: 2016-03-29 proper email validation
+//        RegistrationUtil.isValidEmail(email);
+        if (email == null
+                || email.trim().equals("")
+                || DataValidationUtil.xssInjectionCheck(email)) {
+            throw new DataValidationException("Please, enter the valid email (without < > symbols)");
+        }
         this.email = email;
     }
 
@@ -61,7 +79,12 @@ public class Account implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) throws DataValidationException {
+        // TODO: 2016-03-29 proper password validation
+        if (password == null
+                || password.trim().equals("")) {
+            throw new DataValidationException("Please, enter the valid password");
+        }
         this.password = password;
     }
 
@@ -69,7 +92,11 @@ public class Account implements Serializable {
         return saltValue;
     }
 
-    public void setSaltValue(String saltValue) {
+    public void setSaltValue(String saltValue) throws InternalDataValidationException {
+        if (saltValue == null
+                || saltValue.trim().equals("")) {
+            throw new InternalDataValidationException("Invalid salt value");
+        }
         this.saltValue = saltValue;
     }
 
@@ -77,7 +104,10 @@ public class Account implements Serializable {
         return role;
     }
 
-    public void setRole(AccountRole role) {
+    public void setRole(AccountRole role) throws InternalDataValidationException {
+        if (role == null) {
+            throw new InternalDataValidationException("Invalid account role value");
+        }
         this.role = role;
     }
 
@@ -85,7 +115,10 @@ public class Account implements Serializable {
         return creationTime;
     }
 
-    public void setCreationTime(LocalDateTime creationTime) {
+    public void setCreationTime(LocalDateTime creationTime) throws InternalDataValidationException {
+        if (creationTime == null) {
+            throw new InternalDataValidationException("Invalid creation time value");
+        }
         this.creationTime = creationTime;
     }
 
@@ -93,7 +126,10 @@ public class Account implements Serializable {
         return state;
     }
 
-    public void setState(AccountState state) {
+    public void setState(AccountState state) throws InternalDataValidationException {
+        if (state == null) {
+            throw new InternalDataValidationException("Invalid account state value");
+        }
         this.state = state;
     }
 
@@ -101,7 +137,11 @@ public class Account implements Serializable {
         return downloadList;
     }
 
-    public void setDownloadList(List<Book> downloadList) {
+    public void setDownloadList(List<Book> downloadList) throws InternalDataValidationException {
+        if (saltValue == null) {
+            throw new InternalDataValidationException("Invalid download list value");
+        }
+
         this.downloadList = downloadList;
     }
 
@@ -109,13 +149,16 @@ public class Account implements Serializable {
         return confirmationToken;
     }
 
-    public void setConfirmationToken(String confirmationToken) {
+    public void setConfirmationToken(String confirmationToken) throws InternalDataValidationException {
+        if (saltValue == null
+                || confirmationToken.trim().equals("")) {
+            throw new InternalDataValidationException("Invalid confirmation token value");
+        }
         this.confirmationToken = confirmationToken;
     }
 
-    public int listContainsBook(Book book) {
+    public int listContainsBook(String isbn13) {
         int flag = -1;
-        String isbn13 = book.getIsbn13();
         for (int i = 0; i < this.downloadList.size(); i++) {
             if (this.downloadList.get(i).getIsbn13().equals(isbn13)) {
                 flag = i;
@@ -126,13 +169,13 @@ public class Account implements Serializable {
     }
 
     public static Account getCookieAccount(HttpServletRequest req)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         Cookie[] cookies = req.getCookies();
         String username = CookieUtil.getCookieValue(cookies, "username");
 
         Account account = null;
 
-        if (username != null && !username.equals("")) {
+        if (username != null && !username.trim().equals("")) {
             account = AccountDB.selectAccount(username);
         }
 

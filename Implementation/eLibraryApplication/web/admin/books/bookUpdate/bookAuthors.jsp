@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="data.AuthorDB" %>
 <%@ page import="java.sql.SQLException" %>
 <%
@@ -27,8 +28,8 @@
             <input type="radio" name="updateType" value="selectAuthor" checked>
             <select name="selectedAuthors" multiple="multiple" size="10">
                 <c:forEach var="author" items="${authors}">
-                    <option value="${author.firstName} ${author.lastName}">
-                        ${author.firstName} ${author.lastName}
+                    <option value="<c:out value="${author.firstName} ${author.lastName}"/>">
+                        <c:out value="${author.firstName} ${author.lastName}"/>
                     </option>
                 </c:forEach>
             </select>
@@ -51,13 +52,13 @@
 
     <br>
 
-    <c:if test="${bookToUpdate.authors != null}">
+    <c:if test="${fn:length(bookToUpdate.authors) gt 0}">
         Selected Authors:
         <table>
             <c:forEach var="author" items="${bookToUpdate.authors}">
                 <tr>
-                    <td>${author.firstName}</td>
-                    <td>${author.lastName}</td>
+                    <td><c:out value="${author.firstName}"/></td>
+                    <td><c:out value="${author.lastName}"/></td>
                 </tr>
             </c:forEach>
         </table>

@@ -20,6 +20,7 @@
             <td>
                 <ul>
                     <li><a href="/admin/bookManagement?action=showLibraryBooks">Show all library books</a></li>
+                    <li><a href="/admin/books/bookUpdate/bookMainInfo.jsp">Add new book</a></li>
                 </ul>
             </td>
             <td>

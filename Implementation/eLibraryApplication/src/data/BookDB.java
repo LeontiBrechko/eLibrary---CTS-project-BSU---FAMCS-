@@ -4,6 +4,8 @@ import com.sun.xml.internal.bind.v2.TODO;
 import models.Book;
 import models.Category;
 import utils.ConnectionPool;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public class BookDB {
     public static Book selectBook(String isbn13)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM book WHERE isbn_13 = ?";
@@ -39,7 +41,7 @@ public class BookDB {
     }
 
     public static Book selectBook(long bookId)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM book WHERE book_id = ?";
@@ -125,7 +127,7 @@ public class BookDB {
             throws SQLException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-        String query = "DELETE FROM book WHERE isbn13 = ?";
+        String query = "DELETE FROM book WHERE isbn_13 = ?";
 
         int rowAffected = 0;
 
@@ -146,7 +148,7 @@ public class BookDB {
     }
 
     public static List<Book> selectBookList(boolean mostRecent, boolean mostPopular)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -186,7 +188,7 @@ public class BookDB {
 
 
     public static List<Book> searchForTitle(String title)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM book WHERE book.title LIKE ?";
@@ -206,7 +208,7 @@ public class BookDB {
     }
 
     public static List<Book> selectBookCategoryList(Category category)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT * FROM book, book_category " +
@@ -244,21 +246,18 @@ public class BookDB {
     }
 
     private static void addBookToList(ResultSet resultSet, List<Book> books)
-            throws SQLException {
-        Book book = new Book();
+            throws SQLException, DataValidationException, InternalDataValidationException {
         long bookId = resultSet.getLong("BOOK_ID");
-        book.setIsbn13(resultSet.getString("ISBN_13"));
-        book.setTitle(resultSet.getString("TITLE"));
-        book.setYearPublished(resultSet.getInt("PUB_YEAR"));
-        book.setDescription(resultSet.getString("DESCRIPTION"));
-        book.setPopularity(resultSet.getLong("POPULARITY"));
-        book.setImage(resultSet.getString("IMAGE"));
-        book.setThumbnail(resultSet.getString("THUMB"));
-        book.setFiles(BookFileDB.selectBookFiles(bookId));
-        book.setPublisher(PublisherDB.selectBookPublisher(bookId));
-        book.setAuthors(AuthorDB.selectBookAuthors(bookId));
-        book.setCategories(CategoryDB.selectBookCategories(bookId));
 
+        Book book =
+                new Book(resultSet.getString("ISBN_13"), resultSet.getString("TITLE"),
+                        resultSet.getInt("PUB_YEAR"), resultSet.getString("DESCRIPTION"),
+                        BookFileDB.selectBookFiles(bookId), resultSet.getString("IMAGE"),
+                        resultSet.getString("THUMB"), PublisherDB.selectBookPublisher(bookId),
+                        AuthorDB.selectBookAuthors(bookId),
+                        CategoryDB.selectBookCategories(bookId));
+
+        book.setPopularity(resultSet.getLong("POPULARITY"));
         books.add(book);
     }
 

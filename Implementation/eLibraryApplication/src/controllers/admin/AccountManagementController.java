@@ -1,11 +1,15 @@
 package controllers.admin;
 
 import data.AccountDB;
+import data.UserDB;
 import models.Account;
 import models.User;
 import models.enums.AccountRole;
 import models.enums.AccountState;
-import utils.RegistrationUtil;
+import utils.PasswordUtil;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.DataValidationUtil;
+import utils.dataValidation.InternalDataValidationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,67 +30,79 @@ import java.util.Map;
 public class AccountManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String url = "/index.jsp";
+        String url;
         String action = req.getParameter("action");
 
         try {
-            if (action == null || action.equals("")) {
-                url = "/index.jsp";
+            if (action == null) {
+                resp.sendError(404);
+                return;
             } else if (action.equals("showAccounts")) {
                 url = showAllAccounts(req, resp);
             } else if (action.equals("block")) {
                 url = blockAccount(req, resp);
             } else if (action.equals("unblock")) {
                 url = unblockAccount(req, resp);
+            } else {
+                resp.sendError(404);
+                return;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            url = "/index.jsp";
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
+            }
+            resp.sendError(500);
+            return;
         }
 
-        if (url.equals("/index.jsp")) {
-            resp.sendRedirect(url);
-        } else {
-            req.getServletContext().getRequestDispatcher(url).forward(req, resp);
-        }
+        req.getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String url = "/index.jsp";
+        String url;
         String action = req.getParameter("action");
 
         try {
-            if (action == null || action.equals("")) {
-                url = "/index.jsp";
+            if (action == null) {
+                resp.sendError(404);
+                return;
             } else if (action.equals("registerAdmin")) {
+                setInputData(req);
                 User admin = initializeAdminAccount(req.getParameterMap());
+                DataValidationUtil.validateRegistrationData(admin.getAccount(), req, resp);
 
-                if (RegistrationUtil.checkRegistrationData(admin, req, resp) &
-                        !RegistrationUtil.accountExists(admin.getAccount(), req, resp)) {
-                    RegistrationUtil.createUserAccount(admin);
-                    Account.addAccountCookie(admin.getAccount(), resp);
-                    url = "/account/confirm.jsp";
-                } else {
-                    // TODO: 2016-03-11 error message
-                    url = "/admin/accounts/adminRegistration.jsp";
-                    req.setAttribute("user", admin);
-                }
+                String saltedAndHashedPassword =
+                        PasswordUtil.hashPassword(admin.getAccount().getPassword() + admin.getAccount().getSaltValue());
+                admin.getAccount().setPassword(saltedAndHashedPassword);
+
+                UserDB.insertUser(admin);
+
+                Account.addAccountCookie(admin.getAccount(), resp);
+                url = "/account/confirm.jsp";
+                req.setAttribute("user", admin);
+            } else {
+                resp.sendError(404);
+                return;
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            url = "/index.jsp";
+        } catch (DataValidationException e) {
+            req.setAttribute("errorMessage", e.getMessage());
+            url = "/admin/accounts/adminRegistration.jsp";
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
+            }
+            resp.sendError(500);
+            return;
         }
 
-        if (url.equals("/index.jsp")) {
-            resp.sendRedirect(url);
-        } else {
-            req.getServletContext().getRequestDispatcher(url).forward(req, resp);
-        }
+        req.getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
     private String showAllAccounts(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException {
         List<Account> accounts = AccountDB.selectAccountList();
         req.setAttribute("accounts", accounts);
 
@@ -94,7 +110,7 @@ public class AccountManagementController extends HttpServlet {
     }
 
     private String blockAccount(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException  {
         String url;
         String username = req.getParameter("username");
 
@@ -114,7 +130,7 @@ public class AccountManagementController extends HttpServlet {
     }
 
     private String unblockAccount(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException {
+            throws SQLException, DataValidationException, InternalDataValidationException  {
         String url;
         String username = req.getParameter("username");
 
@@ -133,14 +149,25 @@ public class AccountManagementController extends HttpServlet {
         return url;
     }
 
-    private User initializeAdminAccount(Map<String, String[]> parameters) {
-        User user = new User();
+    private void setInputData(HttpServletRequest req) {
+        Map<String, String[]> parameters = req.getParameterMap();
+        for (String key : parameters.keySet()) {
+            req.setAttribute(key, parameters.get(key)[0]);
+        }
+    }
 
-        user.getAccount().setUsername(parameters.get("username")[0]);
-        user.getAccount().setEmail(parameters.get("email")[0]);
-        user.getAccount().setPassword(parameters.get("password")[0]);
-        user.setFirstName(parameters.get("firstName")[0]);
-        user.setLastName(parameters.get("lastName")[0]);
+    private User initializeAdminAccount(Map<String, String[]> parameters)
+            throws DataValidationException, InternalDataValidationException {
+
+        Account account =
+                new Account(parameters.get("username")[0], parameters.get("email")[0],
+                        parameters.get("password")[0], PasswordUtil.getSalt(),
+                        PasswordUtil.getConfirmationToken());
+        User user =
+                new User(parameters.get("firstName")[0],
+                        parameters.get("lastName")[0],
+                        account);
+
         user.getAccount().setRole(AccountRole.ADMIN);
         user.getAccount().setState(AccountState.ACTIVE);
 

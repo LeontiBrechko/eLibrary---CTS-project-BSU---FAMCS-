@@ -5,6 +5,7 @@ import models.BookFile;
 import models.enums.Format;
 import models.enums.Language;
 import utils.ConnectionPool;
+import utils.dataValidation.InternalDataValidationException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,8 @@ import java.util.List;
  * Created by Leonti on 2016-03-07.
  */
 public class BookFileDB {
-    public static List<BookFile> selectBookFiles(long bookId) throws SQLException {
+    public static List<BookFile> selectBookFiles(long bookId)
+            throws SQLException, InternalDataValidationException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         String query = "SELECT format.name, language.name, book_file.path\n" +
@@ -33,10 +35,10 @@ public class BookFileDB {
             preparedStatement.setLong(1, bookId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                BookFile file = new BookFile();
-                file.setFormat(Format.valueOf(resultSet.getString(1)));
-                file.setLanguage(Language.valueOf(resultSet.getString(2)));
-                file.setPath(resultSet.getString(3));
+                BookFile file =
+                        new BookFile(Format.valueOf(resultSet.getString(1)),
+                                Language.valueOf(resultSet.getString(2)),
+                                resultSet.getString(3));
                 files.add(file);
             }
         }

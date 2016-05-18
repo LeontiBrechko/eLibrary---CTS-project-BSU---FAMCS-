@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b4f609a-a499-4417-84a7-272222171518" name="Default" comment="- raw front-end">
+    <list default="true" id="9b4f609a-a499-4417-84a7-272222171518" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/download/DownloadListController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/download/DownloadListController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/download/DownloadListController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/download/DownloadListController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -902,7 +902,7 @@
       <workItem from="1462093260482" duration="79000" />
       <workItem from="1462300615180" duration="3648000" />
       <workItem from="1463245931661" duration="1620000" />
-      <workItem from="1463502818338" duration="32361000" />
+      <workItem from="1463502818338" duration="32380000" />
     </task>
     <task id="LOCAL-00001" summary="- New data validation (using setters of models)&#10;- Error handling (for unsupported actions respond sends 404, for other exceptions - 500 + logging the exception itself)">
       <created>1459347608795</created>
@@ -934,11 +934,17 @@
       <option name="project" value="LOCAL" />
       <updated>1463614903763</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="- raw front-end">
+      <created>1463614981753</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1463614981753</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="269099000" />
+    <option name="totallyTimeSpent" value="269118000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

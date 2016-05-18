@@ -10,8 +10,12 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div id="wrapper">
+    <jsp:include page="../includes/navigationBar.jsp"/>
     <div id="description">
         <img src="<c:url value="${book.image}" />" align="left" />
         <h3>${book.title}</h3>
@@ -48,9 +52,10 @@
             <a href="/download/downloadList?action=addToDownloadList&amp;isbn13=${book.isbn13}">Add to download list</a>
         </c:when>
         <c:otherwise>
-            <p>Book has already been added to the download list.</p>
+            <p id="success-message">Book has already been added to the download list.</p>
         </c:otherwise>
     </c:choose>
-    <a href="/index.jsp">Home</a>
+
+</div>
 </body>
 </html>

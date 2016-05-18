@@ -9,23 +9,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="data.PublisherDB" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="utils.dataValidation.DataValidationException" %>
 <%
     try {
         request.setAttribute("publishers", PublisherDB.selectAllPublishers());
-    } catch (SQLException e) {
+    } catch (SQLException | DataValidationException e) {
         e.printStackTrace();
     }
 %>
 <html>
 <head>
     <title>Title</title>
+    <link href="../../../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../../../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div id="wrapper">
+    <jsp:include page="../../../includes/navigationBar.jsp"/>
     <form action="/admin/bookManagement" method="post">
         <input type="hidden" name="action" value="updateBookPublisher">
         <div>
             <input type="radio" name="updateType" value="selectPublisher" checked>
-            <select name="selectedPublisher" size="10">
+            <select class="form-control" name="selectedPublisher" size="10">
                 <c:forEach var="publisher" items="${publishers}">
                     <option value="<c:out value="${publisher.name}"/>">
                         <c:out value="${publisher.name}"/>
@@ -38,26 +43,27 @@
 
         <div>
             <input type="radio" name="updateType" value="addPublisher">
-            <label>Name:
-                <input type="text" name="name">
+            <label class="control-label">Name:
+                <input class="form-control" type="text" name="name">
             </label><br>
-            <label>Country:
-                <input type="text" name="country">
+            <label class="control-label">Country:
+                <input class="form-control" type="text" name="country">
             </label>
-            <label>City:
-                <input type="text" name="city">
+            <label class="control-label">City:
+                <input class="form-control" type="text" name="city">
             </label>
-            <label>State:
-                <input type="text" name="state">
+            <label class="control-label">State:
+                <input class="form-control" type="text" name="state">
             </label>
-            <label>Street number:
-                <input type="text" name="streetNumber">
+            <label class="control-label">Street number:
+                <input class="form-control" type="text" name="streetNumber">
             </label>
-            <label>Street name:
-                <input type="text" name="streetName">
+            <label class="control-label">Street name:
+                <input class="form-control" type="text" name="streetName">
             </label>
         </div>
-        <input type="submit" value="Add publisher">
+        <input id="submit-button" type="submit" value="Add publisher">
     </form>
+</div>
 </body>
 </html>

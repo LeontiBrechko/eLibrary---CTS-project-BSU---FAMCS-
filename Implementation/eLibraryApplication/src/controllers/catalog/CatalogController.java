@@ -23,14 +23,14 @@ public class CatalogController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String search = req.getParameter("search");
-        String category = req.getParameter("category");
+        String categoryName = req.getParameter("category");
         String url;
 
         try {
             if (search != null) {
                 url = searchForTitle(search, req, resp);
-            } else if (category != null && !category.equals("")) {
-                url = showCategory(category, req, resp);
+            } else if (categoryName != null && !categoryName.equals("")) {
+                url = showCategory(categoryName, req, resp);
             } else {
                 url = showCatalog(req, resp);
             }

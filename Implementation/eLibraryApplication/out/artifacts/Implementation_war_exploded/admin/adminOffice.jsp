@@ -9,9 +9,14 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <table>
+<div id="wrapper">
+    <jsp:include page="../includes/navigationBar.jsp"/>
+    <h1 id="title">Admin Office</h1>
+    <table id="adminTable">
         <tr>
             <th>Book management</th>
             <th>User management</th>
@@ -31,5 +36,9 @@
             </td>
         </tr>
     </table>
+</div>
 </body>
 </html>
+
+
+

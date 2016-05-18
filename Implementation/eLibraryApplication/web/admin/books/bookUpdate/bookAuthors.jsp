@@ -10,43 +10,48 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="data.AuthorDB" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="utils.dataValidation.DataValidationException" %>
 <%
     try {
         request.setAttribute("authors", AuthorDB.selectAllAuthors());
-    } catch (SQLException e) {
+    } catch (SQLException | DataValidationException e) {
         e.printStackTrace();
     }
 %>
 <html>
 <head>
     <title>Title</title>
+    <link href="../../../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../../../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div id="wrapper">
+    <jsp:include page="../../../includes/navigationBar.jsp"/>
     <form action="/admin/bookManagement" method="post">
         <input type="hidden" name="action" value="updateBookAuthors">
         <div>
             <input type="radio" name="updateType" value="selectAuthor" checked>
-            <select name="selectedAuthors" multiple="multiple" size="10">
+            <select class="form-control" name="selectedAuthors" multiple="multiple" size="10">
                 <c:forEach var="author" items="${authors}">
                     <option value="<c:out value="${author.firstName} ${author.lastName}"/>">
                         <c:out value="${author.firstName} ${author.lastName}"/>
                     </option>
                 </c:forEach>
             </select>
-            <input type="submit" value="Add authors">
+            <input id="signin-button" type="submit" value="Add authors">
         </div>
 
         <br>
 
         <div>
             <input type="radio" name="updateType" value="addAuthor">
-            <label>First name:
-                <input type="text" name="firstName">
+            <label class="control-label">First name:
+                <input class="form-control" type="text" name="firstName">
             </label><br>
-            <label>Second name:
-                <input type="text" name="lastName">
+            <label class="control-label">Second name:
+                <input class="form-control" type="text" name="lastName">
             </label>
-            <input type="submit" value="Add author">
+            <input id="signin-button" type="submit" value="Add author">
         </div>
     </form>
 
@@ -64,12 +69,14 @@
         </table>
 
         <br>
-        <h4>To delete authors just select proper ones in selection list and press "Add authors" button</h4>
+        <h4 align="center">To delete authors just select proper ones in selection list and press "Add authors"
+            button</h4>
         <form action="/admin/bookManagement" method="post">
             <input type="hidden" name="action" value="continue">
             <input type="hidden" name="nextStep" value="publisher">
-            <input type="submit" value="Proceed to next step">
+            <input id="submit-button" type="submit" value="Proceed to next step">
         </form>
     </c:if>
+</div>
 </body>
 </html>

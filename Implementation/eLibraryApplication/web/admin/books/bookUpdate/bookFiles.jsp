@@ -15,9 +15,13 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="../../../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../../../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h3>Current book files:</h3>
+<div id="wrapper">
+    <jsp:include page="../../../includes/navigationBar.jsp"/>
+    <h3 id="title">Current book files:</h3>
     <table>
         <c:forEach var="file" items="${bookToUpdate.files}">
             <tr>
@@ -38,29 +42,30 @@
     </table>
     <form action="/admin/bookManagement" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="addBookFile">
-        <label>Format:
-            <select name="selectedFormat">
+        <label class="control-label">Format:
+            <select class="form-control" name="selectedFormat">
                 <c:forEach var="format" items="${formats}">
                     <option value="${format.name()}">${format.name()}</option>
                 </c:forEach>
             </select>
         </label>
-        <label>Language:
-            <select name="selectedLanguage">
+        <label class="control-label">Language:
+            <select class="form-control" name="selectedLanguage">
                 <c:forEach var="language" items="${languages}">
                     <option value="${language.name()}">${language.name()}</option>
                 </c:forEach>
             </select>
         </label>
-        <label>File:
-            <input type="file" name="file">
+        <label class="control-label">File:
+            <input class="form-control" type="file" name="file">
         </label>
-        <input type="submit" value="Add file">
+        <input id="signin-button" type="submit" value="Add file">
     </form>
     <form action="/admin/bookManagement" method="post">
         <input type="hidden" name="action" value="continue">
         <input type="hidden" name="nextStep" value="review">
-        <input type="submit" value="Proceed to next step">
+        <input id="submit-button" type="submit" value="Proceed to next step">
     </form>
+</div>
 </body>
 </html>

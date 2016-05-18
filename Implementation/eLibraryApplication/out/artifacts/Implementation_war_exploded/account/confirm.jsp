@@ -9,9 +9,15 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="../styles/login.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-Success!
-Please, confirm your account.
+<body id="bodyStyle">
+<div id="wrapper">
+    <a href="../index.jsp">Main Page<a>
+        <div id="success-message">
+            Success!
+            Please, confirm your account.
+        </div>
+</div>
 </body>
 </html>

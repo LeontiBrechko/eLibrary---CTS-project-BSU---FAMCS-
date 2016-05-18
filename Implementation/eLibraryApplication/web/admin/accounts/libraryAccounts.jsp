@@ -10,13 +10,14 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="../../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>Accounts: </h1>
+<div id="wrapper">
+    <jsp:include page="../../includes/navigationBar.jsp"/>
+    <h1 id="title">Accounts: </h1>
     <table border="1" cellspacing="1">
-        <%--<tr>--%>
-        <%--<th></th>--%>
-        <%--</tr>--%>
         <c:forEach var="account" items="${accounts}">
             <tr>
                 <td>${account.username}</td>
@@ -41,5 +42,10 @@
             </tr>
         </c:forEach>
     </table>
+    <div id="linkStyle">
+        <p>&nbsp;</p>
+        <p><a href="">return to the Main Page</a></p>
+    </div>
+</div>
 </body>
 </html>

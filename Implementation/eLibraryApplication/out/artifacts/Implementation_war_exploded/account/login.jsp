@@ -13,6 +13,7 @@
 <body>
     <h1>Login Form</h1>
     <p>Please, enter your username and password</p>
+    ${errorMessage}
     <form action="/account/login" method="post">
         <input type="hidden" name="action" value="login">
         <label>Username:

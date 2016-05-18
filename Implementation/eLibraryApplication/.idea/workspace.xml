@@ -2,65 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b4f609a-a499-4417-84a7-272222171518" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/The_Linux_Programming_Interface:_A_Linux_and_UNIX_System_Programming_Handbook.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9785947233025/Лафоре Р. Объектно-ориентированное программирование в С++ (4-е издание).pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/test.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/catalog/books/9785947233025/Лафоре Р. Объектно-ориентированное программирование в С++ (4-е издание).pdf" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/AuthenticationController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/AuthenticationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/ConfirmationController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/ConfirmationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/RegistrationController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/account/RegistrationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/admin/AccountManagementController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/admin/AccountManagementController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/admin/BookManagementController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/admin/BookManagementController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/CatalogController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/CatalogController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/DescriptionController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/catalog/DescriptionController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/download/DownloadListController.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/controllers/download/DownloadListController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/BookFileDB.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/data/BookFileDB.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Author.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Author.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Book.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Book.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/BookFile.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/BookFile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Category.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/Category.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/User.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/models/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/ConnectionPool.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/ConnectionPool.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/MailUtil.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/MailUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/ZipUtil.class" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/WEB-INF/classes/utils/ZipUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/image.jpg" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/image.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/thumb.jpg" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/thumb.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/account/AuthenticationController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/account/AuthenticationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/account/ConfirmationController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/account/ConfirmationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/account/RegistrationController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/account/RegistrationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/admin/AccountManagementController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/admin/AccountManagementController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/admin/BookManagementController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/admin/BookManagementController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/CatalogController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/CatalogController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/DescriptionController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/catalog/DescriptionController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/controllers/download/DownloadListController.class" afterPath="$PROJECT_DIR$/out/production/Implementation/controllers/download/DownloadListController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/data/BookFileDB.class" afterPath="$PROJECT_DIR$/out/production/Implementation/data/BookFileDB.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/Author.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/Author.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/Book.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/Book.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/BookFile.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/BookFile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/Category.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/Category.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/models/User.class" afterPath="$PROJECT_DIR$/out/production/Implementation/models/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/utils/ConnectionPool.class" afterPath="$PROJECT_DIR$/out/production/Implementation/utils/ConnectionPool.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/utils/MailUtil.class" afterPath="$PROJECT_DIR$/out/production/Implementation/utils/MailUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Implementation/utils/ZipUtil.class" afterPath="$PROJECT_DIR$/out/production/Implementation/utils/ZipUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/catalog/books/9781593272203/thumb.jpg" afterPath="$PROJECT_DIR$/web/catalog/books/9781593272203/thumb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/filters/AdminFilter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/account/confirm.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/account/confirm.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/account/register.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/account/register.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/accounts/adminRegistration.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/admin/accounts/adminRegistration.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/description.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/description.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/account/AuthenticationController.java" afterPath="$PROJECT_DIR$/src/controllers/account/AuthenticationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/account/ConfirmationController.java" afterPath="$PROJECT_DIR$/src/controllers/account/ConfirmationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/account/RegistrationController.java" afterPath="$PROJECT_DIR$/src/controllers/account/RegistrationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/admin/BookManagementController.java" afterPath="$PROJECT_DIR$/src/controllers/admin/BookManagementController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java" afterPath="$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/download/DownloadListController.java" afterPath="$PROJECT_DIR$/src/controllers/download/DownloadListController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Book.java" afterPath="$PROJECT_DIR$/src/models/Book.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/MailUtil.java" afterPath="$PROJECT_DIR$/src/utils/MailUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/ZipUtil.java" afterPath="$PROJECT_DIR$/src/utils/ZipUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/account/confirm.jsp" afterPath="$PROJECT_DIR$/web/account/confirm.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/account/login.jsp" afterPath="$PROJECT_DIR$/web/account/login.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/catalog/description.jsp" afterPath="$PROJECT_DIR$/web/catalog/description.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.jsp" afterPath="$PROJECT_DIR$/web/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/account/login.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/account/login.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/index.jsp" afterPath="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" />
     </list>
     <ignored path="Implementation.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -113,7 +59,40 @@
     <favorites_list name="Implementation" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="AuthenticationFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/filters/AuthenticationFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-25.0">
+              <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminFilter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/utils/filters/AdminFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.96753246">
+              <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -134,7 +113,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/mainInfo.jsp" />
         <option value="$PROJECT_DIR$/out/artifacts/Implementation_war_exploded/catalog/books/9781593272203/desc.txt" />
         <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookUpdateReview.jsp" />
         <option value="$PROJECT_DIR$/web/admin/books/bookUpdate/bookFiles.jsp" />
@@ -172,7 +150,6 @@
         <option value="$PROJECT_DIR$/web/account/confirm.jsp" />
         <option value="$PROJECT_DIR$/src/utils/filters/AuthenticationFilter.java" />
         <option value="$PROJECT_DIR$/src/models/Account.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/controllers/admin/BookManagementController.java" />
         <option value="$PROJECT_DIR$/src/models/Book.java" />
         <option value="$PROJECT_DIR$/src/controllers/catalog/DescriptionController.java" />
@@ -185,6 +162,8 @@
         <option value="$PROJECT_DIR$/web/index.jsp" />
         <option value="$PROJECT_DIR$/src/controllers/account/ConfirmationController.java" />
         <option value="$PROJECT_DIR$/src/controllers/account/AuthenticationController.java" />
+        <option value="$PROJECT_DIR$/src/utils/filters/AdminFilter.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
       </list>
     </option>
   </component>
@@ -300,24 +279,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="account" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -359,68 +320,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eLibraryApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="account" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1124,7 +1023,7 @@
       <workItem from="1462093260482" duration="79000" />
       <workItem from="1462300615180" duration="3648000" />
       <workItem from="1463245931661" duration="1620000" />
-      <workItem from="1463502818338" duration="14305000" />
+      <workItem from="1463502818338" duration="14768000" />
     </task>
     <task id="LOCAL-00001" summary="- New data validation (using setters of models)&#10;- Error handling (for unsupported actions respond sends 404, for other exceptions - 500 + logging the exception itself)">
       <created>1459347608795</created>
@@ -1132,11 +1031,17 @@
       <option name="project" value="LOCAL" />
       <updated>1459347608795</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="- Confirmation email methods&#10;- Download books email&#10;- Bug fixes">
+      <created>1463584516715</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1463584516715</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="251043000" />
+    <option name="totallyTimeSpent" value="251506000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1149,10 +1054,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1160,7 +1065,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49353796" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.49353796" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21890146" sideWeight="0.8102041" order="0" side_tool="false" content_ui="combo" />
@@ -1193,7 +1098,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- New data validation (using setters of models)&#10;- Error handling (for unsupported actions respond sends 404, for other exceptions - 500 + logging the exception itself)" />
-    <option name="LAST_COMMIT_MESSAGE" value="- New data validation (using setters of models)&#10;- Error handling (for unsupported actions respond sends 404, for other exceptions - 500 + logging the exception itself)" />
+    <MESSAGE value="- Confirmation email methods&#10;- Download books email&#10;- Bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Confirmation email methods&#10;- Download books email&#10;- Bug fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1220,13 +1126,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/models/Category.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.08874459">
-          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/Publisher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
@@ -1523,22 +1422,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/filters/AuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/account/login.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.25">
@@ -1630,6 +1513,32 @@
         <state vertical-scroll-proportion="0.47945204">
           <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/filters/AuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-25.0">
+          <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/filters/AdminFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.96753246">
+          <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

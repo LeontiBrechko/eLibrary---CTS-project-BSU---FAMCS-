@@ -12,6 +12,7 @@
   </head>
   <body>
     <jsp:include page="includes/accountBox.jsp" />
+    <p>${errorMessage}</p>
     <a href="/account/register.jsp">Registration</a>
     <a href="/catalog/description?action=showDescription&amp;isbn13=9781593272203">Description of 'The Linux Programming Environment'</a>
     <a href="/catalog">Book Catalog</a>

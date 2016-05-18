@@ -12,6 +12,10 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>utils.filters.CharacterEncodingFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>utils.filters.AdminFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
@@ -28,6 +32,13 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
     </filter-mapping>
 
     <listener>

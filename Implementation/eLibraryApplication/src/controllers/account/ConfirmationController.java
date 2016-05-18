@@ -4,6 +4,8 @@ import data.AccountDB;
 import models.Account;
 import models.enums.AccountState;
 import utils.MailUtil;
+import utils.dataValidation.DataValidationException;
+import utils.dataValidation.InternalDataValidationException;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by Leonti on 2016-02-29.
@@ -21,14 +24,40 @@ import java.io.IOException;
 public class ConfirmationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO: 2016-02-29 insertAccount email parameter in request
-        String email = req.getParameter("email");
+        String url = "/account/confirm.jsp";
 
-//        Account account = getAccount(email);
+        try {
+            Account account = AccountDB.selectAccount(req.getParameter("username"));
+            if (account != null) {
+                if (account.getConfirmationToken().equals(req.getParameter("token"))) {
+                    if (account.getState() == AccountState.TEMPORARY) {
+                        account.setState(AccountState.ACTIVE);
+                        AccountDB.updateAccount(account);
+                    } else {
+                        req.setAttribute("errorMessage", "Your account is already confirmed.");
+                        url = "/index.jsp";
+                    }
+                } else {
+                    req.setAttribute("errorMessage", "Invalid confirmation token.");
+                    url = "/index.jsp";
+                }
+            } else {
+                req.setAttribute("errorMessage", "No such user in the system.");
+                url = "/index.jsp";
+            }
+        } catch (DataValidationException e) {
+            req.setAttribute("errorMessage", e.getMessage());
+            url = "/index.jsp";
+        } catch (Exception e) {
+            log(e.getMessage(), e);
+            for (Throwable t : e.getSuppressed()) {
+                log(t.getMessage(), t);
+            }
+            resp.sendError(500);
+            return;
+        }
 
-        // TODO: 2016-02-29 implement catch for nullPointerException
-//        account.setState(AccountState.ACTIVE);
-//        changeAccount(account);
+        req.getRequestDispatcher(url).forward(req, resp);
     }
 
 

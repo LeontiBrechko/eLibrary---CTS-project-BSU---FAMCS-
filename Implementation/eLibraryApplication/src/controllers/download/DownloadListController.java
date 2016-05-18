@@ -4,10 +4,12 @@ import data.AccountDB;
 import data.BookDB;
 import models.Account;
 import models.Book;
+import utils.MailUtil;
 import utils.ZipUtil;
 import utils.dataValidation.DataValidationException;
 import utils.dataValidation.InternalDataValidationException;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -87,13 +89,11 @@ public class DownloadListController extends HttpServlet {
                                     req.getServletContext().getRealPath(book.getDescription())));
                 }
                 AccountDB.updateAccount(account);
-                // TODO: 2016-03-11 success message, change add to list button as read-only
             }
             req.setAttribute("book", book);
             url = "/catalog/description?action=showDescription&amp;isbn13=" + isbn13;
         } else {
-            // TODO: 2016-03-11 error message
-            url = "/index.jsp";
+            throw new InternalDataValidationException("Incorrect book isbn13");
         }
 
         return url;
@@ -108,13 +108,27 @@ public class DownloadListController extends HttpServlet {
         return "";
     }
 
-    private String downloadBooks(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException, IOException {
-        // TODO: 2016-03-29 for each book
-//        book.setPopularity(book.getPopularity() + 1);
-//        BookDB.updateBook(book);
-        Account account = Account.getSessionAccount(req);
-        ZipUtil.createDownloadsZip(account.getDownloadList(), req.getServletContext());
-        return "";
+    private String downloadBooks(HttpServletRequest req, HttpServletResponse resp) {
+        new Thread() {
+            // TODO: 2016-05-18 make proper exception handling
+            @Override
+            public void run() {
+                Account account = Account.getSessionAccount(req);
+                String zipFile;
+                try {
+                    zipFile = ZipUtil.createDownloadsZip(account, req.getServletContext());
+                    account.getDownloadList().clear();
+                    MailUtil.sendDownloadZip(account.getEmail(),
+                            account.getUsername(),
+                            "elibraryprojectfamcs@gmail.com",
+                            "Book download", zipFile);
+                } catch (IOException | InternalDataValidationException
+                        | SQLException | MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+        return "/account/confirm.jsp";
     }
 }

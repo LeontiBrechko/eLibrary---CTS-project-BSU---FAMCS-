@@ -34,7 +34,6 @@ public class Book implements Serializable {
                 String thumbnail, Publisher publisher, List<Author> authors,
                 List<Category> categories)
             throws DataValidationException, InternalDataValidationException {
-        // TODO: 2016-03-07 review default image url
         this.setIsbn13(isbn13);
         this.setTitle(title);
         this.setYearPublished(yearPublished);
@@ -91,8 +90,8 @@ public class Book implements Serializable {
     }
 
     public void setDescription(String description) throws InternalDataValidationException {
-        if (description == null) {
-            description = "";
+        if (description == null || description.trim().equals("")) {
+            description = "/catalog/books/default_desc.txt";
         }
         if (DataValidationUtil.xssInjectionCheck(description)) {
             throw new InternalDataValidationException("Invalid description path");
@@ -127,8 +126,8 @@ public class Book implements Serializable {
     }
 
     public void setImage(String image) {
-        if (image == null) {
-            image = "";
+        if (image == null || image.trim().equals("")) {
+            image = "/catalog/books/default_image.png";
         }
         this.image = image;
     }
@@ -138,8 +137,8 @@ public class Book implements Serializable {
     }
 
     public void setThumbnail(String thumbnail) {
-        if (thumbnail == null) {
-            thumbnail = "";
+        if (thumbnail == null || thumbnail.trim().equals("")) {
+            thumbnail = "/catalog/books/default_thumb.png";
         }
         this.thumbnail = thumbnail;
     }

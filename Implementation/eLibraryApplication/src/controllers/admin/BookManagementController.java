@@ -65,7 +65,6 @@ public class BookManagementController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String action = req.getParameter("action");
-        // TODO: 2016-03-30 check this error handling
         String url = "";
 
         try {
@@ -150,10 +149,9 @@ public class BookManagementController extends HttpServlet {
 
         String isbn13 = req.getParameter("isbn13");
         String title = req.getParameter("title");
-        long popularity = Long.parseLong(req.getParameter("popularity"));
-        String description = "/catalog/books/" + isbn13 + "/desc.txt";
-        String image = "/catalog/books/" + isbn13 + "/image.jpg";
-        String thumbnail = "/catalog/books/" + isbn13 + "/thumb.jpg";
+        String description = null;
+        String image = null;
+        String thumbnail = null;
         int yearPublished;
         try {
             yearPublished = Integer.parseInt(req.getParameter("yearPublished"));
@@ -171,7 +169,6 @@ public class BookManagementController extends HttpServlet {
             book.setIsbn13(isbn13);
             book.setTitle(title);
             book.setYearPublished(yearPublished);
-            book.setPopularity(popularity);
             book.setDescription(description);
             book.setImage(image);
             book.setThumbnail(thumbnail);
@@ -189,16 +186,26 @@ public class BookManagementController extends HttpServlet {
         book.setCategories(categories);
 
         Part filePart = req.getPart("description");
-        String path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/desc.txt");
-        book.writeFileProperty(filePart, path);
+        String path;
+        if (filePart.getSubmittedFileName().trim() != "") {
+            path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/desc.txt");
+            book.writeFileProperty(filePart, path);
+            book.setDescription("/catalog/books/" + isbn13 + "/desc.txt");
+        }
         filePart = req.getPart("image");
-        path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/image.jpg");
-        book.writeFileProperty(filePart, path);
+        if (filePart.getSubmittedFileName().trim() != "") {
+            path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/image.jpg");
+            book.writeFileProperty(filePart, path);
+            book.setImage("/catalog/books/" + isbn13 + "/image.jpg");
+        }
         filePart = req.getPart("thumbnail");
-        path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/thumb.jpg");
-        book.writeFileProperty(filePart, path);
+        if (filePart.getSubmittedFileName().trim() != "") {
+            path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/thumb.jpg");
+            book.writeFileProperty(filePart, path);
+            book.setThumbnail("/catalog/books/" + isbn13 + "/thumb.jpg");
+        }
 
-//        req.getSession().setAttribute("bookToUpdate", book);
+        Book.setBookToUpdate(book, req);
 
         return "/admin/books/bookUpdate/bookAuthors.jsp";
     }
@@ -309,6 +316,9 @@ public class BookManagementController extends HttpServlet {
     private String updateBook(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, DataValidationException, InternalDataValidationException{
         Book book = Book.getBookToUpdate(req);
+        if (BookDB.selectBook(book.getIsbn13()) != null) {
+            BookDB.deleteBook(book.getIsbn13());
+        }
         BookDB.insertBook(book);
         Book.deleteBookToUpdate(req);
 

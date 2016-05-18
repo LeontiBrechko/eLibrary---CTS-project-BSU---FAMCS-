@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -28,7 +27,6 @@ import java.util.Map;
 public class RegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String referrer = req.getParameter("referrer");
         String url;
 
         try {
@@ -40,11 +38,10 @@ public class RegistrationController extends HttpServlet {
                     PasswordUtil.hashPassword(user.getAccount().getPassword() + user.getAccount().getSaltValue());
             user.getAccount().setPassword(saltedAndHashedPassword);
 
+            Account.addAccountCookie(user.getAccount(), resp);
+            sendConfirmationEmail(req, user.getAccount());
             UserDB.insertUser(user);
 
-            Account.addAccountCookie(user.getAccount(), resp);
-            // TODO: 2016-03-29 confirmation
-//            sendConfirmationEmail(referrer, user.getAccount());
             url = "/account/confirm.jsp";
 
         } catch (DataValidationException e) {
@@ -83,10 +80,12 @@ public class RegistrationController extends HttpServlet {
         return user;
     }
 
-    // TODO: 2016-02-29 implement email confirmation method in registration controller
-    public static void sendConfirmationEmail(String referrer, Account account)
-            throws MessagingException {
-        // TODO: 2016-03-11 implement forwarding accordingly to referrer
-        MailUtil.sendMail(account.getEmail(), "", "", "", true);
+    public static void sendConfirmationEmail(HttpServletRequest req, Account account)
+            throws MessagingException, UnsupportedEncodingException {
+        String confirmationLink = "http://" + req.getServerName() + ":" + req.getServerPort()
+                + "/account/confirmation?username=" + account.getUsername()
+                + "&token=" + account.getConfirmationToken();
+        MailUtil.sendConfirmationEmail(account.getEmail(), account.getUsername(),
+                "elibraryprojectfamcs@gmail.com", "Account activation", confirmationLink);
     }
 }

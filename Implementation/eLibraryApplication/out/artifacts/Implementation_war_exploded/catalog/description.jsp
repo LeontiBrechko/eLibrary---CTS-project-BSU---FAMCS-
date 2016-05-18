@@ -40,9 +40,17 @@
         </ul>
         <p>${bookDescription}</p>
     </div>
-    <%--TO-DO: change links to buttons--%>
-    <a href="/catalog/description?action=openBook&amp;isbn13=${book.isbn13}">Open book online</a>
-    <a href="/download/downloadList?action=addToDownloadList&amp;isbn13=${book.isbn13}">Add to download list</a>
+    <c:if test="${isOpenable}">
+        <a href="/catalog/description?action=openBook&amp;isbn13=${book.isbn13}">Open book online</a>
+    </c:if>
+    <c:choose>
+        <c:when test="${isAddable}">
+            <a href="/download/downloadList?action=addToDownloadList&amp;isbn13=${book.isbn13}">Add to download list</a>
+        </c:when>
+        <c:otherwise>
+            <p>Book has already been added to the download list.</p>
+        </c:otherwise>
+    </c:choose>
     <a href="/index.jsp">Home</a>
 </body>
 </html>

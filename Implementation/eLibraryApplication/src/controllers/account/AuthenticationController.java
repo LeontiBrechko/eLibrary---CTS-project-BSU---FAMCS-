@@ -3,6 +3,7 @@ package controllers.account;
 import com.sun.org.apache.xml.internal.utils.URI;
 import data.AccountDB;
 import models.Account;
+import models.enums.AccountState;
 import utils.PasswordUtil;
 import utils.dataValidation.DataValidationException;
 import utils.dataValidation.InternalDataValidationException;
@@ -26,30 +27,19 @@ public class AuthenticationController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         String url;
-        String referrer = req.getHeader("referer");
-        if (referrer != null) {
-            referrer = new URI(referrer).getPath(true, false);
-            if (referrer.equals("/account/login.jsp")) {
-                referrer = "/index.jsp";
-            }
-        }
 
         try {
             if (action == null) {
                 resp.sendError(404);
                 return;
             } else if (action.equals("login")) {
-                url = login(referrer, req, resp);
+                url = login(req, resp);
             } else if (action.equals("signUp")) {
-                url = signUp(referrer, req, resp);
+                url = signUp(req, resp);
             } else {
                 resp.sendError(404);
                 return;
             }
-//            } else if (action.equals("logout")) {
-//                logout(req, resp);
-//                url = referrer;
-//            }
         } catch (Exception e) {
             log(e.getMessage(), e);
             for (Throwable t : e.getSuppressed()) {
@@ -59,10 +49,10 @@ public class AuthenticationController extends HttpServlet {
             return;
         }
 
-        if (url != null && url.equals(referrer)) {
-            resp.sendRedirect(url);
-        } else {
+        if (url.equals("/account/login.jsp")) {
             req.getServletContext().getRequestDispatcher(url).forward(req, resp);
+        } else {
+            resp.sendRedirect(url);
         }
     }
 
@@ -70,33 +60,26 @@ public class AuthenticationController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         String url;
-        String referrer = req.getHeader("referer");
-        if (referrer != null) {
-            referrer = new URI(referrer).getPath(true, false);
-            if (referrer.equals("/account/login.jsp")) {
-                referrer = "/index.jsp";
-            }
-        }
 
         if (action == null) {
             resp.sendError(404);
             return;
         } else if (action.equals("logout")) {
             logout(req, resp);
-            url = referrer;
+            url = "/index.jsp";
         } else {
             resp.sendError(404);
             return;
         }
 
-        if (referrer != null && url.equals(referrer)) {
-            resp.sendRedirect(url);
-        } else {
+        if (url.equals("/account/login.jsp")) {
             req.getServletContext().getRequestDispatcher(url).forward(req, resp);
+        } else {
+            resp.sendRedirect(url);
         }
     }
 
-    private String login(String referrer, HttpServletRequest req, HttpServletResponse resp)
+    private String login(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, NoSuchAlgorithmException,
             DataValidationException, InternalDataValidationException {
         String emailOrUsername = req.getParameter("emailOrUsername");
@@ -107,17 +90,18 @@ public class AuthenticationController extends HttpServlet {
                 (password != null && !password.trim().equals(""))) {
             Account account = AccountDB.selectAccount(emailOrUsername);
             if (account != null) {
-                String saltValue = account.getSaltValue();
-                String hashedPassword = PasswordUtil.hashPassword(password + saltValue);
-                if (hashedPassword.equals(account.getPassword())) {
-                    Account.addAccountCookie(account, resp);
-                    if (referrer != null && !referrer.trim().equals("")) {
-                        url = referrer;
-                    } else {
+                if (account.getState() == AccountState.ACTIVE) {
+                    String saltValue = account.getSaltValue();
+                    String hashedPassword = PasswordUtil.hashPassword(password + saltValue);
+                    if (hashedPassword.equals(account.getPassword())) {
+                        Account.addAccountCookie(account, resp);
                         url = "/index.jsp";
+                    } else {
+                        req.setAttribute("errorMessage", "Invalid username or password");
+                        url = "/account/login.jsp";
                     }
                 } else {
-                    req.setAttribute("errorMessage", "Invalid username or password");
+                    req.setAttribute("errorMessage", "Your account either blocked or not activated.");
                     url = "/account/login.jsp";
                 }
             } else {
@@ -132,8 +116,7 @@ public class AuthenticationController extends HttpServlet {
         return url;
     }
 
-    private String signUp(String referrer, HttpServletRequest req, HttpServletResponse resp) {
-        req.setAttribute("referrer", referrer);
+    private String signUp(HttpServletRequest req, HttpServletResponse resp) {
         return "/account/register.jsp";
     }
 

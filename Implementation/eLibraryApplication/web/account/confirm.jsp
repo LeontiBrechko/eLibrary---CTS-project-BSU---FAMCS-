@@ -12,5 +12,6 @@
 </head>
 <body>
 Success!
+Please, confirm your account.
 </body>
 </html>

@@ -1,6 +1,7 @@
 package controllers.catalog;
 
 import data.BookDB;
+import models.Account;
 import models.Book;
 import models.BookFile;
 import models.enums.Format;
@@ -26,13 +27,26 @@ public class DescriptionController extends HttpServlet {
         String url;
 
         try {
+            String isbn13 = req.getParameter("isbn13");
+            Book book;
+            if (isbn13 != null) {
+                book = BookDB.selectBook(isbn13);
+                if (book == null) {
+                    resp.sendError(404);
+                    return;
+                }
+            } else {
+                resp.sendError(404);
+                return;
+            }
+
             if (action == null) {
                 resp.sendError(404);
                 return;
             } else if (action.equals("showDescription")) {
-                url = showDescription(req, resp);
+                url = showDescription(book, req, resp);
             } else if (action.equals("openBook")) {
-                url = openBook(req, resp);
+                url = openBook(book, req, resp);
             } else {
                 resp.sendError(404);
                 return;
@@ -46,92 +60,54 @@ public class DescriptionController extends HttpServlet {
             return;
         }
 
-        getServletContext().getRequestDispatcher(url).forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        try {
-            if (action == null) {
-                resp.sendError(404);
-                return;
-            } else if (action.equals("showDescription") ||
-                    action.equals("openBook")) {
-                this.doGet(req, resp);
-            } else {
-                resp.sendError(404);
-                return;
-            }
-        } catch (Exception e) {
-            log(e.getMessage(), e);
-            for (Throwable t : e.getSuppressed()) {
-                log(t.getMessage(), t);
-            }
-            resp.sendError(500);
-            return;
+        if (!url.equals("openedBook")) {
+            getServletContext().getRequestDispatcher(url).forward(req, resp);
         }
     }
 
-    private String showDescription(HttpServletRequest req, HttpServletResponse resp)
+    private String showDescription(Book book, HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException,
             DataValidationException, InternalDataValidationException {
-        String url;
-        String isbn13 = req.getParameter("isbn13");
+        req.setAttribute("bookDescription",
+                book.readDescriptionFile(
+                        req.getServletContext().getRealPath(book.getDescription())));
 
-        if (isbn13 == null || isbn13.equals("")) {
-            // TODO: 2016-03-11 error message
-            url = "/index.jsp";
-        } else {
-            Book book = BookDB.selectBook(isbn13);
-            if (book != null) {
-                if (!book.getDescription().trim().equals("")) {
-                    req.setAttribute("bookDescription",
-                            book.readDescriptionFile(
-                                    req.getServletContext().getRealPath(book.getDescription())));
-                }
-                req.setAttribute("book", book);
-                url = "/catalog/description.jsp";
-            } else {
-                // TODO: 2016-03-11 error message
-                url = "/index.jsp";
+        Account account = Account.getSessionAccount(req);
+        boolean isAddable = true;
+        if (account != null && account.listContainsBook(book.getIsbn13()) != -1) {
+            isAddable = false;
+        }
+
+        boolean isOpenable = false;
+        for (BookFile file : book.getFiles()) {
+            if (file.getFormat() == Format.PDF) {
+                isOpenable = true;
+                break;
             }
         }
 
-        return url;
+        req.setAttribute("isOpenable", isOpenable);
+        req.setAttribute("isAddable", isAddable);
+        req.setAttribute("book", book);
+        return "/catalog/description.jsp";
     }
 
-    private String openBook(HttpServletRequest req, HttpServletResponse resp)
+    private String openBook(Book book, HttpServletRequest req, HttpServletResponse resp)
             throws IOException, SQLException,
             DataValidationException, InternalDataValidationException {
-        String url = "";
-        String isbn13 = req.getParameter("isbn13");
+        String url = "/catalog/description?action=showDescription&amp;isbn13=" + book.getIsbn13();
 
-        if (isbn13 != null && !isbn13.equals("")) {
-            Book book = BookDB.selectBook(isbn13);
-            if (book != null) {
-                for (BookFile file : book.getFiles()) {
-                    if (file.getFormat() == Format.PDF) {
-                        String path = getServletContext().getRealPath(file.getPath());
-                        File pdfFile = new File(path).getAbsoluteFile();
-                        Files.copy(pdfFile.toPath(), resp.getOutputStream());
-                        resp.setHeader("Content-Type", getServletContext().getMimeType(pdfFile.getName()));
-                        resp.setHeader("Content-Length", String.valueOf(pdfFile.length()));
-                        resp.setHeader("Content-Disposition", "inline; filename=\"" + pdfFile.getName() + "\"");
-                        url = "";
-                        break;
-                    } else {
-                        // TODO: 2016-03-11 error message
-                        url = "/catalog/description?action=showDescription&amp;isbn13=" + isbn13;
-                    }
-                }
-            } else {
-                // TODO: 2016-03-11 error message
-                url = "/index.jsp";
+        for (BookFile file : book.getFiles()) {
+            if (file.getFormat() == Format.PDF) {
+                String path = getServletContext().getRealPath(file.getPath());
+                File pdfFile = new File(path).getAbsoluteFile();
+                Files.copy(pdfFile.toPath(), resp.getOutputStream());
+                resp.setHeader("Content-Type", getServletContext().getMimeType(pdfFile.getName()));
+                resp.setHeader("Content-Length", String.valueOf(pdfFile.length()));
+                resp.setHeader("Content-Disposition", "inline; filename=\"" + pdfFile.getName() + "\"");
+                url = "openedBook";
+                break;
             }
-        } else {
-            // TODO: 2016-03-11 error message
-            url = "/index.jsp";
         }
 
         return url;

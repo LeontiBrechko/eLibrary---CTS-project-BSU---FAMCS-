@@ -129,6 +129,6 @@ public class DownloadListController extends HttpServlet {
             }
         }.start();
 
-        return "/account/confirm.jsp";
+        return "/download/downloadConfirm.jsp";
     }
 }

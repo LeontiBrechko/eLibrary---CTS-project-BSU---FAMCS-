@@ -10,21 +10,23 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
     <link href="../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="wrapper">
     <jsp:include page="../includes/navigationBar.jsp"/>
-    <h1 id="title">Books: </h1>
-    <c:forEach var="book" items="${books}">
-        <div>
-            <img src="<c:url value="${book.thumbnail}" />" align="left"/>
-            <p>${book.title}</p>
-            <p>${book.yearPublished}</p>
-            <p><a href="catalog/description?action=showDescription&amp;isbn13=${book.isbn13}">Description</a></p>
-        </div>
-    </c:forEach>
+    <jsp:include page="../includes/search.jsp"/>
+    <jsp:include page="../includes/sidebar.jsp"/>
+    <div id="content">
+        <c:forEach var="book" items="${books}">
+            <div class="book">
+                <label>${book.title}<br>
+                    <img src="<c:url value="${book.thumbnail}" />" alt="${book.title}"><br>
+                    <a href="/catalog/description?action=showDescription&amp;isbn13=${book.isbn13}">Description</a>
+                </label>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 </body>
 </html>

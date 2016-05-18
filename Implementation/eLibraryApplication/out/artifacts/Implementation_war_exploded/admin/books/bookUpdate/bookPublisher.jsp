@@ -20,7 +20,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="Styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../../../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
+    <link href="../../../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="wrapper">

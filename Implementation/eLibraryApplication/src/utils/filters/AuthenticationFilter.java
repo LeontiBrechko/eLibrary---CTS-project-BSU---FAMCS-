@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Leonti on 2016-03-15.
- */
 public class AuthenticationFilter implements Filter {
     private FilterConfig filterConfig;
 

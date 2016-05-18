@@ -10,12 +10,13 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="../styles/libraryAccounts.css" rel="stylesheet" type="text/css">
     <link href="../styles/mainPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="wrapper">
     <jsp:include page="../includes/navigationBar.jsp"/>
+    <jsp:include page="../includes/search.jsp"/>
+    <jsp:include page="../includes/sidebar.jsp"/>
     <div id="description">
         <img src="<c:url value="${book.image}" />" align="left" />
         <h3>${book.title}</h3>

@@ -26,14 +26,6 @@ table td {
     margin-left: 10%;
 }
 
-.leftColumn {
-    margin-left: 10%;
-}
-
-.rightColumn {
-    margin-right: 10%;
-}
-
 #adminTable {
     margin-left: 30%;
     margin-right: 30%;
@@ -42,8 +34,8 @@ table td {
 
 .form-control {
     display: block;
-    margin-left: 15%;
-    margin-right: 10%;
+    /*margin-left: 15%;*/
+    /*margin-right: 10%;*/
     width: 50%;
     height: 45px;
     padding: 3px 10px;
@@ -126,5 +118,12 @@ table td {
     color: #FfFfFf;
     font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, serif;
     font-size: 24px;
+
+}
+
+#downloadTable {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
 
 }

@@ -29,7 +29,8 @@ public class ConfirmationController extends HttpServlet {
         try {
             Account account = AccountDB.selectAccount(req.getParameter("username"));
             if (account != null) {
-                if (account.getConfirmationToken().equals(req.getParameter("token"))) {
+                String token = req.getParameter("token");
+                if (account.getConfirmationToken().equals(token)) {
                     if (account.getState() == AccountState.TEMPORARY) {
                         account.setState(AccountState.ACTIVE);
                         AccountDB.updateAccount(account);

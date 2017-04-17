@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import entities.Book;
 import entities.user.User;

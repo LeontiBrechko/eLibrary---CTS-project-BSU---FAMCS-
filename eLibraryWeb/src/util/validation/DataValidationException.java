@@ -1,4 +1,4 @@
-package utils.validation;
+package util.validation;
 
 public class DataValidationException extends Exception {
     public DataValidationException() {

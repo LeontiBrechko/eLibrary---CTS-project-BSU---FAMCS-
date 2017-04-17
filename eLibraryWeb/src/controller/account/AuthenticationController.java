@@ -3,11 +3,11 @@ package controller.account;
 import entities.user.User;
 import entities.user.UserState;
 import service.LibraryService;
-import utils.CookieUtil;
-import utils.PasswordUtil;
-import utils.SessionUtil;
-import utils.validation.DataValidationException;
-import utils.validation.InternalDataValidationException;
+import util.CookieUtil;
+import util.PasswordUtil;
+import util.SessionUtil;
+import util.validation.DataValidationException;
+import util.validation.InternalDataValidationException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

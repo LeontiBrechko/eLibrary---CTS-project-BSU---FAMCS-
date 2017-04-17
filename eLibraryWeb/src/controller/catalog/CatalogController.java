@@ -4,8 +4,8 @@ package controller.catalog;
 import entities.Book;
 import entities.Category;
 import service.LibraryService;
-import utils.validation.DataValidationException;
-import utils.validation.InternalDataValidationException;
+import util.validation.DataValidationException;
+import util.validation.InternalDataValidationException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

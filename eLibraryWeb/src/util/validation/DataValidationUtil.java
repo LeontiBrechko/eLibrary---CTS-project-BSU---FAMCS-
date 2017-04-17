@@ -1,4 +1,4 @@
-package utils.validation;
+package util.validation;
 
 import entities.user.User;
 import service.LibraryService;

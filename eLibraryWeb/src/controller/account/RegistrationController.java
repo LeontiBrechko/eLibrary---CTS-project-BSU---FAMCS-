@@ -2,11 +2,11 @@ package controller.account;
 
 import entities.user.User;
 import service.LibraryService;
-import utils.CookieUtil;
-import utils.MailUtil;
-import utils.PasswordUtil;
-import utils.validation.DataValidationException;
-import utils.validation.DataValidationUtil;
+import util.CookieUtil;
+import util.MailUtil;
+import util.PasswordUtil;
+import util.validation.DataValidationException;
+import util.validation.DataValidationUtil;
 
 import javax.ejb.EJB;
 import javax.mail.MessagingException;

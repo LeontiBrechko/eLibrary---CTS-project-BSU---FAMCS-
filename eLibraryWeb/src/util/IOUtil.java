@@ -1,10 +1,10 @@
-package utils;
+package util;
 
 import entities.Book;
 import entities.BookFile;
 import entities.user.User;
 import service.LibraryService;
-import utils.validation.InternalDataValidationException;
+import util.validation.InternalDataValidationException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;

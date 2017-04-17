@@ -1,4 +1,4 @@
-package utils.filter;
+package util.filter;
 
 import javax.servlet.*;
 import java.io.IOException;

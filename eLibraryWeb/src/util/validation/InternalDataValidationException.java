@@ -1,4 +1,4 @@
-package utils.validation;
+package util.validation;
 
 public class InternalDataValidationException extends Exception {
     public InternalDataValidationException() {

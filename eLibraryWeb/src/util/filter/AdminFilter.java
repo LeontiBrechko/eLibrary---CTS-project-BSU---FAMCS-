@@ -1,15 +1,17 @@
-package utils.filter;
+package util.filter;
 
+import entities.user.Role;
 import entities.user.User;
 import entities.user.UserState;
-import utils.SessionUtil;
+import util.SessionUtil;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
-public class AuthenticationFilter implements Filter {
+public class AdminFilter implements Filter {
     private FilterConfig filterConfig;
 
     @Override
@@ -28,11 +30,14 @@ public class AuthenticationFilter implements Filter {
         User user = SessionUtil.getSessionAccount(request);
 
         if (user != null) {
-            if (user.getState() == UserState.ACTIVE) {
+            if (user.getState() == UserState.ACTIVE &&
+                    user.getRoles().stream().filter(userRole -> userRole.getRole() == Role.ADMIN)
+                            .collect(Collectors.toList()).size() == 1) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
+                request.setAttribute("errorMessage", "Your account doesn't have proper privileges");
                 request.getServletContext()
-                        .getRequestDispatcher("/account/confirm.jsp")
+                        .getRequestDispatcher("/index.jsp")
                         .forward(request, response);
             }
         } else {

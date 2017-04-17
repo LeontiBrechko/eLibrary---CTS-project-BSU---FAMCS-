@@ -3,11 +3,11 @@ package controller.download;
 import entities.Book;
 import entities.user.User;
 import service.LibraryService;
-import utils.IOUtil;
-import utils.MailUtil;
-import utils.SessionUtil;
-import utils.validation.DataValidationException;
-import utils.validation.InternalDataValidationException;
+import util.IOUtil;
+import util.MailUtil;
+import util.SessionUtil;
+import util.validation.DataValidationException;
+import util.validation.InternalDataValidationException;
 
 import javax.ejb.EJB;
 import javax.mail.MessagingException;

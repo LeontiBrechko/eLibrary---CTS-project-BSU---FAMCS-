@@ -1,9 +1,9 @@
-package utils.listener;
+package util.listener;
 
 import entities.user.User;
 import service.LibraryService;
-import utils.CookieUtil;
-import utils.SessionUtil;
+import util.CookieUtil;
+import util.SessionUtil;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletRequestEvent;

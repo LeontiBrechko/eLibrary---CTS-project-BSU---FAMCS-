@@ -75,6 +75,22 @@ public class Book extends BaseEntity implements Serializable {
     public Book() {
     }
 
+    public Book(String isbn13, String title, int yearPublished,
+                String description, List<BookFile> files, String image,
+                String thumbnail, List<Publisher> publishers, List<Author> authors,
+                List<Category> categories) {
+        this.setIsbn13(isbn13);
+        this.setTitle(title);
+        this.setPubYear(yearPublished);
+        this.setDescription(description);
+        this.setBookFiles(files);
+        this.setImagePath(image);
+        this.setThumb(thumbnail);
+        this.setPublishers(publishers);
+        this.setAuthors(authors);
+        this.setCategories(categories);
+    }
+
     public String getIsbn13() {
         return isbn13;
     }

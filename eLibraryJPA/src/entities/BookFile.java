@@ -36,6 +36,12 @@ public class BookFile implements Serializable {
     public BookFile() {
     }
 
+    public BookFile(Format format, Language language, String path) {
+        this.setFormat(format);
+        this.setLanguage(language);
+        this.setPath(path);
+    }
+
     public BookFilePK getId() {
         return this.id;
     }

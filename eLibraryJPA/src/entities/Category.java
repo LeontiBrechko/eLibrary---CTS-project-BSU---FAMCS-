@@ -29,6 +29,11 @@ public class Category extends BaseEntity implements Serializable {
     public Category() {
     }
 
+    public Category(String name, String description) {
+        this.setName(name);
+        this.setDescription(description);
+    }
+
     public String getName() {
         return name;
     }
@@ -51,5 +56,20 @@ public class Category extends BaseEntity implements Serializable {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+
+        return name != null ? name.equals(category.name) : category.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 }

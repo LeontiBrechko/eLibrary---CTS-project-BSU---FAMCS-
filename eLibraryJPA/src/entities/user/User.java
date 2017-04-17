@@ -56,6 +56,20 @@ public class User extends BaseEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "BOOK_ID", nullable = false))
     private List<Book> books;
 
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String username,
+                String email, String password, String confirmToken, String saltValue) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.confirmToken = confirmToken;
+        this.saltValue = saltValue;
+    }
+
     public String getFirstName() {
         return firstName;
     }

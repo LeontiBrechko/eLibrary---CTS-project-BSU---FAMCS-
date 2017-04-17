@@ -24,6 +24,10 @@ public class Format extends BaseEntity implements Serializable {
     public Format() {
     }
 
+    public Format(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

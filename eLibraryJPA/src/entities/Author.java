@@ -29,6 +29,11 @@ public class Author extends BaseEntity implements Serializable {
     public Author() {
     }
 
+    public Author(String firstName, String lastName) {
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+    }
+
     public String getFirstName() {
         return this.firstName;
     }

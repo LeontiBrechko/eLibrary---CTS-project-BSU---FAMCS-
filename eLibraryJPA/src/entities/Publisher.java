@@ -41,6 +41,16 @@ public class Publisher extends BaseEntity implements Serializable {
     public Publisher() {
     }
 
+    public Publisher(String name, String country, String city,
+                     String state, int streetNumber, String streetName) {
+        this.setName(name);
+        this.setCountry(country);
+        this.setCity(city);
+        this.setState(state);
+        this.setStreetNum(streetNumber);
+        this.setStreetName(streetName);
+    }
+
     public String getName() {
         return name;
     }

@@ -26,6 +26,10 @@ public class Language extends BaseEntity implements Serializable {
     public Language() {
     }
 
+    public Language(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return this.name;
     }

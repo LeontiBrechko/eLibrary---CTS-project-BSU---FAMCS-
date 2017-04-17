@@ -1,68 +1,57 @@
 package entities;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 
 /**
  * The persistent class for the format database table.
- * 
  */
 @Entity
-@NamedQuery(name="Format.findAll", query="SELECT f FROM Format f")
-public class Format implements Serializable {
-	private static final long serialVersionUID = 1L;
+@NamedQuery(name = "Format.findAll", query = "SELECT f FROM Format f")
+public class Format extends BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="FORMAT_ID")
-	private String formatId;
+    @Column(name = "NAME", nullable = false, unique = true)
+    private String name;
 
-	private String name;
+    //bi-directional many-to-one association to BookFile
+    @OneToMany
+    @JoinColumn(name = "FORMAT_ID", referencedColumnName = "ID")
+    private List<BookFile> bookFiles;
 
-	//bi-directional many-to-one association to BookFile
-	@OneToMany(mappedBy="format")
-	private List<BookFile> bookFiles;
+    public Format() {
+    }
 
-	public Format() {
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getFormatId() {
-		return this.formatId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setFormatId(String formatId) {
-		this.formatId = formatId;
-	}
+    public List<BookFile> getBookFiles() {
+        return bookFiles;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public void setBookFiles(List<BookFile> bookFiles) {
+        this.bookFiles = bookFiles;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public BookFile addBookFile(BookFile bookFile) {
+        getBookFiles().add(bookFile);
+        bookFile.setFormat(this);
 
-	public List<BookFile> getBookFiles() {
-		return this.bookFiles;
-	}
+        return bookFile;
+    }
 
-	public void setBookFiles(List<BookFile> bookFiles) {
-		this.bookFiles = bookFiles;
-	}
+    public BookFile removeBookFile(BookFile bookFile) {
+        getBookFiles().remove(bookFile);
+        bookFile.setFormat(null);
 
-	public BookFile addBookFile(BookFile bookFile) {
-		getBookFiles().add(bookFile);
-		bookFile.setFormat(this);
-
-		return bookFile;
-	}
-
-	public BookFile removeBookFile(BookFile bookFile) {
-		getBookFiles().remove(bookFile);
-		bookFile.setFormat(null);
-
-		return bookFile;
-	}
+        return bookFile;
+    }
 
 }

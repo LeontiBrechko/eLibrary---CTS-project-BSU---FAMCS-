@@ -1,106 +1,99 @@
 package entities;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 
 /**
  * The persistent class for the publisher database table.
- * 
  */
 @Entity
-@NamedQuery(name="Publisher.findAll", query="SELECT p FROM Publisher p")
-public class Publisher implements Serializable {
-	private static final long serialVersionUID = 1L;
+@NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p")
+public class Publisher extends BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="PUB_ID")
-	private String pubId;
+    @Column(name = "NAME", nullable = false, unique = true)
+    private String name;
 
-	private String city;
+    @Column(name = "COUNTRY")
+    private String country;
 
-	private String country;
+    @Column(name = "CITY")
+    private String city;
 
-	private String name;
+    @Column(name = "STATE")
+    private String state;
 
-	private String state;
+    @Column(name = "STREET_NAME")
+    private String streetName;
 
-	@Column(name="STREET_NAME")
-	private String streetName;
+    @Column(name = "STREET_NUM")
+    private Integer streetNum;
 
-	@Column(name="STREET_NUM")
-	private int streetNum;
+    //bi-directional many-to-many association to Book
+    @ManyToMany
+    @JoinTable(name = "BOOK_PUBLISHER",
+            joinColumns = @JoinColumn(name = "PUB_ID", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "BOOK_ID", nullable = false))
+    private List<Book> books;
 
-	//bi-directional many-to-many association to Book
-	@ManyToMany(mappedBy="publishers")
-	private List<Book> books;
+    public Publisher() {
+    }
 
-	public Publisher() {
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getPubId() {
-		return this.pubId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPubId(String pubId) {
-		this.pubId = pubId;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public String getCity() {
-		return this.city;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getCountry() {
-		return this.country;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getStreetName() {
+        return streetName;
+    }
 
-	public String getState() {
-		return this.state;
-	}
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public Integer getStreetNum() {
+        return streetNum;
+    }
 
-	public String getStreetName() {
-		return this.streetName;
-	}
+    public void setStreetNum(Integer streetNum) {
+        this.streetNum = streetNum;
+    }
 
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
-	}
+    public List<Book> getBooks() {
+        return books;
+    }
 
-	public int getStreetNum() {
-		return this.streetNum;
-	}
-
-	public void setStreetNum(int streetNum) {
-		this.streetNum = streetNum;
-	}
-
-	public List<Book> getBooks() {
-		return this.books;
-	}
-
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
-
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }

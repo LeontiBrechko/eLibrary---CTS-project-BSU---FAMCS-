@@ -5,7 +5,6 @@
     <persistence-unit name="eLibrary" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/jndi/eLibrary</jta-data-source>
-        <class>entities.Account</class>
         <class>entities.Author</class>
         <class>entities.Book</class>
         <class>entities.BookFile</class>
@@ -14,7 +13,7 @@
         <class>entities.Format</class>
         <class>entities.Language</class>
         <class>entities.Publisher</class>
-        <class>entities.User</class>
+        <class>entities.user.User</class>
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>

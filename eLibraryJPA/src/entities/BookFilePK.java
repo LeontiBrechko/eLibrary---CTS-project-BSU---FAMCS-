@@ -41,7 +41,7 @@ public class BookFilePK implements Serializable {
     }
 
     public String getLangId() {
-        return this.langId;w
+        return this.langId;
     }
 
     public void setLangId(String langId) {

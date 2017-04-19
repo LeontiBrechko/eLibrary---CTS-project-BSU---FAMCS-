@@ -37,5 +37,23 @@ public class UserRole {
         @Enumerated(EnumType.STRING)
         @Column(name = "ROLE")
         private Role role;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Id id = (Id) o;
+
+            if (userId != null ? !userId.equals(id.userId) : id.userId != null) return false;
+            return role == id.role;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = userId != null ? userId.hashCode() : 0;
+            result = 31 * result + (role != null ? role.hashCode() : 0);
+            return result;
+        }
     }
 }

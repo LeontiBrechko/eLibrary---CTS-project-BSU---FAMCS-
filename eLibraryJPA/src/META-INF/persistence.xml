@@ -2,13 +2,12 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="eLibrary" transaction-type="JTA">
+    <persistence-unit name="eLibrary">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/jndi/eLibrary</jta-data-source>
         <class>entities.Author</class>
         <class>entities.Book</class>
         <class>entities.BookFile</class>
-        <class>entities.BookFilePK</class>
         <class>entities.Category</class>
         <class>entities.Format</class>
         <class>entities.Language</class>
@@ -19,6 +18,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
+            <!--<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
         </properties>
     </persistence-unit>
 </persistence>

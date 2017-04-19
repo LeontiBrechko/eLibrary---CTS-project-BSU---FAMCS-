@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
-@WebServlet(name = "login", urlPatterns = "/controller/account/login")
+@WebServlet(name = "login", urlPatterns = "/account/login")
 public class AuthenticationController extends HttpServlet {
     @EJB
     LibraryService service;
@@ -50,11 +50,7 @@ public class AuthenticationController extends HttpServlet {
             return;
         }
 
-        if (url.equals("/controller/account/login.jsp")) {
-            req.getServletContext().getRequestDispatcher(url).forward(req, resp);
-        } else {
-            resp.sendRedirect(url);
-        }
+        req.getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
     @Override
@@ -63,21 +59,16 @@ public class AuthenticationController extends HttpServlet {
         String url;
 
         if (action == null) {
-            resp.sendError(404);
-            return;
+            url = "/account/login.jsp";
         } else if (action.equals("logout")) {
             logout(req, resp);
-            url = "/index.jsp";
+            url = "/catalog/catalog.jsp";
         } else {
             resp.sendError(404);
             return;
         }
 
-        if (url.equals("/controller/account/login.jsp")) {
-            req.getServletContext().getRequestDispatcher(url).forward(req, resp);
-        } else {
-            resp.sendRedirect(url);
-        }
+        req.getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 
     private String login(HttpServletRequest req, HttpServletResponse resp)
@@ -96,29 +87,29 @@ public class AuthenticationController extends HttpServlet {
                     String hashedPassword = PasswordUtil.hashPassword(password + saltValue);
                     if (hashedPassword.equals(user.getPassword())) {
                         CookieUtil.addAccountCookie(user, resp);
-                        url = "/index.jsp";
+                        url = "/catalog/catalog.jsp";
                     } else {
                         req.setAttribute("errorMessage", "Invalid username or password");
-                        url = "/controller/account/login.jsp";
+                        url = "/account/login.jsp";
                     }
                 } else {
-                    req.setAttribute("errorMessage", "Your controller.account either blocked or not activated.");
-                    url = "/controller/account/login.jsp";
+                    req.setAttribute("errorMessage", "Your account either blocked or not activated.");
+                    url = "/account/login.jsp";
                 }
             } else {
                 req.setAttribute("errorMessage", "Invalid username or password");
-                url = "/controller/account/login.jsp";
+                url = "/account/login.jsp";
             }
         } else {
             req.setAttribute("errorMessage", "Invalid username or password");
-            url = "/controller/account/login.jsp";
+            url = "/account/login.jsp";
         }
 
         return url;
     }
 
     private String signUp(HttpServletRequest req, HttpServletResponse resp) {
-        return "/controller/account/register.jsp";
+        return "/account/register.jsp";
     }
 
     private void logout(HttpServletRequest req, HttpServletResponse resp) {

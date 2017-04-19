@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Leonti
-  Date: 2016-03-07
-  Time: 9:45 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,15 +7,24 @@
 </head>
 <body>
 <div id="wrapper">
+    <p class="alert-danger">${errorMessage}</p>
     <jsp:include page="../includes/navigationBar.jsp"/>
     <jsp:include page="../includes/search.jsp"/>
-    <jsp:include page="../includes/sidebar.jsp"/>
+    <div class="sidebar">
+        <ul>
+            <c:forEach var="category" items="${categories}">
+                <li><a href="${pageContext.request.contextPath}/catalog?category=${category.name}">${category.name}</a></li>
+            </c:forEach>
+        </ul>
+    </div>
     <div id="content">
         <c:forEach var="book" items="${books}">
             <div class="book">
                 <label>${book.title}<br>
                     <img src="<c:url value="${book.thumbnail}" />" alt="${book.title}"><br>
-                    <a href="/catalog/description?action=showDescription&amp;isbn13=${book.isbn13}">Description</a>
+                    <a href="${pageContext.request.contextPath}/catalog/description?action=showDescription&amp;isbn13=${book.isbn13}">
+                        Description
+                    </a>
                 </label>
             </div>
         </c:forEach>

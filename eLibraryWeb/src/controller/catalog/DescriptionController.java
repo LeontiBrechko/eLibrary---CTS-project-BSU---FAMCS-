@@ -2,6 +2,7 @@ package controller.catalog;
 
 import entities.Book;
 import entities.BookFile;
+import entities.Category;
 import entities.user.User;
 import service.LibraryService;
 import util.IOUtil;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @WebServlet(name = "bookDescription", urlPatterns = "/catalog/description")
@@ -56,6 +58,9 @@ public class DescriptionController extends HttpServlet {
                 resp.sendError(404);
                 return;
             }
+
+            List<Category> categories = service.findAllCategories();
+            req.setAttribute("categories", categories);
         } catch (Exception e) {
             log(e.getMessage(), e);
             for (Throwable t : e.getSuppressed()) {
@@ -73,8 +78,8 @@ public class DescriptionController extends HttpServlet {
     private String showDescription(Book book, HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException,
             DataValidationException, InternalDataValidationException {
-        req.setAttribute("bookDescription",
-                IOUtil.readDescriptionFile(req.getServletContext().getRealPath(book.getDescription())));
+//        req.setAttribute("bookDescription",
+//                IOUtil.readDescriptionFile(req.getServletContext().getRealPath(book.getDescription())));
 
         User user = SessionUtil.getSessionAccount(req);
         boolean isAddable = true;

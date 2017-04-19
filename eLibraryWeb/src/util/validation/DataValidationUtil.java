@@ -21,6 +21,12 @@ public class DataValidationUtil {
         String username = user.getUsername();
         String email = user.getEmail();
 
+        if (password == null || password.trim().equals("") ||
+                username == null || username.trim().equals("") ||
+                email == null || email.trim().equals("")) {
+            throw new DataValidationException("All fields must be field");
+        }
+
         if (confirmPassword == null
                 || !confirmPassword.equals(password)) {
             throw new DataValidationException("Confirmation password must match password");

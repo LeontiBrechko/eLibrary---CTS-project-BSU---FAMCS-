@@ -20,7 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
-@WebServlet(name = "accountRegistration", urlPatterns = "/controller/account/registration")
+@WebServlet(name = "accountRegistration", urlPatterns = "/account/registration")
 public class RegistrationController extends HttpServlet {
     @EJB
     LibraryService service;
@@ -44,11 +44,11 @@ public class RegistrationController extends HttpServlet {
             sendConfirmationEmail(req, user);
             service.saveUser(user);
 
-            url = "/controller/account/confirm.jsp";
+            url = "/account/confirm.jsp";
 
         } catch (DataValidationException e) {
             req.setAttribute("errorMessage", e.getMessage());
-            url = "/controller/account/register.jsp";
+            url = "/account/register.jsp";
         } catch (Exception e) {
             log(e.getMessage(), e);
             for (Throwable t : e.getSuppressed()) {
@@ -71,7 +71,7 @@ public class RegistrationController extends HttpServlet {
     private static void sendConfirmationEmail(HttpServletRequest req, User user)
             throws MessagingException, UnsupportedEncodingException {
         String confirmationLink = "http://" + req.getServerName() + ":" + req.getServerPort()
-                + "/controller/account/confirmation?username=" + user.getUsername()
+                + req.getContextPath() + "/account/confirmation?username=" + user.getUsername()
                 + "&token=" + URLEncoder.encode(user.getConfirmToken(), "UTF-8");
         MailUtil.sendConfirmationEmail(user.getEmail(), user.getUsername(),
                 "elibraryprojectfamcs@gmail.com", "Account activation", confirmationLink);

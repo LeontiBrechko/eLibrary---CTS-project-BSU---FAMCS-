@@ -21,7 +21,7 @@ public class Category extends BaseEntity implements Serializable {
 
     //bi-directional many-to-many association to Book
     @ManyToMany
-    @JoinTable(name = "BOOK_CATEGORY",
+    @JoinTable(name = "BookCategory",
             joinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "BOOK_ID", nullable = false))
     private List<Book> books;

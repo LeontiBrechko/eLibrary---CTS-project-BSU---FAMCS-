@@ -11,7 +11,7 @@
 <div id="wrapper">
 
     <div id="loginForm">
-        <form action="/account/registration" method="post">
+        <form action="${pageContext.request.contextPath}/account/registration" method="post">
             <input type="hidden" value="${referrer}" name="referrer">
             <h4 class="alert-danger">${errorMessage}</h4>
             <label class="control-label">First Name:

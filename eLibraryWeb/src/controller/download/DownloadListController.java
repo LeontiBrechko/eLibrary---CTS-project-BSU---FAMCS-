@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @WebServlet(name = "downloadList", urlPatterns = "/download/downloadList")
@@ -57,7 +58,8 @@ public class DownloadListController extends HttpServlet {
         }
 
         if (url.trim().equals("")) {
-            resp.sendRedirect("/download/downloadList.jsp");
+            req.getServletContext().getRequestDispatcher("/download/downloadList.jsp").forward(req, resp);
+//            resp.sendRedirect("/download/downloadList.jsp");
         } else {
             req.getServletContext().getRequestDispatcher(url).forward(req, resp);
         }
@@ -78,7 +80,7 @@ public class DownloadListController extends HttpServlet {
         String isbn13 = req.getParameter("isbn13");
 
         User user = SessionUtil.getSessionAccount(req);
-        List<Book> downloadList = user.getBooks();
+        Set<Book> downloadList = user.getBooks();
         Book book = service.findBookByIsbn(isbn13);
 
         if (book != null) {
@@ -104,9 +106,9 @@ public class DownloadListController extends HttpServlet {
     private String deleteFromDownloadList(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, DataValidationException {
         User user = SessionUtil.getSessionAccount(req);
-        int bookIndex = getBookIndex(user, req.getParameter("isbn13"));
-        if (bookIndex != -1) {
-            user.getBooks().remove(bookIndex);
+        Book book = new Book(req.getParameter("isbn13"));
+        if (user.getBooks().contains(book)) {
+            user.getBooks().remove(book);
         }
         service.saveUser(user);
 
@@ -132,17 +134,5 @@ public class DownloadListController extends HttpServlet {
         }).start();
 
         return "/download/downloadConfirm.jsp";
-    }
-
-    private int getBookIndex(User user, String isbn13) {
-        int flag = -1;
-        List<Book> books = user.getBooks();
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getIsbn13().equals(isbn13)) {
-                flag = i;
-                break;
-            }
-        }
-        return flag;
     }
 }

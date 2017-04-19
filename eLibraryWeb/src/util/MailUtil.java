@@ -59,22 +59,49 @@ public class MailUtil {
     }
 
     public static void sendConfirmationEmail(String toEmail, String toName,
-                                              String fromEmail, String subject, String confirmationLink)
+                                             String fromEmail, String subject, String confirmationLink)
             throws MessagingException, UnsupportedEncodingException {
-        Session session = createGMailSMPTSession();
+        final String username = "elibraryprojectfamcs@gmail.com";
+        final String password = "theBestFaculty!";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
 
         Message message = new MimeMessage(session);
-        message.setSubject(subject);
-        message.setSentDate(Date.from(Instant.now()));
         message.setFrom(new InternetAddress(fromEmail));
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, toName));
+        message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(toEmail));
+        message.setSubject(subject);
         message.setText("Please, use link provided below to activate your account!\n" +
                 "Thank you for using our services!\n" + confirmationLink);
 
-        Transport transport = session.getTransport("smtps");
-        transport.connect("smtp.gmail.com", "elibraryprojectfamcs@gmail.com", "theBestFaculty!");
-        transport.sendMessage(message, message.getAllRecipients());
-        transport.close();
+        Transport.send(message);
+
+
+//        Session session = createGMailSMPTSession();
+//
+//        Message message = new MimeMessage(session);
+//        message.setSubject(subject);
+//        message.setSentDate(Date.from(Instant.now()));
+//        message.setFrom(new InternetAddress(fromEmail));
+//        message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, toName));
+//        message.setText("Please, use link provided below to activate your account!\n" +
+//                "Thank you for using our services!\n" + confirmationLink);
+//
+//        Transport transport = session.getTransport("smtps");
+//        transport.connect("smtp.gmail.com", "elibraryprojectfamcs@gmail.com", "theBestFaculty!");
+//        transport.sendMessage(message, message.getAllRecipients());
+//        transport.close();
     }
 
     private static Session createGMailSMPTSession() {

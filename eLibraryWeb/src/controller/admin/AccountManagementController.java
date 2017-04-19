@@ -127,7 +127,7 @@ public class AccountManagementController extends HttpServlet {
 
             url = "/admin/accounts/libraryAccounts.jsp";
         } else {
-            url = "/index.jsp";
+            url = "/catalog/catalog.jsp";
         }
 
         return url;
@@ -147,7 +147,7 @@ public class AccountManagementController extends HttpServlet {
 
             url = "/admin/accounts/libraryAccounts.jsp";
         } else {
-            url = "/index.jsp";
+            url = "/catalog/catalog.jsp";
         }
 
         return url;

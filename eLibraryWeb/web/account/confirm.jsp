@@ -6,7 +6,7 @@
 </head>
 <body id="bodyStyle">
 <div id="wrapper">
-    <a href="../index.jsp">Main Page<a>
+    <a href="${pageContext.request.contextPath}/catalog">Main Page<a>
         <div id="success-message">
             Success!
             Please, confirm your account.

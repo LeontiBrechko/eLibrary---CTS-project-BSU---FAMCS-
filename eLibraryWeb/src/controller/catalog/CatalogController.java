@@ -38,6 +38,8 @@ public class CatalogController extends HttpServlet {
             } else {
                 url = showCatalog(req, resp);
             }
+            List<Category> categories = service.findAllCategories();
+            req.setAttribute("categories", categories);
         } catch (Exception e) {
             log(e.getMessage(), e);
             for (Throwable t : e.getSuppressed()) {
@@ -65,7 +67,10 @@ public class CatalogController extends HttpServlet {
 
     private String searchForTitle(String searchString, HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, DataValidationException, InternalDataValidationException {
-        List<Book> books = service.findBookByTitle(searchString);
+        String filterTitle = searchString.toLowerCase();
+        List<Book> books = service.findAllBooks().stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(filterTitle))
+                .collect(Collectors.toList());
         req.setAttribute("books", books);
 
         return "/catalog/catalog.jsp";

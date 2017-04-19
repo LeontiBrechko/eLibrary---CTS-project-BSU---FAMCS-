@@ -9,7 +9,10 @@ import java.util.List;
  * The persistent class for the publisher database table.
  */
 @Entity
-@NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p")
+@NamedQueries({
+        @NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p"),
+        @NamedQuery(name = "Publisher.findByName", query = "SELECT p FROM Publisher p WHERE p.name = :name")
+})
 public class Publisher extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -33,7 +36,7 @@ public class Publisher extends BaseEntity implements Serializable {
 
     //bi-directional many-to-many association to Book
     @ManyToMany
-    @JoinTable(name = "BOOK_PUBLISHER",
+    @JoinTable(name = "BookPublisher",
             joinColumns = @JoinColumn(name = "PUB_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "BOOK_ID", nullable = false))
     private List<Book> books;
@@ -105,5 +108,20 @@ public class Publisher extends BaseEntity implements Serializable {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Publisher publisher = (Publisher) o;
+
+        return name != null ? name.equals(publisher.name) : publisher.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 }

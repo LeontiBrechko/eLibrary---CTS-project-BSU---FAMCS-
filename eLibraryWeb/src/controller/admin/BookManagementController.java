@@ -19,9 +19,7 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @WebServlet(name = "bookManagement", urlPatterns = "/admin/bookManagement")
 @MultipartConfig
@@ -165,20 +163,20 @@ public class BookManagementController extends HttpServlet {
 
         if (book == null) {
             book = new Book(isbn13, title, yearPublished,
-                    description, new ArrayList<>(),
-                    image, thumbnail, Arrays.asList(new Publisher("Temp", "Temp", "Temp", null, 0, null)),
-                    new ArrayList<>(), new ArrayList<>());
+                    description, new HashSet<>(),
+                    image, thumbnail, new HashSet<>(),
+                    new HashSet<>(), new HashSet<>());
         } else {
             book.setIsbn13(isbn13);
             book.setTitle(title);
             book.setPubYear(yearPublished);
             book.setDescription(description);
             book.setImagePath(image);
-            book.setThumb(thumbnail);
+            book.setThumbnail(thumbnail);
         }
 
         String[] categoriesStrings = req.getParameterValues("selectedCategories");
-        List<Category> categories = new ArrayList<>();
+        Set<Category> categories = new HashSet<>();
         if (categoriesStrings != null) {
             for (String categoryString : categoriesStrings) {
                 Category category = new Category(categoryString, null);
@@ -205,7 +203,7 @@ public class BookManagementController extends HttpServlet {
         if (filePart.getSubmittedFileName().trim() != "") {
             path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/thumb.jpg");
             IOUtil.writeFileProperty(filePart, path);
-            book.setThumb("/catalog/books/" + isbn13 + "/thumb.jpg");
+            book.setThumbnail("/catalog/books/" + isbn13 + "/thumb.jpg");
         }
 
         SessionUtil.setBookToUpdate(book, req);
@@ -216,12 +214,12 @@ public class BookManagementController extends HttpServlet {
     private String updateBookAuthors(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, DataValidationException, InternalDataValidationException {
         Book book = SessionUtil.getBookToUpdate(req);
-        List<Author> authors = book.getAuthors();
+        Set<Author> authors = book.getAuthors();
 
         String updateType = req.getParameter("updateType");
         if (updateType.equals("selectAuthor")) {
             String[] authorsNames = req.getParameterValues("selectedAuthors");
-            authors = new ArrayList<>(authorsNames.length);
+            authors = new HashSet<>(authorsNames.length);
             for (int i = 0; i < authorsNames.length; i++) {
                 String[] nextAuthor = authorsNames[i].split(" ");
                 Author author = new Author(nextAuthor[0], nextAuthor[1]);
@@ -252,7 +250,7 @@ public class BookManagementController extends HttpServlet {
         String updateType = req.getParameter("updateType");
         if (updateType.equals("selectPublisher")) {
             Publisher publisher = service.findPublisherByName(req.getParameter("selectedPublisher"));
-            book.setPublishers(Arrays.asList(publisher));
+            book.setPublishers(new HashSet<>(Arrays.asList(publisher)));
         } else if (updateType.equals("addPublisher")) {
             int streetNumber;
             try {
@@ -273,7 +271,7 @@ public class BookManagementController extends HttpServlet {
                 service.savePublisher(publisher);
             }
 
-            book.setPublishers(Arrays.asList(publisher));
+            book.setPublishers(new HashSet<>(Arrays.asList(publisher)));
         }
 
         return "/admin/books/bookUpdate/bookFiles.jsp";
@@ -307,9 +305,8 @@ public class BookManagementController extends HttpServlet {
         String path = req.getParameter("path");
         BookFile bookFileToDelete = new BookFile(format, language, path);
 
-        int index = getBookFileListIndex(book, bookFileToDelete);
-        if (index >= 0) {
-            book.getBookFiles().remove(index);
+        if (book.getBookFiles().contains(bookFileToDelete)) {
+            book.getBookFiles().remove(bookFileToDelete);
             new File(req.getServletContext().getRealPath(bookFileToDelete.getPath())).delete();
         }
 
@@ -326,18 +323,5 @@ public class BookManagementController extends HttpServlet {
         SessionUtil.deleteBookToUpdate(req);
 
         return showLibraryBooks(req, resp);
-    }
-
-    private int getBookFileListIndex(Book book, BookFile bookFile) {
-        int flag = -1;
-        List<BookFile> bookFiles = book.getBookFiles();
-        for (int i = 0; i < bookFiles.size(); i++) {
-            if (bookFile.getFormat().getName().equals(bookFiles.get(i).getFormat().getName()) &&
-                    bookFile.getLanguage().getName().equals(bookFiles.get(i).getLanguage().getName())) {
-                flag = i;
-                break;
-            }
-        }
-        return flag;
     }
 }

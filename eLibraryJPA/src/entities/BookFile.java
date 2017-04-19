@@ -9,11 +9,8 @@ import java.io.Serializable;
  */
 @Entity
 @NamedQuery(name = "BookFile.findAll", query = "SELECT b FROM BookFile b")
-public class BookFile implements Serializable {
+public class BookFile extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    @EmbeddedId
-    private BookFilePK id;
 
     @Column(name = "PATH", nullable = false)
     private String path;
@@ -40,14 +37,6 @@ public class BookFile implements Serializable {
         this.setFormat(format);
         this.setLanguage(language);
         this.setPath(path);
-    }
-
-    public BookFilePK getId() {
-        return this.id;
-    }
-
-    public void setId(BookFilePK id) {
-        this.id = id;
     }
 
     public String getPath() {
@@ -82,4 +71,23 @@ public class BookFile implements Serializable {
         this.language = language;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BookFile bookFile = (BookFile) o;
+
+        if (book != null ? !book.equals(bookFile.book) : bookFile.book != null) return false;
+        if (format != null ? !format.equals(bookFile.format) : bookFile.format != null) return false;
+        return language != null ? language.equals(bookFile.language) : bookFile.language == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = book != null ? book.hashCode() : 0;
+        result = 31 * result + (format != null ? format.hashCode() : 0);
+        result = 31 * result + (language != null ? language.hashCode() : 0);
+        return result;
+    }
 }

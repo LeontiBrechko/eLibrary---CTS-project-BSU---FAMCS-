@@ -5,13 +5,17 @@ import entities.user.User;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 
 /**
  * The persistent class for the book database table.
  */
 @Entity
-@NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b")
+@NamedQueries({
+        @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
+        @NamedQuery(name = "Book.findByIsbn", query = "SELECT b FROM Book b WHERE b.isbn13 = :isbn")
+})
 public class Book extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -27,66 +31,69 @@ public class Book extends BaseEntity implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "POPULARITY",
-            columnDefinition = "signed bigint DEFAULT 0",
-            nullable = false)
+    @Column(name = "POPULARITY", nullable = false)
     private Long popularity;
 
     @Column(name = "IMAGE_PATH")
     private String imagePath;
 
     @Column(name = "THUMB_PATH")
-    private String thumb;
+    private String thumbnail;
 
     //bi-directional many-to-many association to Account
-    @ManyToMany
-    @JoinTable(name = "DOWNLOAD_LIST",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "DownloadList",
             joinColumns = @JoinColumn(name = "BOOK_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", nullable = false))
-    private List<User> users;
+    private Set<User> users;
 
     //bi-directional many-to-many association to Author
-    @ManyToMany
-    @JoinTable(name = "BOOK_AUTHOR",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "BookAuthor",
             joinColumns = @JoinColumn(name = "BOOK_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "AUTH_ID", nullable = false))
-    private List<Author> authors;
+    private Set<Author> authors;
 
     //bi-directional many-to-many association to Category
-    @ManyToMany
-    @JoinTable(name = "BOOK_CATEGORY",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "BookCategory",
             joinColumns = @JoinColumn(name = "BOOK_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
-    private List<Category> categories;
+    private Set<Category> categories;
 
     //bi-directional many-to-many association to Publisher
-    @ManyToMany
-    @JoinTable(name = "BOOK_PUBLISHER",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "BookPublisher",
             joinColumns = @JoinColumn(name = "BOOK_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "PUB_ID", nullable = false))
-    private List<Publisher> publishers;
+    private Set<Publisher> publishers;
 
     //bi-directional many-to-one association to BookFile
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "BOOK_FILE")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "BOOK_ID", referencedColumnName = "ID")
-    private List<BookFile> bookFiles;
+    private Set<BookFile> bookFiles;
 
     public Book() {
     }
 
+    public Book(String isbn13) {
+        this();
+        this.isbn13 = isbn13;
+    }
+
     public Book(String isbn13, String title, int yearPublished,
-                String description, List<BookFile> files, String image,
-                String thumbnail, List<Publisher> publishers, List<Author> authors,
-                List<Category> categories) {
-        this.setIsbn13(isbn13);
+                String description, Set<BookFile> files, String image,
+                String thumbnail, Set<Publisher> publisher, Set<Author> authors,
+                Set<Category> categories) {
+        this(isbn13);
         this.setTitle(title);
         this.setPubYear(yearPublished);
         this.setDescription(description);
         this.setBookFiles(files);
         this.setImagePath(image);
-        this.setThumb(thumbnail);
-        this.setPublishers(publishers);
+        this.setThumbnail(thumbnail);
+        this.setPublishers(publisher);
         this.setAuthors(authors);
         this.setCategories(categories);
     }
@@ -139,51 +146,51 @@ public class Book extends BaseEntity implements Serializable {
         this.imagePath = imagePath;
     }
 
-    public String getThumb() {
-        return thumb;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
 
-    public List<Category> getCategories() {
+    public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
-    public List<Publisher> getPublishers() {
+    public Set<Publisher> getPublishers() {
         return publishers;
     }
 
-    public void setPublishers(List<Publisher> publishers) {
+    public void setPublishers(Set<Publisher> publishers) {
         this.publishers = publishers;
     }
 
-    public List<BookFile> getBookFiles() {
+    public Set<BookFile> getBookFiles() {
         return bookFiles;
     }
 
-    public void setBookFiles(List<BookFile> bookFiles) {
+    public void setBookFiles(Set<BookFile> bookFiles) {
         this.bookFiles = bookFiles;
     }
 
@@ -201,4 +208,18 @@ public class Book extends BaseEntity implements Serializable {
         return bookFile;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        return isbn13 != null ? isbn13.equals(book.isbn13) : book.isbn13 == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return isbn13 != null ? isbn13.hashCode() : 0;
+    }
 }

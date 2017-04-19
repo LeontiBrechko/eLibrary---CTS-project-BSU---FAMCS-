@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "accountConfirmation", urlPatterns = "/controller/account/confirmation")
+@WebServlet(name = "accountConfirmation", urlPatterns = "/account/confirmation")
 public class ConfirmationController extends HttpServlet {
     @EJB
     LibraryService service;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String url = "/controller/account/confirm.jsp";
+        String url = "/account/confirm.jsp";
 
         try {
             User user = service.findUserByUsername(req.getParameter("username"));
@@ -30,16 +30,16 @@ public class ConfirmationController extends HttpServlet {
                         user.setState(UserState.ACTIVE);
                         service.saveUser(user);
                     } else {
-                        req.setAttribute("errorMessage", "Your controller.account is already confirmed.");
-                        url = "/index.jsp";
+                        req.setAttribute("errorMessage", "Your account is already confirmed.");
+                        url = "/catalog/catalog.jsp";
                     }
                 } else {
                     req.setAttribute("errorMessage", "Invalid confirmation token.");
-                    url = "/index.jsp";
+                    url = "/catalog/catalog.jsp";
                 }
             } else {
                 req.setAttribute("errorMessage", "No such user in the system.");
-                url = "/index.jsp";
+                url = "/catalog/catalog.jsp";
             }
         } catch (Exception e) {
             log(e.getMessage(), e);

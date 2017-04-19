@@ -9,7 +9,11 @@ import java.util.List;
  * The persistent class for the author database table.
  */
 @Entity
-@NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a")
+@NamedQueries({
+        @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a"),
+        @NamedQuery(name = "Author.findByName", query = "SELECT a FROM Author a " +
+                "WHERE a.firstName = :firstName AND a.lastName = :lastName")
+})
 public class Author extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +25,7 @@ public class Author extends BaseEntity implements Serializable {
 
     //bi-directional many-to-many association to Book
     @ManyToMany
-    @JoinTable(name = "BOOK_AUTHOR",
+    @JoinTable(name = "BookAuthor",
             joinColumns = @JoinColumn(name = "AUTH_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "BOOK_ID", nullable = false))
     private List<Book> books;
@@ -58,4 +62,21 @@ public class Author extends BaseEntity implements Serializable {
         this.books = books;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        if (firstName != null ? !firstName.equals(author.firstName) : author.firstName != null) return false;
+        return lastName != null ? lastName.equals(author.lastName) : author.lastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
+    }
 }

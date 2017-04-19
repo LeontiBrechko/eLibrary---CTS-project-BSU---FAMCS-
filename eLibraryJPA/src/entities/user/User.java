@@ -5,14 +5,21 @@ import entities.Book;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistent class for the user database table.
  */
 @Entity
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQueries({
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+})
 public class User extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -45,22 +52,27 @@ public class User extends BaseEntity implements Serializable {
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private List<UserRole> roles;
 
-    @Column(name = "STATE")
+    @Column(name = "STATE", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserState state;
 
     //bi-directional many-to-many association to Book
-    @ManyToMany
-    @JoinTable(name = "DOWNLOAD_LIST",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "DownloadList",
             joinColumns = @JoinColumn(name = "USER_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "BOOK_ID", nullable = false))
-    private List<Book> books;
+    private Set<Book> books;
 
     public User() {
+        this.creationTime = Date.from(Instant.now());
+        this.state = UserState.TEMPORARY;
+        this.roles = new ArrayList<>();
+        roles.add(new UserRole(Role.MEMBER.name()));
     }
 
     public User(String firstName, String lastName, String username,
                 String email, String password, String confirmToken, String saltValue) {
+        this();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -150,11 +162,33 @@ public class User extends BaseEntity implements Serializable {
         this.state = state;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        return email != null ? email.equals(user.email) : user.email == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        return result;
     }
 }

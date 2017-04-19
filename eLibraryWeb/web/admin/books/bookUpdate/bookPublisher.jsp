@@ -1,15 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="data.PublisherDB" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="utils.dataValidation.DataValidationException" %>
-<%
-    try {
-        request.setAttribute("publishers", PublisherDB.selectAllPublishers());
-    } catch (SQLException | DataValidationException e) {
-        e.printStackTrace();
-    }
-%>
 <html>
 <head>
     <title>Title</title>
@@ -19,7 +9,8 @@
 <body>
 <div id="wrapper">
     <jsp:include page="../../../includes/navigationBar.jsp"/>
-    <form action="/admin/bookManagement" method="post">
+    <h4 class="alert-danger">${errorMessage}</h4>
+    <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post">
         <input type="hidden" name="action" value="updateBookPublisher">
         <div>
             <input type="radio" name="updateType" value="selectPublisher" checked>

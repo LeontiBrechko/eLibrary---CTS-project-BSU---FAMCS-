@@ -90,8 +90,16 @@ public class BookManagementController extends HttpServlet {
                     resp.sendError(404);
                     return;
                 } else if (nextStep.equals("publisher")) {
+                    req.setAttribute("publishers", service.findAllPublishers());
                     url = "/admin/books/bookUpdate/bookPublisher.jsp";
                 } else if (nextStep.equals("review")) {
+                    Book book = SessionUtil.getBookToUpdate(req);
+                    if (book.getBookFiles() == null || book.getBookFiles().size() == 0) {
+                        req.setAttribute("formats", service.findAllFormats());
+                        req.setAttribute("languages", service.findAllLanguages());
+                        url = "/admin/books/bookUpdate/bookFiles.jsp";
+                        throw new DataValidationException("Please, select at least one Publisher or add new one.");
+                    }
                     url = "/admin/books/bookUpdate/bookUpdateReview.jsp";
                 } else {
                     resp.sendError(404);
@@ -128,6 +136,8 @@ public class BookManagementController extends HttpServlet {
 
         Book book = service.findBookByIsbn(isbn13);
         SessionUtil.setBookToUpdate(book, req);
+        List<Category> categories = service.findAllCategories();
+        req.setAttribute("categories", categories);
         return "/admin/books/bookUpdate/bookMainInfo.jsp";
     }
 
@@ -150,9 +160,6 @@ public class BookManagementController extends HttpServlet {
 
         String isbn13 = req.getParameter("isbn13");
         String title = req.getParameter("title");
-        String description = null;
-        String image = null;
-        String thumbnail = null;
         int yearPublished;
         try {
             yearPublished = Integer.parseInt(req.getParameter("yearPublished"));
@@ -163,23 +170,20 @@ public class BookManagementController extends HttpServlet {
 
         if (book == null) {
             book = new Book(isbn13, title, yearPublished,
-                    description, new HashSet<>(),
-                    image, thumbnail, new HashSet<>(),
+                    null, new HashSet<>(),
+                    null, null, new HashSet<>(),
                     new HashSet<>(), new HashSet<>());
         } else {
             book.setIsbn13(isbn13);
             book.setTitle(title);
             book.setPubYear(yearPublished);
-            book.setDescription(description);
-            book.setImagePath(image);
-            book.setThumbnail(thumbnail);
         }
 
         String[] categoriesStrings = req.getParameterValues("selectedCategories");
         Set<Category> categories = new HashSet<>();
         if (categoriesStrings != null) {
             for (String categoryString : categoriesStrings) {
-                Category category = new Category(categoryString, null);
+                Category category = service.findCategoryByName(categoryString);
                 categories.add(category);
             }
         }
@@ -188,19 +192,19 @@ public class BookManagementController extends HttpServlet {
 
         Part filePart = req.getPart("description");
         String path;
-        if (filePart.getSubmittedFileName().trim() != "") {
+        if (!Objects.equals(filePart.getSubmittedFileName().trim(), "")) {
             path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/desc.txt");
             IOUtil.writeFileProperty(filePart, path);
             book.setDescription("/catalog/books/" + isbn13 + "/desc.txt");
         }
         filePart = req.getPart("image");
-        if (filePart.getSubmittedFileName().trim() != "") {
+        if (!Objects.equals(filePart.getSubmittedFileName().trim(), "")) {
             path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/image.jpg");
             IOUtil.writeFileProperty(filePart, path);
             book.setImagePath("/catalog/books/" + isbn13 + "/image.jpg");
         }
         filePart = req.getPart("thumbnail");
-        if (filePart.getSubmittedFileName().trim() != "") {
+        if (!Objects.equals(filePart.getSubmittedFileName().trim(), "")) {
             path = req.getServletContext().getRealPath("/catalog/books/" + isbn13 + "/thumb.jpg");
             IOUtil.writeFileProperty(filePart, path);
             book.setThumbnail("/catalog/books/" + isbn13 + "/thumb.jpg");
@@ -208,6 +212,8 @@ public class BookManagementController extends HttpServlet {
 
         SessionUtil.setBookToUpdate(book, req);
 
+        req.setAttribute("categories", service.findAllCategories());
+        req.setAttribute("authors", service.findAllAuthors());
         return "/admin/books/bookUpdate/bookAuthors.jsp";
     }
 
@@ -219,13 +225,15 @@ public class BookManagementController extends HttpServlet {
         String updateType = req.getParameter("updateType");
         if (updateType.equals("selectAuthor")) {
             String[] authorsNames = req.getParameterValues("selectedAuthors");
-            authors = new HashSet<>(authorsNames.length);
-            for (int i = 0; i < authorsNames.length; i++) {
-                String[] nextAuthor = authorsNames[i].split(" ");
-                Author author = new Author(nextAuthor[0], nextAuthor[1]);
-                authors.add(author);
+            if (authorsNames != null) {
+                authors = new HashSet<>(authorsNames.length);
+                for (int i = 0; i < authorsNames.length; i++) {
+                    String[] nextAuthor = authorsNames[i].split(" ");
+                    Author author = service.findAuthorByName(nextAuthor[0], nextAuthor[1]);
+                    authors.add(author);
+                }
+                book.setAuthors(authors);
             }
-            book.setAuthors(authors);
         } else if (updateType.equals("addAuthor")) {
             Author author =
                     new Author(req.getParameter("firstName"),
@@ -240,6 +248,7 @@ public class BookManagementController extends HttpServlet {
             authors.add(author);
         }
 
+        req.setAttribute("authors", service.findAllAuthors());
         return "/admin/books/bookUpdate/bookAuthors.jsp";
     }
 
@@ -247,9 +256,13 @@ public class BookManagementController extends HttpServlet {
             throws SQLException, DataValidationException, InternalDataValidationException {
         Book book = SessionUtil.getBookToUpdate(req);
 
+        req.setAttribute("publishers", service.findAllPublishers());
         String updateType = req.getParameter("updateType");
         if (updateType.equals("selectPublisher")) {
             Publisher publisher = service.findPublisherByName(req.getParameter("selectedPublisher"));
+            if (publisher == null) {
+                throw new DataValidationException("Please, select at least one Publisher or add new one.");
+            }
             book.setPublishers(new HashSet<>(Arrays.asList(publisher)));
         } else if (updateType.equals("addPublisher")) {
             int streetNumber;
@@ -274,6 +287,8 @@ public class BookManagementController extends HttpServlet {
             book.setPublishers(new HashSet<>(Arrays.asList(publisher)));
         }
 
+        req.setAttribute("formats", service.findAllFormats());
+        req.setAttribute("languages", service.findAllLanguages());
         return "/admin/books/bookUpdate/bookFiles.jsp";
     }
 
@@ -282,8 +297,8 @@ public class BookManagementController extends HttpServlet {
             DataValidationException, InternalDataValidationException {
         Book book = SessionUtil.getBookToUpdate(req);
 
-        Format format = new Format(req.getParameter("selectedFormat"));
-        Language language = new Language(req.getParameter("selectedLanguage"));
+        Format format = service.findFormatByName(req.getParameter("selectedFormat"));
+        Language language = service.findLanguageByName(req.getParameter("selectedLanguage"));
         String path = "/catalog/books/" + book.getIsbn13() + "/" +
                 book.getTitle().replace(" ", "_") + "." + format.getName().toLowerCase();
         BookFile bookFile = new BookFile(format, language, path);
@@ -317,8 +332,9 @@ public class BookManagementController extends HttpServlet {
             throws SQLException, DataValidationException, InternalDataValidationException {
         Book book = SessionUtil.getBookToUpdate(req);
         if (service.findBookByIsbn(book.getIsbn13()) != null) {
-            service.removeBook(book);
+            service.removeBook(service.findBookByIsbn(book.getIsbn13()));
         }
+
         service.saveBook(book);
         SessionUtil.deleteBookToUpdate(req);
 

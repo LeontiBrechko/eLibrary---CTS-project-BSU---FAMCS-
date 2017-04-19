@@ -1,16 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page import="data.AuthorDB" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="utils.dataValidation.DataValidationException" %>
-<%
-    try {
-        request.setAttribute("authors", AuthorDB.selectAllAuthors());
-    } catch (SQLException | DataValidationException e) {
-        e.printStackTrace();
-    }
-%>
 <html>
 <head>
     <title>Title</title>
@@ -20,7 +10,7 @@
 <body>
 <div id="wrapper">
     <jsp:include page="../../../includes/navigationBar.jsp"/>
-    <form action="/admin/bookManagement" method="post">
+    <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post">
         <input type="hidden" name="action" value="updateBookAuthors">
         <div>
             <input type="radio" name="updateType" value="selectAuthor" checked>
@@ -31,7 +21,7 @@
                     </option>
                 </c:forEach>
             </select>
-            <input id="signin-button" type="submit" value="Add authors">
+            <input type="submit" value="Add authors">
         </div>
 
         <br>
@@ -44,7 +34,7 @@
             <label class="control-label">Second name:
                 <input class="form-control" type="text" name="lastName">
             </label>
-            <input id="signin-button" type="submit" value="Add author">
+            <input type="submit" value="Add author">
         </div>
     </form>
 
@@ -64,7 +54,7 @@
         <br>
         <h4 align="center">To delete authors just select proper ones in selection list and press "Add authors"
             button</h4>
-        <form action="/admin/bookManagement" method="post">
+        <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post">
             <input type="hidden" name="action" value="continue">
             <input type="hidden" name="nextStep" value="publisher">
             <input id="submit-button" type="submit" value="Proceed to next step">

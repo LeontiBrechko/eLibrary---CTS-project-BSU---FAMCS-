@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +9,10 @@ import java.util.List;
  * The persistent class for the language database table.
  */
 @Entity
-@NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l")
+@NamedQueries({
+        @NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l"),
+        @NamedQuery(name = "Language.findByName", query = "SELECT l FROM Language l WHERE l.name = :name")
+})
 public class Language extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

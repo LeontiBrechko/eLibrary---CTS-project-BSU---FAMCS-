@@ -9,7 +9,10 @@ import java.util.List;
  * The persistent class for the category database table.
  */
 @Entity
-@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
+@NamedQueries({
+        @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
+        @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
+})
 public class Category extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

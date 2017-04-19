@@ -1,15 +1,5 @@
-<%@ page import="data.CategoryDB" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="utils.dataValidation.DataValidationException" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    try {
-        request.setAttribute("categories", CategoryDB.selectAllCategories());
-    } catch (SQLException | DataValidationException e) {
-        e.printStackTrace();
-    }
-%>
 <html>
 <head>
     <title>Title</title>
@@ -20,7 +10,8 @@
 <div id="wrapper">
     <h4 class="alert-danger">${errorMessage}</h4>
     <jsp:include page="../../../includes/navigationBar.jsp"/>
-    <form action="/admin/bookManagement" method="post" id="mainForm" enctype="multipart/form-data"
+    <form action="${pageContext.request.contextPath}/admin/bookManagement"
+          method="post" id="mainForm" enctype="multipart/form-data"
           accept-charset="UTF-8">
         <input type="hidden" name="action" value="updateBookMainInfo">
         <fieldset form="mainForm">
@@ -43,7 +34,7 @@
             </label><br>
             <label class="control-label">Year published:
                 <input class="form-control" type="text" name="yearPublished"
-                       value="<c:out value="${bookToUpdate.yearPublished}"/>">
+                       value="<c:out value="${bookToUpdate.pubYear}"/>">
             </label><br>
             <label class="control-label">Description file:
                 <input class="form-control" type="file" name="description">

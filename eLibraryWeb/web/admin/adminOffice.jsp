@@ -17,14 +17,30 @@
         <tr>
             <td>
                 <ul>
-                    <li><a href="/admin/bookManagement?action=showLibraryBooks">Show all library books</a></li>
-                    <li><a href="/admin/books/bookUpdate/bookMainInfo.jsp">Add new book</a></li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/bookManagement?action=showLibraryBooks">
+                            Show all library books
+                        </a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/bookManagement?action=updateBook">
+                            Add new book
+                        </a>
+                    </li>
                 </ul>
             </td>
             <td>
                 <ul>
-                    <li><a href="/admin/accountManagement?action=showAccounts">Show all library accounts</a></li>
-                    <li><a href="/admin/accounts/adminRegistration.jsp">Register new admin</a></li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/accountManagement?action=showAccounts">
+                            Show all library accounts
+                        </a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/accounts/adminRegistration.jsp">
+                            Register new admin
+                        </a>
+                    </li>
                 </ul>
             </td>
         </tr>

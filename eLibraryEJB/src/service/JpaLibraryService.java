@@ -1,10 +1,8 @@
 package service;
 
-import entities.Author;
-import entities.Book;
-import entities.Category;
-import entities.Publisher;
+import entities.*;
 import entities.user.User;
+import entities.user.UserRole;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,6 +19,10 @@ public class JpaLibraryService implements LibraryService {
     public void saveUser(User user) {
         if (user.getId() == null) {
             em.persist(user);
+            for (UserRole role : user.getRoles()) {
+                role.setUserId(user.getId());
+                em.persist(role);
+            }
         } else {
             em.merge(user);
         }
@@ -87,6 +89,11 @@ public class JpaLibraryService implements LibraryService {
     }
 
     @Override
+    public List<Author> findAllAuthors() {
+        return em.createNamedQuery("Author.findAll", Author.class).getResultList();
+    }
+
+    @Override
     public Author findAuthorByName(String firstName, String lastName) {
         Query query = em.createNamedQuery("Author.findByName", Author.class);
         query.setParameter("firstName", firstName);
@@ -106,6 +113,11 @@ public class JpaLibraryService implements LibraryService {
     }
 
     @Override
+    public List<Publisher> findAllPublishers() {
+        return em.createNamedQuery("Publisher.findAll", Publisher.class).getResultList();
+    }
+
+    @Override
     public Publisher findPublisherByName(String name) {
         Query query = em.createNamedQuery("Publisher.findByName", Publisher.class);
         query.setParameter("name", name);
@@ -117,5 +129,42 @@ public class JpaLibraryService implements LibraryService {
     @Override
     public List<Category> findAllCategories() {
         return em.createNamedQuery("Category.findAll", Category.class).getResultList();
+    }
+
+    @Override
+    public Category findCategoryByName(String name) {
+        Query query = em.createNamedQuery("Category.findByName", Category.class);
+        query.setParameter("name", name);
+        List categories = query.getResultList();
+        if (categories.size() != 1) return null;
+        else return (Category) categories.get(0);
+    }
+
+    @Override
+    public List<Format> findAllFormats() {
+        return em.createNamedQuery("Format.findAll", Format.class).getResultList();
+    }
+
+    @Override
+    public Format findFormatByName(String name) {
+        Query query = em.createNamedQuery("Format.findByName", Format.class);
+        query.setParameter("name", name);
+        List formats = query.getResultList();
+        if (formats.size() != 1) return null;
+        else return (Format) formats.get(0);
+    }
+
+    @Override
+    public List<Language> findAllLanguages() {
+        return em.createNamedQuery("Language.findAll", Language.class).getResultList();
+    }
+
+    @Override
+    public Language findLanguageByName(String name) {
+        Query query = em.createNamedQuery("Language.findByName", Language.class);
+        query.setParameter("name", name);
+        List languages = query.getResultList();
+        if (languages.size() != 1) return null;
+        else return (Language) languages.get(0);
     }
 }

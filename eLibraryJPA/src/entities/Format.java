@@ -9,7 +9,10 @@ import java.util.List;
  * The persistent class for the format database table.
  */
 @Entity
-@NamedQuery(name = "Format.findAll", query = "SELECT f FROM Format f")
+@NamedQueries({
+        @NamedQuery(name = "Format.findAll", query = "SELECT f FROM Format f"),
+        @NamedQuery(name = "Format.findByName", query = "SELECT f FROM Format f WHERE f.name = :name")
+})
 public class Format extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

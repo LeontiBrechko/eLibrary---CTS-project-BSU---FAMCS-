@@ -18,10 +18,9 @@
 <div id="wrapper">
     <jsp:include page="../includes/navigationBar.jsp"/>
     <jsp:include page="../includes/search.jsp"/>
-    <jsp:include page="../includes/sidebar.jsp"/>
     <h1 id="title">List of books to download</h1>
     <table id="downloadTable" border="1" cellspacing="1">
-        <c:forEach var="book" items="${account.downloadList}">
+        <c:forEach var="book" items="${account.books}">
             <tr>
                 <td><img src="<c:url value="${book.thumbnail}" />" /></td>
                 <td>${book.title}</td>

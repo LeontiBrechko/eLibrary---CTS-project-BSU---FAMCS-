@@ -1,9 +1,6 @@
 package service;
 
-import entities.Author;
-import entities.Book;
-import entities.Category;
-import entities.Publisher;
+import entities.*;
 import entities.user.User;
 
 import javax.ejb.Local;
@@ -29,11 +26,25 @@ public interface LibraryService {
 
     void saveAuthor(Author author);
 
+    List<Author> findAllAuthors();
+
     Author findAuthorByName(String firstName, String lastName);
 
     void savePublisher(Publisher publisher);
 
+    List<Publisher> findAllPublishers();
+
     Publisher findPublisherByName(String name);
 
     List<Category> findAllCategories();
+
+    Category findCategoryByName(String name);
+
+    List<Format> findAllFormats();
+
+    Format findFormatByName(String name);
+
+    List<Language> findAllLanguages();
+
+    Language findLanguageByName(String name);
 }

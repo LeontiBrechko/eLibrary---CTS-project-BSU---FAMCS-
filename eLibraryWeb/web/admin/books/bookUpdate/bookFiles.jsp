@@ -1,11 +1,5 @@
-<%@ page import="models.enums.Format" %>
-<%@ page import="models.enums.Language" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    request.setAttribute("formats", Format.values());
-    request.setAttribute("languages", Language.values());
-%>
 <html>
 <head>
     <title>Title</title>
@@ -16,14 +10,15 @@
 <div id="wrapper">
     <jsp:include page="../../../includes/navigationBar.jsp"/>
     <h3 id="title">Current book files:</h3>
+    <h4 class="alert-danger">${errorMessage}</h4>
     <table>
-        <c:forEach var="file" items="${bookToUpdate.files}">
+        <c:forEach var="file" items="${bookToUpdate.bookFiles}">
             <tr>
                 <td>${file.format}</td>
                 <td>${file.language}</td>
                 <td>${file.path}</td>
                 <td>
-                    <form action="/admin/bookManagement" method="post">
+                    <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post">
                         <input type="hidden" name="action" value="deleteBookFile">
                         <input type="hidden" name="format" value="${file.format}">
                         <input type="hidden" name="language" value="${file.language}">
@@ -34,19 +29,19 @@
             </tr>
         </c:forEach>
     </table>
-    <form action="/admin/bookManagement" method="post" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="addBookFile">
         <label class="control-label">Format:
             <select class="form-control" name="selectedFormat">
                 <c:forEach var="format" items="${formats}">
-                    <option value="${format.name()}">${format.name()}</option>
+                    <option value="${format.name}">${format.name}</option>
                 </c:forEach>
             </select>
         </label>
         <label class="control-label">Language:
             <select class="form-control" name="selectedLanguage">
                 <c:forEach var="language" items="${languages}">
-                    <option value="${language.name()}">${language.name()}</option>
+                    <option value="${language.name}">${language.name}</option>
                 </c:forEach>
             </select>
         </label>
@@ -55,7 +50,7 @@
         </label>
         <input id="signin-button" type="submit" value="Add file">
     </form>
-    <form action="/admin/bookManagement" method="post">
+    <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post">
         <input type="hidden" name="action" value="continue">
         <input type="hidden" name="nextStep" value="review">
         <input id="submit-button" type="submit" value="Proceed to next step">

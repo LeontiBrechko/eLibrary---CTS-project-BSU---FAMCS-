@@ -75,6 +75,7 @@ public class Book extends BaseEntity implements Serializable {
     private Set<BookFile> bookFiles;
 
     public Book() {
+        this.popularity = 0L;
     }
 
     public Book(String isbn13) {

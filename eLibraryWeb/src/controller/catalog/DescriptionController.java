@@ -78,8 +78,8 @@ public class DescriptionController extends HttpServlet {
     private String showDescription(Book book, HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException,
             DataValidationException, InternalDataValidationException {
-//        req.setAttribute("bookDescription",
-//                IOUtil.readDescriptionFile(req.getServletContext().getRealPath(book.getDescription())));
+        req.setAttribute("bookDescription",
+                IOUtil.readDescriptionFile(req.getServletContext().getRealPath(book.getDescription())));
 
         User user = SessionUtil.getSessionAccount(req);
         boolean isAddable = true;

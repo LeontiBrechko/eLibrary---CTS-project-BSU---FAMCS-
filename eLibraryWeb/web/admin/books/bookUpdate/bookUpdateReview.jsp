@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Leonti
-  Date: 2016-03-24
-  Time: 10:34 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -29,7 +22,7 @@
         </tr>
         <tr>
             <td>Year:</td>
-            <td>${bookToUpdate.yearPublished}</td>
+            <td>${bookToUpdate.pubYear}</td>
         </tr>
         <tr>
             <td>Description file path:</td>
@@ -37,7 +30,7 @@
         </tr>
         <tr>
             <td>Image:</td>
-            <td><img src="<c:url value="${bookToUpdate.image}" />"/></td>
+            <td><img src="<c:url value="${bookToUpdate.imagePath}" />"/></td>
         </tr>
         <tr>
             <td>Thumbnail:</td>
@@ -46,13 +39,13 @@
         <tr>
             <td>Book files:</td>
             <td>
-                <c:forEach var="file" items="${bookToUpdate.files}">
+                <c:forEach var="file" items="${bookToUpdate.bookFiles}">
         <tr>
             <td>${file.format}</td>
             <td>${file.language}</td>
             <td>${file.path}</td>
             <td>
-                <form action="/admin/bookManagement" method="post">
+                <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post">
                     <input type="hidden" name="action" value="deleteBookFile">
                     <input type="hidden" name="format" value="${file.format}">
                     <input type="hidden" name="language" value="${file.language}">
@@ -65,7 +58,9 @@
         </tr>
         <tr>
             <td>Publisher:</td>
-            <td>${bookToUpdate.publisher.name}</td>
+            <c:forEach var="publisher" items="${bookToUpdate.publishers}">
+                <td>${publisher.name}</td>
+            </c:forEach>
         </tr>
         <tr>
             <td>Authors:</td>
@@ -84,7 +79,7 @@
             </td>
         </tr>
     </table>
-    <form action="/admin/bookManagement" method="post">
+    <form action="${pageContext.request.contextPath}/admin/bookManagement" method="post">
         <input type="hidden" name="action" value="updateBook">
         <input id="submit-button" type="submit" value="Update book">
     </form>
